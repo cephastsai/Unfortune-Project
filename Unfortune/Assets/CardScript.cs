@@ -73,6 +73,8 @@ public class CardScript : MonoBehaviour {
 				trigger = false;
 			}
 			break;
+		case CardManager.cardSection.Deadwood:
+			break;
 		case CardManager.cardSection.Table:
 			break;
 		case CardManager.cardSection.Drawing:			
@@ -97,6 +99,18 @@ public class CardScript : MonoBehaviour {
 		case CardManager.cardSection.Playing:
 			break;
 		case CardManager.cardSection.Shuffle:
+			if(trigger){
+				gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(GameManager.Instance.cardmanager.DeckPosition.localPosition);
+				trigger = false;
+			}
+
+			if(isSectionOver){				
+				if(GetComponent<GameObjectMoving>() != null){
+					Destroy(GetComponent<GameObjectMoving>());
+				}
+				myCard.Place = CardManager.cardSection.Deck;
+			}
+
 			break;
 		case CardManager.cardSection.Discard_H:			
 			if(trigger){

@@ -21,5 +21,11 @@ public class DeckUI : MonoBehaviour {
 			DeckPosition.position.y +constantY*(DeckCardNumber-1),
 			DeckPosition.position.z -0.1f*(DeckCardNumber-1));
 	}
+	/*
+	public Vector3 GetDeckShufflePostion(Card shuffleCard){
+		DeckPosition = CM.DeckPosition;
+		int PositionNumber = -1;
 
+		PositionNumber = CM.Deck.Find(shuffleCard).
+	}*/
 }

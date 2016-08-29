@@ -6,7 +6,7 @@ public class PlayerActions : MonoBehaviour {
 
 	//Drawing Variable
 	private float DrawingIntervalTime = 0.1f;
-	public int DrawingCardNumber = 0;
+	private int DrawingCardNumber = 0;
 	private float DrawingTimer = 0;
 
 	void Start(){				
@@ -21,8 +21,7 @@ public class PlayerActions : MonoBehaviour {
 
 	public void Drawing(int num){	
 		DrawingCardNumber +=num;
-		GameManager.Instance.UpdateList += Update_DrawingTimer;
-		DrawingTimer = Time.time;
+		GameManager.Instance.UpdateList += Update_isDeckCardReady;
 	}
 		
 	public void Playing(){
@@ -53,6 +52,14 @@ public class PlayerActions : MonoBehaviour {
 		if(GameManager.Instance.cardmanager.isHandCardReady()){
 			GameManager.Instance.cardmanager.DiscardHandAll();
 			GameManager.Instance.UpdateList -= Update_isHandCardReady;
+		}
+	}
+
+	public void Update_isDeckCardReady(){
+		if(GameManager.Instance.cardmanager.isDeckCardReady()){
+			GameManager.Instance.UpdateList += Update_DrawingTimer;
+			DrawingTimer = Time.time;
+			GameManager.Instance.UpdateList -= Update_isDeckCardReady;
 		}
 	}
 

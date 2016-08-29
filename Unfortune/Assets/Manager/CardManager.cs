@@ -53,12 +53,10 @@ namespace Manager{
 			init_UI();
 
 			//reading card
-			for(int i =0; i<20; i++){
+			for(int i =0; i<7; i++){
 				CreateCardtoDeck(100,true);
 			}
-		}
-
-
+		}			
 
 		/// <summary>
 		/// Card
@@ -115,14 +113,14 @@ namespace Manager{
 				if(Deck.First == null){
 					if(Deadwood.Count >0){
 						DeadwoodBacktoDeck();
-						DrawCard(num-i);
+						DrawCard(num -i);
 						break;
 					}else{
 						break;
 					}
 
-				}else{
-					Deck.First().Place = cardSection.Drawing;
+				}else{					
+					GameManager.Instance.UpdateList += Update_isDeckfirstCardReady;
 					//transfer
 					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
@@ -155,17 +153,23 @@ namespace Manager{
 			Deck.First().Place = cardSection.Remove;
 			CardList.Remove(Deck.First());
 			Deck.RemoveFirst();
-		}
+		}			
 
-		public bool isHandCardReady(){
+		public bool isDeckCardReady(){
 			bool tempflag = true;
-			foreach(Card i in Hand){
-				if(i.Place != cardSection.Hand){
-					tempflag  =false;
+			foreach(Card i in Deck){
+				if(i.Place != cardSection.Deck){
+					tempflag = false;
 				}
 			}
-			print(tempflag);
 			return tempflag;
+		}
+
+		public void Update_isDeckfirstCardReady(){
+			if(Deck.First().Place == cardSection.Deck){
+				Deck.First().Place = cardSection.Drawing;
+				GameManager.Instance.UpdateList -= Update_isDeckfirstCardReady;
+			}
 		}
 
 		//testing print function
@@ -249,6 +253,16 @@ namespace Manager{
 			return Hand.Count;
 		}		
 
+		public bool isHandCardReady(){
+			bool tempflag = true;
+			foreach(Card i in Hand){
+				if(i.Place != cardSection.Hand){
+					tempflag  =false;
+				}
+			}
+			return tempflag;
+		}
+
 		//testing print function
 		public void PrintHandCard(){
 			foreach(Card i in Hand){
@@ -264,8 +278,8 @@ namespace Manager{
 			Shuffle(Deadwood);
 			//BacktoDeck
 			foreach(Card i in Deadwood){
-				i.Place = cardSection.Deck;
 				Deck.AddFirst(i);
+				i.Place = cardSection.Shuffle;
 			}
 			Deadwood.Clear();
 		}

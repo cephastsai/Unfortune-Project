@@ -66,7 +66,6 @@ public class CardMoving : MonoBehaviour {
 			}
 			if (this.transform.rotation.z == z) 				
 			{
-				print("zz");
 				GameManager.Instance.UpdateList -= Update_CardRotation;
 			} 
 		}

@@ -9,7 +9,6 @@ public class TestingButton : MonoBehaviour {
 	}
 
 	public void EndofturnButton(){
-		print("end");
 		GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
 	}
 
