@@ -30,7 +30,7 @@ public class PlayerActions : MonoBehaviour {
 
 	public void EndofTurn(){
 		GameManager.Instance.UpdateList += Update_isHandCardReady;
-
+		Drawing(5);
 	}
 
 	//update function

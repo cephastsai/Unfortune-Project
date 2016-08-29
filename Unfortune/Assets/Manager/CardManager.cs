@@ -28,6 +28,9 @@ namespace Manager{
 		public LinkedList<Card> Deck = new LinkedList<Card>();
 		public Transform DeckPosition = null;
 
+		//card drawing
+		public Queue<Card> Draw = new Queue<Card>();
+
 		//card Hand
 		public List<Card> Hand = new List<Card>();
 		public Transform HandPosition = null;
@@ -51,6 +54,7 @@ namespace Manager{
 			//init funstion
 			init_Positon();
 			init_UI();
+			GameManager.Instance.UpdateList += Update_Draw;
 
 			//reading card
 			for(int i =0; i<7; i++){
@@ -120,9 +124,8 @@ namespace Manager{
 					}
 
 				}else{					
-					GameManager.Instance.UpdateList += Update_isDeckfirstCardReady;
 					//transfer
-					Hand.Add(Deck.First());
+					Draw.Enqueue(Deck.First());
 					Deck.RemoveFirst();
 				}
 
@@ -178,6 +181,19 @@ namespace Manager{
 				print("Deck:"+i.ID);
 			}
 		}
+
+		/// <summary>
+		/// Draw Function
+		/// </summary>
+		public void Update_Draw(){
+			if(Draw.Count >0){
+				if(Draw.Peek().Place == cardSection.Deck){
+					Draw.Peek().Place = cardSection.Drawing;
+					Hand.Add(Draw.Dequeue());
+				}
+			}
+		}
+
 
 
 		/// <summary>
