@@ -30,7 +30,8 @@ public class PlayerActions : MonoBehaviour {
 	}
 
 	public void EndofTurn(){
-		GameManager.Instance.cardmanager.DiscardHandAll();
+		GameManager.Instance.UpdateList += Update_isHandCardReady;
+
 	}
 
 	//update function
@@ -46,6 +47,13 @@ public class PlayerActions : MonoBehaviour {
 			GameManager.Instance.UpdateList -= Update_DrawingTimer;
 		}
 
+	}
+
+	public void Update_isHandCardReady(){
+		if(GameManager.Instance.cardmanager.isHandCardReady()){
+			GameManager.Instance.cardmanager.DiscardHandAll();
+			GameManager.Instance.UpdateList -= Update_isHandCardReady;
+		}
 	}
 
 

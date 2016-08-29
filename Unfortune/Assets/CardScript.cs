@@ -89,7 +89,6 @@ public class CardScript : MonoBehaviour {
 				if(GetComponent<CardMoving>() != null){
 					Destroy(GetComponent<CardMoving>());
 				}
-
 				myCard.Place = CardManager.cardSection.Hand;
 			}
 			break;
@@ -99,14 +98,14 @@ public class CardScript : MonoBehaviour {
 			break;
 		case CardManager.cardSection.Shuffle:
 			break;
-		case CardManager.cardSection.Discard_H:
+		case CardManager.cardSection.Discard_H:			
 			if(trigger){
 				gameObject.AddComponent<CardMoving>().GetInf(
 					CardManager.cardSection.Discard_H,
 					GameManager.Instance.cardmanager.DeadwoodPosition.position
 				);
 				trigger = false;
-			}
+			}		
 
 			if(isSectionOver){				
 				if(GetComponent<CardMoving>() != null){

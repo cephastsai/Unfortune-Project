@@ -157,6 +157,17 @@ namespace Manager{
 			Deck.RemoveFirst();
 		}
 
+		public bool isHandCardReady(){
+			bool tempflag = true;
+			foreach(Card i in Hand){
+				if(i.Place != cardSection.Hand){
+					tempflag  =false;
+				}
+			}
+			print(tempflag);
+			return tempflag;
+		}
+
 		//testing print function
 		public void PrintDeckCard(){
 			foreach(Card i in Deck){
@@ -257,6 +268,16 @@ namespace Manager{
 				Deck.AddFirst(i);
 			}
 			Deadwood.Clear();
+		}
+
+		public bool isDeadwoodCardReady(){
+			bool tempflag = true;
+			foreach(Card i in Deadwood){
+				if(i.Place != cardSection.Deadwood){
+					tempflag = false;
+				}
+			}
+			return tempflag;
 		}
 
 		//testing print function

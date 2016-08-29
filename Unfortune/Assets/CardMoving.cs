@@ -20,8 +20,7 @@ public class CardMoving : MonoBehaviour {
 		distance = Vector2.Distance (transform.localPosition, Vec);
 		transform.localPosition = Vector3.MoveTowards (transform.localPosition , Vec , distance/10);
 		if (distance <= 0.1f)			
-		{
-			print("dis");
+		{			
 			GetComponent<CardScript>().SectionOver();
 			GameManager.Instance.UpdateList -= Update_Cardmoving;
 		}
