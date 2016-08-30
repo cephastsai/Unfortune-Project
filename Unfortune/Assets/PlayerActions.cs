@@ -19,7 +19,7 @@ public class PlayerActions : MonoBehaviour {
 
 
 	public void Drawing(int num){	
-		DrawingCardNumber +=num;
+		DrawingCardNumber +=num;	
 		GameManager.Instance.UpdateList += Update_isDeckCardReady;
 	}
 		

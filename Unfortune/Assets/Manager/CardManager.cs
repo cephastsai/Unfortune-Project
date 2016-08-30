@@ -28,9 +28,6 @@ namespace Manager{
 		public LinkedList<Card> Deck = new LinkedList<Card>();
 		public Transform DeckPosition = null;
 
-		//card drawing
-		public Queue<Card> Draw = new Queue<Card>();
-
 		//card Hand
 		public List<Card> Hand = new List<Card>();
 		public Transform HandPosition = null;
@@ -124,10 +121,9 @@ namespace Manager{
 						break;
 					}
 
-				}else{					
+				}else{
+					Deck.First().AddCardQue(cardSection.Hand);
 					//transfer
-					//Draw.Enqueue(Deck.First());
-					Deck.First().targetPlace = cardSection.Hand;
 					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
 				}
@@ -140,7 +136,7 @@ namespace Manager{
 				if(Deck.First == null){
 					break;
 				}
-				Deck.First().Place = cardSection.Discard_D;
+				Deck.First().AddCardQue(cardSection.Deadwood);
 				//transfer
 				Deadwood.Add(Deck.First());
 				Deck.RemoveFirst();
@@ -149,14 +145,14 @@ namespace Manager{
 
 		public void DiscardDeckAll(){
 			foreach(Card i in Deck){
-				i.Place = cardSection.Deadwood;
+				Deck.First().AddCardQue(cardSection.Deadwood);
 			}
 			Deadwood.AddRange(Deck);
 			Deck.Clear();
 		}
 
 		public void DeckRemove(){
-			Deck.First().Place = cardSection.Remove;
+			Deck.First().AddCardQue(cardSection.Remove);
 			CardList.Remove(Deck.First());
 			Deck.RemoveFirst();
 		}			
@@ -185,20 +181,7 @@ namespace Manager{
 				print("Deck:"+i.ID);
 			}
 		}
-
-		/// <summary>
-		/// Draw Function
-		/// </summary>
-		public void Update_Draw(){
-			if(Draw.Count >0){
-				if(Draw.Peek().Place == cardSection.Deck){
-					Draw.Peek().Place = cardSection.Drawing;
-					Hand.Add(Draw.Dequeue());
-				}
-			}
-		}
-
-
+			
 
 		/// <summary>
 		/// Hand Function
@@ -207,7 +190,7 @@ namespace Manager{
 			print("dis:"+ DiscardCard.ID);
 
 			if(Hand.Find(x=> x == DiscardCard) != null){
-				DiscardCard.Place = cardSection.Deadwood;
+				DiscardCard.AddCardQue(cardSection.Deadwood);
 
 				//transfer
 				Deadwood.Add(DiscardCard);
@@ -221,7 +204,7 @@ namespace Manager{
 
 		public void DiscardHandAll(){
 			foreach(Card i in Hand){
-				i.targetPlace = cardSection.Deadwood;
+				i.AddCardQue(cardSection.Deadwood);
 			}
 			//transfer
 			Deadwood.AddRange(Hand);
@@ -230,7 +213,7 @@ namespace Manager{
 
 		public void HandBacktoDeck(Card Backcard){
 			if(Hand.Find(x=> x == Backcard) != null){
-				Backcard.Place = cardSection.BacktoDeck;
+				Backcard.AddCardQue(cardSection.Deck);
 
 				//transfer
 				Deck.AddFirst(Backcard);
@@ -244,7 +227,7 @@ namespace Manager{
 
 		public void PlayCard(Card Playcard){
 			if(Hand.Find(x=> x == Playcard) != null){
-				Playcard.Place = cardSection.Playing;
+				Playcard.AddCardQue(cardSection.Table);
 
 				//remove card
 				Card tempcard = new Card();
@@ -262,7 +245,7 @@ namespace Manager{
 
 		public void HandRemove(Card Removecard){
 			if(Hand.Find(x=> x == Removecard) != null){
-				Removecard.Place = cardSection.Remove;
+				Removecard.AddCardQue(cardSection.Remove);
 				Hand.Remove(Removecard);
 			}else{
 				print("[CardManager]Card do not exist");
@@ -299,7 +282,7 @@ namespace Manager{
 			//BacktoDeck
 			foreach(Card i in Deadwood){
 				Deck.AddFirst(i);
-				i.targetPlace = cardSection.Deck;
+				i.AddCardQue(cardSection.Deck);
 			}
 			Deadwood.Clear();
 		}
