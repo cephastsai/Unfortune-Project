@@ -6,6 +6,7 @@ public class Card{
 	public int ID; //create card ID
 	public int CardKind; //card kind
 	public CardManager.cardSection Place; //card postion
+	public CardManager.cardSection targetPlace; // card target position
 
 	public Card(){}
 

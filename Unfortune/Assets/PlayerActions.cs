@@ -10,8 +10,7 @@ public class PlayerActions : MonoBehaviour {
 	private float DrawingTimer = 0;
 
 	void Start(){				
-		Drawing(3);
-		Drawing(2);
+		Drawing(5);
 	}
 
 	void OnDestroy(){

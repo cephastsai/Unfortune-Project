@@ -54,10 +54,10 @@ namespace Manager{
 			//init funstion
 			init_Positon();
 			init_UI();
-			GameManager.Instance.UpdateList += Update_Draw;
+			//GameManager.Instance.UpdateList += Update_Draw;
 
 			//reading card
-			for(int i =0; i<7; i++){
+			for(int i =0; i<12; i++){
 				CreateCardtoDeck(100,true);
 			}
 		}			
@@ -82,6 +82,7 @@ namespace Manager{
 		public void CreateCardtoDeck(int Cardkind, bool TopoftheDeck/*true:Top,false:Bottom*/){
 			//Undone - if card kind not exsit
 			Card Ncard = new Card(CardID, Cardkind, cardSection.Deck);
+			Ncard.targetPlace = cardSection.Deck;
 			//Create GameObject
 			GameObject NcardObject = Instantiate(GameManager.Instance.prefabsmanager.PrefabsList[Cardkind]);
 			NcardObject.AddComponent<CardScript>().init(Ncard, NcardObject);
@@ -125,7 +126,9 @@ namespace Manager{
 
 				}else{					
 					//transfer
-					Draw.Enqueue(Deck.First());
+					//Draw.Enqueue(Deck.First());
+					Deck.First().targetPlace = cardSection.Hand;
+					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
 				}
 
@@ -165,12 +168,13 @@ namespace Manager{
 					tempflag = false;
 				}
 			}
+
 			return tempflag;
 		}
 
 		public void Update_isDeckfirstCardReady(){
 			if(Deck.First().Place == cardSection.Deck){
-				Deck.First().Place = cardSection.Drawing;
+				Deck.First().targetPlace = cardSection.Drawing;
 				GameManager.Instance.UpdateList -= Update_isDeckfirstCardReady;
 			}
 		}
@@ -217,7 +221,7 @@ namespace Manager{
 
 		public void DiscardHandAll(){
 			foreach(Card i in Hand){
-				i.Place = cardSection.Discard_H;
+				i.targetPlace = cardSection.Deadwood;
 			}
 			//transfer
 			Deadwood.AddRange(Hand);
@@ -295,7 +299,7 @@ namespace Manager{
 			//BacktoDeck
 			foreach(Card i in Deadwood){
 				Deck.AddFirst(i);
-				i.Place = cardSection.Shuffle;
+				i.targetPlace = cardSection.Deck;
 			}
 			Deadwood.Clear();
 		}

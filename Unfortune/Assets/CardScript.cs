@@ -62,85 +62,101 @@ public class CardScript : MonoBehaviour {
 	}
 
 	public void Update_CardScript(){
-		switch(myCard.Place){
-		case CardManager.cardSection.nil:			
-			break;
-		case CardManager.cardSection.Deck:
-			break;
-		case CardManager.cardSection.Hand:
-			if(trigger){				
-				//gameObject.AddComponent<Browsing>().init();
-				trigger = false;
-			}
-			break;
-		case CardManager.cardSection.Deadwood:
-			break;
-		case CardManager.cardSection.Table:
-			break;
-		case CardManager.cardSection.Drawing:			
-			if(trigger){
-				//Add Component
-				gameObject.AddComponent<CardMoving>().GetInf(
-					CardManager.cardSection.Drawing, 
-					GameManager.Instance.cardmanager.HUI.GetHandCardPosition()
-				);
-				trigger = false;
-			}
-
-			if(isSectionOver){
-				if(GetComponent<CardMoving>() != null){
-					Destroy(GetComponent<CardMoving>());
+		if(myCard.Place != myCard.targetPlace){
+			switch(myCard.Place){
+			case CardManager.cardSection.nil:			
+				break;
+			case CardManager.cardSection.Deck:
+				myCard.Place = CardManager.cardSection.Drawing;
+				break;
+			case CardManager.cardSection.Hand:
+				if(trigger){				
+					//gameObject.AddComponent<Browsing>().init();
+					trigger = false;
 				}
-				myCard.Place = CardManager.cardSection.Hand;
-			}
-			break;
-		case CardManager.cardSection.BacktoDeck:
-			break;
-		case CardManager.cardSection.Playing:
-			break;
-		case CardManager.cardSection.Shuffle:
-			if(trigger){
-				gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(GameManager.Instance.cardmanager.DeckPosition.localPosition);
-				trigger = false;
-			}
 
-			if(isSectionOver){				
-				if(GetComponent<GameObjectMoving>() != null){
-					Destroy(GetComponent<GameObjectMoving>());
+				if(myCard.targetPlace == CardManager.cardSection.Deadwood){
+					myCard.Place = CardManager.cardSection.Discard_H;
+				}else if(myCard.targetPlace == CardManager.cardSection.Table){
+					
 				}
-				myCard.Place = CardManager.cardSection.Deck;
-			}
-
-			break;
-		case CardManager.cardSection.Discard_H:			
-			if(trigger){
-				gameObject.AddComponent<CardMoving>().GetInf(
-					CardManager.cardSection.Discard_H,
-					GameManager.Instance.cardmanager.DeadwoodPosition.position
-				);
-				trigger = false;
-			}		
-
-			if(isSectionOver){				
-				if(GetComponent<CardMoving>() != null){
-					Destroy(GetComponent<CardMoving>());	
+				break;
+			case CardManager.cardSection.Deadwood:
+				myCard.Place = CardManager.cardSection.Shuffle;
+				break;
+			case CardManager.cardSection.Table:
+				break;
+			case CardManager.cardSection.Drawing:			
+				if(trigger){
+					//Add Component
+					gameObject.AddComponent<CardMoving>().GetInf(
+						CardManager.cardSection.Drawing, 
+						GameManager.Instance.cardmanager.HUI.GetHandCardPosition()
+					);
+					trigger = false;
 				}
-				myCard.Place = CardManager.cardSection.Deadwood;
+
+				if(isSectionOver){
+					if(GetComponent<CardMoving>() != null){
+						Destroy(GetComponent<CardMoving>());
+					}else{
+						myCard.Place = CardManager.cardSection.Hand;
+					}
+
+				}
+				break;
+			case CardManager.cardSection.BacktoDeck:
+				break;
+			case CardManager.cardSection.Playing:
+				break;
+			case CardManager.cardSection.Shuffle:
+				if(trigger){
+					gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(GameManager.Instance.cardmanager.DeckPosition.localPosition);
+					trigger = false;
+				}
+
+				if(isSectionOver){				
+					if(GetComponent<GameObjectMoving>() != null){
+						Destroy(GetComponent<GameObjectMoving>());
+					}else{
+						myCard.Place = CardManager.cardSection.Deck;
+					}
+
+				}
+
+				break;
+			case CardManager.cardSection.Discard_H:			
+				if(trigger){
+					gameObject.AddComponent<CardMoving>().GetInf(
+						CardManager.cardSection.Discard_H,
+						GameManager.Instance.cardmanager.DeadwoodPosition.position
+					);
+					trigger = false;
+				}		
+
+				if(isSectionOver){				
+					if(GetComponent<CardMoving>() != null){
+						Destroy(GetComponent<CardMoving>());	
+					}else{
+						myCard.Place = CardManager.cardSection.Deadwood;
+					}					
+				}
+				break;
+			case CardManager.cardSection.Discard_T:
+				break;
+			case CardManager.cardSection.Discard_D:
+				break;
+			case CardManager.cardSection.Remove:
+				//Remove UpdateList 
+				GameManager.Instance.UpdateList -=Update_CardTrigger;
+				GameManager.Instance.UpdateList -=Update_CardTrigger;
+
+				//Destroy this
+
+				break;
 			}
-			break;
-		case CardManager.cardSection.Discard_T:
-			break;
-		case CardManager.cardSection.Discard_D:
-			break;
-		case CardManager.cardSection.Remove:
-			//Remove UpdateList 
-			GameManager.Instance.UpdateList -=Update_CardTrigger;
-			GameManager.Instance.UpdateList -=Update_CardTrigger;
-
-			//Destroy this
-
-			break;
 		}
+
 	}
 
 
