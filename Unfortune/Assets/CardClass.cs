@@ -19,7 +19,7 @@ public class Card{
 		CardKind = Cardkind;
 		Place = sec;
 	}
-
+	/*
 	public void AddCardQue(CardManager.cardSection targetpos){
 		//check pos Section
 		switch(Place){
@@ -52,4 +52,5 @@ public class Card{
 			break;
 		}
 	}
+	*/
 }

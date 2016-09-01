@@ -13,7 +13,8 @@ public class CardScript : MonoBehaviour {
 	public  CardManager.cardSection myCardSectionShow;
 	private CardManager.cardSection premyCardSection = CardManager.cardSection.nil;
 	public CardManager.cardSection TargetSectionShow;
-	private bool isSectionOver = false;
+	private CardManager.cardSection preTargetSection = CardManager.cardSection.nil;
+	private bool isSectionOver = true;
 
 	//Card Manager
 	public CardManager CM = GameManager.Instance.cardmanager;
@@ -51,6 +52,7 @@ public class CardScript : MonoBehaviour {
 
 	//section
 	public void SectionOver(){
+		print("sectionChange:"+ isSectionOver);
 		isSectionOver = true;
 	}
 
@@ -59,34 +61,88 @@ public class CardScript : MonoBehaviour {
 	/// </summary>
 	public void Update_CardSection(){		
 		
-		if(myCard.CardQue.Count >0){
-			if(!isSectionOver){
-				myCard.targetPlace = myCard.CardQue.Dequeue();
-			}	
-			
-		}
 
 	}
 
 	public void Update_CardTrigger(){
-		if(myCard.Place != premyCardSection){
+		print("P:"+myCard.Place+", pP:"+premyCardSection+", T:"+myCard.targetPlace+", pT:"+preTargetSection);
+		//place
+		if(myCard.Place != premyCardSection){			
 			trigger = true;
 			isSectionOver = false;
 
 			myCardSectionShow = myCard.Place;
 			premyCardSection = myCard.Place;
 		}
+
+		//target place
+		if(myCard.targetPlace != preTargetSection){
+			if(preTargetSection != CardManager.cardSection.nil){
+				myCard.CardQue.Enqueue(preTargetSection);
+			}
+			//print(preTargetSection);
+			switch(preTargetSection){
+			case CardManager.cardSection.nil:
+				if(myCard.targetPlace == CardManager.cardSection.Hand){
+					myCard.CardQue.Enqueue(CardManager.cardSection.Deck);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Drawing);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Hand);
+				}
+				break;
+			case CardManager.cardSection.Deck:				
+				//check target
+				if(myCard.targetPlace == CardManager.cardSection.Hand){				
+					myCard.CardQue.Enqueue(CardManager.cardSection.Drawing);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Hand);
+				}else if(myCard.targetPlace == CardManager.cardSection.Deadwood){
+					myCard.CardQue.Enqueue(CardManager.cardSection.Discard_D);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Deadwood);
+				}
+				break;
+			case CardManager.cardSection.Hand:
+				if(myCard.targetPlace == CardManager.cardSection.Deadwood){
+					myCard.CardQue.Enqueue(CardManager.cardSection.Discard_H);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Deadwood);
+				}else if(myCard.targetPlace == CardManager.cardSection.Table){
+					myCard.CardQue.Enqueue(CardManager.cardSection.Playing);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Table);
+				}
+				break;
+			case CardManager.cardSection.Deadwood:
+				if(myCard.targetPlace == CardManager.cardSection.Deck){
+					myCard.CardQue.Enqueue(CardManager.cardSection.Shuffle);
+					myCard.CardQue.Enqueue(CardManager.cardSection.Deck);
+				}
+				break;
+			case CardManager.cardSection.Table:
+				break;
+			}
+
+			myCard.CardQue.Enqueue(myCard.targetPlace);
+
+			//set pre
+			preTargetSection = myCard.targetPlace;
+		}
+
+		//Card Queue
+		if(myCard.CardQue.Count >0 && isSectionOver){
+			//print(myCard.CardQue.Peek());
+			myCard.Place = myCard.CardQue.Dequeue();
+		}
+
+		//show
 		TargetSectionShow = myCard.targetPlace;
 	}
 
 	public void Update_CardScript(){
 		if(myCard.Place != myCard.targetPlace){
 			switch(myCard.Place){
-			case CardManager.cardSection.nil:			
+			case CardManager.cardSection.nil:
+				SectionOver();
 				break;
 			case CardManager.cardSection.Deck:
 				if(GameManager.Instance.cardmanager.isDeckCardReady()){
-					myCard.Place = CardManager.cardSection.Drawing;
+					SectionOver();
 				}
 				break;
 			case CardManager.cardSection.Hand:
@@ -96,11 +152,7 @@ public class CardScript : MonoBehaviour {
 				}
 
 				if(GameManager.Instance.cardmanager.isHandCardReady()){
-					if(myCard.targetPlace == CardManager.cardSection.Deadwood){
-						myCard.Place = CardManager.cardSection.Discard_H;
-					}else if(myCard.targetPlace == CardManager.cardSection.Table){
-
-					}
+					SectionOver();
 				}
 
 				break;

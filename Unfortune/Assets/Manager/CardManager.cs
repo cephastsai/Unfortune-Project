@@ -82,11 +82,12 @@ namespace Manager{
 		/// </summary>
 		public void CreateCardtoDeck(int Cardkind, bool TopoftheDeck/*true:Top,false:Bottom*/){
 			//Undone - if card kind not exsit
-			Card Ncard = new Card(CardID, Cardkind, cardSection.Deck);
+			Card Ncard = new Card(CardID, Cardkind, cardSection.nil);
 			Ncard.targetPlace = cardSection.Deck;
 			//Create GameObject
 			GameObject NcardObject = Instantiate(GameManager.Instance.prefabsmanager.PrefabsList[Cardkind]);
 			NcardObject.AddComponent<CardScript>().init(Ncard, NcardObject);
+			Ncard.targetPlace = cardSection.Deck;
 			//Card ID
 			CardID++;
 			//Card List
@@ -126,7 +127,7 @@ namespace Manager{
 					}
 
 				}else{
-					Deck.First().AddCardQue(cardSection.Hand);
+					Deck.First().targetPlace = cardSection.Hand;
 					//transfer
 					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
@@ -140,7 +141,7 @@ namespace Manager{
 				if(Deck.First == null){
 					break;
 				}
-				Deck.First().AddCardQue(cardSection.Deadwood);
+				//Deck.First().AddCardQue(cardSection.Deadwood);
 				//transfer
 				Deadwood.Add(Deck.First());
 				Deck.RemoveFirst();
@@ -149,14 +150,14 @@ namespace Manager{
 
 		public void DiscardDeckAll(){
 			foreach(Card i in Deck){
-				Deck.First().AddCardQue(cardSection.Deadwood);
+				//Deck.First().AddCardQue(cardSection.Deadwood);
 			}
 			Deadwood.AddRange(Deck);
 			Deck.Clear();
 		}
 
 		public void DeckRemove(){
-			Deck.First().AddCardQue(cardSection.Remove);
+			//Deck.First().AddCardQue(cardSection.Remove);
 			CardList.Remove(Deck.First());
 			Deck.RemoveFirst();
 		}			
@@ -194,7 +195,7 @@ namespace Manager{
 			print("dis:"+ DiscardCard.ID);
 
 			if(Hand.Find(x=> x == DiscardCard) != null){
-				DiscardCard.AddCardQue(cardSection.Deadwood);
+				//DiscardCard.AddCardQue(cardSection.Deadwood);
 
 				//transfer
 				Deadwood.Add(DiscardCard);
@@ -208,7 +209,7 @@ namespace Manager{
 
 		public void DiscardHandAll(){
 			foreach(Card i in Hand){
-				i.AddCardQue(cardSection.Deadwood);
+				//i.AddCardQue(cardSection.Deadwood);
 			}
 			//transfer
 			Deadwood.AddRange(Hand);
@@ -217,7 +218,7 @@ namespace Manager{
 
 		public void HandBacktoDeck(Card Backcard){
 			if(Hand.Find(x=> x == Backcard) != null){
-				Backcard.AddCardQue(cardSection.Deck);
+				//Backcard.AddCardQue(cardSection.Deck);
 
 				//transfer
 				Deck.AddFirst(Backcard);
@@ -231,7 +232,7 @@ namespace Manager{
 
 		public void PlayCard(Card Playcard){
 			if(Hand.Find(x=> x == Playcard) != null){
-				Playcard.AddCardQue(cardSection.Table);
+				//Playcard.AddCardQue(cardSection.Table);
 
 				//remove card
 				Card tempcard = new Card();
@@ -249,7 +250,7 @@ namespace Manager{
 
 		public void HandRemove(Card Removecard){
 			if(Hand.Find(x=> x == Removecard) != null){
-				Removecard.AddCardQue(cardSection.Remove);
+				//Removecard.AddCardQue(cardSection.Remove);
 				Hand.Remove(Removecard);
 			}else{
 				print("[CardManager]Card do not exist");
@@ -306,7 +307,7 @@ namespace Manager{
 			if(isDeadwoodCardReady()){
 				print("ready");
 				foreach(Card i in Deadwood){					
-					i.AddCardQue(cardSection.Deck);
+				//	i.AddCardQue(cardSection.Deck);
 				}
 				GameManager.Instance.UpdateList -= Update_isDeadwoodReady;
 			}
