@@ -57,6 +57,10 @@ namespace Manager{
 			for(int i =0; i<12; i++){
 				CreateCardtoDeck(100,true);
 			}
+		}
+
+		void Update(){
+			print("Deck:"+Deck.Count+", Hand:"+Hand.Count+", Deadwood:"+Deadwood.Count);	
 		}			
 
 		/// <summary>
@@ -280,9 +284,9 @@ namespace Manager{
 			//Shuffle
 			Shuffle(Deadwood);
 			//BacktoDeck
+			GameManager.Instance.UpdateList += Update_isDeadwoodReady;
 			foreach(Card i in Deadwood){
 				Deck.AddFirst(i);
-				i.AddCardQue(cardSection.Deck);
 			}
 			Deadwood.Clear();
 		}
@@ -297,13 +301,24 @@ namespace Manager{
 			return tempflag;
 		}
 
+		public void Update_isDeadwoodReady(){
+			print("check deadwood");
+			if(isDeadwoodCardReady()){
+				print("ready");
+				foreach(Card i in Deadwood){					
+					i.AddCardQue(cardSection.Deck);
+				}
+				GameManager.Instance.UpdateList -= Update_isDeadwoodReady;
+			}
+		}
+
 		//testing print function
 		public void PrintDeadwoodCard(){
 			foreach(Card i in Deadwood){
 				print("Deadwood:"+i.ID);
 			}
 		}
-
+			
 
 		/// <summary>
 		/// private Function

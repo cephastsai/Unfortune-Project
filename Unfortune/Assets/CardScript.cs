@@ -12,6 +12,7 @@ public class CardScript : MonoBehaviour {
 	private bool trigger = true;
 	public  CardManager.cardSection myCardSectionShow;
 	private CardManager.cardSection premyCardSection = CardManager.cardSection.nil;
+	public CardManager.cardSection TargetSectionShow;
 	private bool isSectionOver = false;
 
 	//Card Manager
@@ -59,8 +60,9 @@ public class CardScript : MonoBehaviour {
 	public void Update_CardSection(){		
 		
 		if(myCard.CardQue.Count >0){
-			
-			myCard.targetPlace = myCard.CardQue.Dequeue();
+			if(!isSectionOver){
+				myCard.targetPlace = myCard.CardQue.Dequeue();
+			}	
 			
 		}
 
@@ -74,6 +76,7 @@ public class CardScript : MonoBehaviour {
 			myCardSectionShow = myCard.Place;
 			premyCardSection = myCard.Place;
 		}
+		TargetSectionShow = myCard.targetPlace;
 	}
 
 	public void Update_CardScript(){
@@ -102,13 +105,13 @@ public class CardScript : MonoBehaviour {
 
 				break;
 			case CardManager.cardSection.Deadwood:
-				if(GameManager.Instance.cardmanager.isDeadwoodCardReady()){
-					myCard.Place = CardManager.cardSection.Shuffle;	
-				}
+				//if(GameManager.Instance.cardmanager.isDeadwoodCardReady()){
+					myCard.Place = CardManager.cardSection.Shuffle;
+				//}
 				break;
 			case CardManager.cardSection.Table:
 				break;
-			case CardManager.cardSection.Drawing:	
+			case CardManager.cardSection.Drawing:
 				if(trigger){
 					//Add Component
 					gameObject.AddComponent<CardMoving>().GetInf(
