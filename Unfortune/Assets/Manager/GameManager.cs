@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Manager;
+using System;
 
 namespace Manager{
 	public class GameManager : MonoBehaviour {
@@ -25,6 +26,9 @@ namespace Manager{
 			}
 		}
 
+		//Random
+		public static System.Random ran = new System.Random(Guid.NewGuid().GetHashCode());
+
 		//Delegate
 		public delegate void ManagerDelgate();
 		public event ManagerDelgate UpdateList;	//Updata Delegate
@@ -40,7 +44,7 @@ namespace Manager{
 		public CardManager cardmanager;
 		public GameObject PrefabsManagerGO;//need setting
 		public PrefabsManager prefabsmanager;
-		public PlayerActions playeractions;
+		//public PlayerActions playeractions;
 
 		void Start(){
 
@@ -77,7 +81,7 @@ namespace Manager{
 			prefabsmanager.init();
 
 			//Player Actions
-			playeractions = gameObject.AddComponent<PlayerActions>();
+			//playeractions = gameObject.AddComponent<PlayerActions>();
 		
 		}
 	}

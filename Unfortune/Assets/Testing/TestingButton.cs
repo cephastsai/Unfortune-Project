@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Manager;
 
 public class TestingButton : MonoBehaviour {
 
@@ -9,10 +10,11 @@ public class TestingButton : MonoBehaviour {
 	}
 
 	public void EndofturnButton(){
-		GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
+		//GameManager.Instance.cardmanager.DiscardHandAll();
+		//GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
 	}
 
 	public void DrawButton(){
-		GameObject.Find("GameManager").GetComponent<PlayerActions>().Drawing(5);
+		//GameObject.Find("GameManager").GetComponent<PlayerActions>().Drawing(5);
 	}
 }

@@ -8,9 +8,6 @@ using GameUI;
 namespace Manager{
 	public class CardManager : MonoBehaviour {
 
-		//Random
-		public static System.Random ran = new System.Random(Guid.NewGuid().GetHashCode());
-
 		//static enum
 		public enum cardSection{
 			nil, 
@@ -23,6 +20,11 @@ namespace Manager{
 		//card list
 		public List<Card> CardList = new List<Card>();
 		private int CardID = 0;
+
+		//Que section
+		private Queue<cardSection> MainSectionQue = new Queue<cardSection>();
+		public cardSection MainSection;
+		public bool isMainSectionOver = true;
 
 		//card Deck
 		public LinkedList<Card> Deck = new LinkedList<Card>();
@@ -41,53 +43,53 @@ namespace Manager{
 		public HandUI HUI;
 		public DeadwoodUI DwUI;
 
-		//temp testing
-		public GameObject cardprefabs;
-
-		/// <summary>
-		/// Manager
-		/// </summary>
+		//init
 		public void init(){
 			//init funstion
 			init_Positon();
 			init_UI();
-			//GameManager.Instance.UpdateList += Update_Draw;
+
+			//update init
+			GameManager.Instance.UpdateList += Update_MainSection;
 
 			//reading card
+
 			for(int i =0; i<12; i++){
 				CreateCardtoDeck(100,true);
 			}
+
+			//start draw card
+			DrawCard(5);
 		}
 
-		void Update(){
-			print("Deck:"+Deck.Count+", Hand:"+Hand.Count+", Deadwood:"+Deadwood.Count);	
-		}			
+		//Update function
+		public void Update_MainSection(){
+			bool tempflag = true;
 
-		/// <summary>
-		/// Card
-		/// </summary>
-		public Card FindCardwithID(int ID){
 			foreach(Card i in CardList){
-				if(i.ID == ID){					
-					return i;
+				if(!i.isSectionOver){
+					tempflag = false;
 				}
-			}	
-			print("[CardManager]cant find card");
-			return null;
-		}		
+			}
 
+			isMainSectionOver = tempflag;
+
+			if(isMainSectionOver &&MainSectionQue.Count >0){
+				MainSection = MainSectionQue.Dequeue();
+			}
+			print(isMainSectionOver);
+			print(MainSection);
+		}
 
 		/// <summary>
 		/// Creates the card.
 		/// </summary>
 		public void CreateCardtoDeck(int Cardkind, bool TopoftheDeck/*true:Top,false:Bottom*/){
 			//Undone - if card kind not exsit
-			Card Ncard = new Card(CardID, Cardkind, cardSection.nil);
-			Ncard.targetPlace = cardSection.Deck;
+			Card Ncard = new Card(CardID, Cardkind, cardSection.Deck);
 			//Create GameObject
 			GameObject NcardObject = Instantiate(GameManager.Instance.prefabsmanager.PrefabsList[Cardkind]);
 			NcardObject.AddComponent<CardScript>().init(Ncard, NcardObject);
-			Ncard.targetPlace = cardSection.Deck;
 			//Card ID
 			CardID++;
 			//Card List
@@ -100,22 +102,12 @@ namespace Manager{
 			}						
 		}
 
-		public void CreateCardtoDeadwood(int Cardkind){
-			//Undone - if card kind not exsit
-			Card Ncard = new Card(CardID, Cardkind, cardSection.Deadwood);
-			//Card ID
-			CardID++;
-			//Card List
-			CardList.Add(Ncard);
-			//Card Place
-			Deadwood.Add(Ncard);
-		}
-
 
 		/// <summary>
 		/// Deck Function
 		/// </summary>
-		public void DrawCard(int num){			
+		public void DrawCard(int num){
+			MainSectionQue.Enqueue(cardSection.Drawing);
 			for(int i =0; i<num; i++){
 				if(Deck.First == null){
 					if(Deadwood.Count >0){
@@ -127,7 +119,7 @@ namespace Manager{
 					}
 
 				}else{
-					Deck.First().targetPlace = cardSection.Hand;
+					Deck.First().Place = cardSection.Drawing;
 					//transfer
 					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
@@ -136,190 +128,35 @@ namespace Manager{
 			}
 		}
 
-		public void DiscardDeck(int num){
-			for(int i=0; i<num; i++){
-				if(Deck.First == null){
-					break;
-				}
-				//Deck.First().AddCardQue(cardSection.Deadwood);
-				//transfer
-				Deadwood.Add(Deck.First());
-				Deck.RemoveFirst();
-			}
-		}
-
-		public void DiscardDeckAll(){
-			foreach(Card i in Deck){
-				//Deck.First().AddCardQue(cardSection.Deadwood);
-			}
-			Deadwood.AddRange(Deck);
-			Deck.Clear();
-		}
-
-		public void DeckRemove(){
-			//Deck.First().AddCardQue(cardSection.Remove);
-			CardList.Remove(Deck.First());
-			Deck.RemoveFirst();
-		}			
-
-		public bool isDeckCardReady(){
-			bool tempflag = true;
-			foreach(Card i in Deck){
-				if(i.Place != cardSection.Deck){
-					tempflag = false;
-				}
-			}
-
-			return tempflag;
-		}
-
-		public void Update_isDeckfirstCardReady(){
-			if(Deck.First().Place == cardSection.Deck){
-				Deck.First().targetPlace = cardSection.Drawing;
-				GameManager.Instance.UpdateList -= Update_isDeckfirstCardReady;
-			}
-		}
-
-		//testing print function
-		public void PrintDeckCard(){
-			foreach(Card i in Deck){
-				print("Deck:"+i.ID);
-			}
-		}
-			
-
 		/// <summary>
 		/// Hand Function
 		/// </summary>
-		public void DiscardHand(Card DiscardCard){
-			print("dis:"+ DiscardCard.ID);
-
-			if(Hand.Find(x=> x == DiscardCard) != null){
-				//DiscardCard.AddCardQue(cardSection.Deadwood);
-
-				//transfer
-				Deadwood.Add(DiscardCard);
-
-				//Hand Remove
-				Hand.Remove(DiscardCard);
-			}else{
-				print("[CardManager]Card do not exist");
-			}
-		}
-
-		public void DiscardHandAll(){
+		/*public void DiscardHandAll(){
+			MainSectionQue.Enqueue(cardSection.Discard_H);
 			foreach(Card i in Hand){
-				//i.AddCardQue(cardSection.Deadwood);
+				i.Place = CardManager.cardSection.Discard_H;
 			}
 			//transfer
 			Deadwood.AddRange(Hand);
 			Hand.Clear();
-		}
+		}*/
 
-		public void HandBacktoDeck(Card Backcard){
-			if(Hand.Find(x=> x == Backcard) != null){
-				//Backcard.AddCardQue(cardSection.Deck);
 
-				//transfer
-				Deck.AddFirst(Backcard);
-
-				//Hand Remove
-				Hand.Remove(Backcard);
-			}else{
-				print("[CardManager]Card do not exist");
-			}
-		}
-
-		public void PlayCard(Card Playcard){
-			if(Hand.Find(x=> x == Playcard) != null){
-				//Playcard.AddCardQue(cardSection.Table);
-
-				//remove card
-				Card tempcard = new Card();
-				tempcard = Playcard;
-
-				//Hand Remove
-				Hand.Remove(Playcard);
-
-				//Table Script
-
-			}else{
-				print("[CardManager]Card do not exist");
-			}			
-		}
-
-		public void HandRemove(Card Removecard){
-			if(Hand.Find(x=> x == Removecard) != null){
-				//Removecard.AddCardQue(cardSection.Remove);
-				Hand.Remove(Removecard);
-			}else{
-				print("[CardManager]Card do not exist");
-			}
-		}
-
-		public int GetHandNumber(){
-			return Hand.Count;
-		}		
-
-		public bool isHandCardReady(){
-			bool tempflag = true;
-			foreach(Card i in Hand){
-				if(i.Place != cardSection.Hand){
-					tempflag  =false;
-				}
-			}
-			return tempflag;
-		}
-
-		//testing print function
-		public void PrintHandCard(){
-			foreach(Card i in Hand){
-				print("Hand:"+i.ID);
-			}
-		}			
 
 		/// <summary>
 		/// Deadwood Function
 		/// </summary>
 		public void DeadwoodBacktoDeck(){
+			MainSectionQue.Enqueue(cardSection.Shuffle);
 			//Shuffle
 			Shuffle(Deadwood);
 			//BacktoDeck
-			GameManager.Instance.UpdateList += Update_isDeadwoodReady;
 			foreach(Card i in Deadwood){
+				i.Place = cardSection.Shuffle;
 				Deck.AddFirst(i);
 			}
 			Deadwood.Clear();
 		}
-
-		public bool isDeadwoodCardReady(){
-			bool tempflag = true;
-			foreach(Card i in Deadwood){
-				if(i.Place != cardSection.Deadwood){
-					tempflag = false;
-				}
-			}
-			return tempflag;
-		}
-
-		public void Update_isDeadwoodReady(){
-			print("check deadwood");
-			if(isDeadwoodCardReady()){
-				print("ready");
-				foreach(Card i in Deadwood){					
-				//	i.AddCardQue(cardSection.Deck);
-				}
-				GameManager.Instance.UpdateList -= Update_isDeadwoodReady;
-			}
-		}
-
-		//testing print function
-		public void PrintDeadwoodCard(){
-			foreach(Card i in Deadwood){
-				print("Deadwood:"+i.ID);
-			}
-		}
-			
 
 		/// <summary>
 		/// private Function
@@ -327,17 +164,17 @@ namespace Manager{
 		void Shuffle(List<Card> shuffleList){
 			for(int i =0; i<shuffleList.Count; i++){
 				Card temp = shuffleList[i];
-				int randomIndex = ran.Next(i, shuffleList.Count);
+				int randomIndex = GameManager.ran.Next(i, shuffleList.Count);
 				shuffleList[i] = shuffleList[randomIndex];
 				shuffleList[randomIndex] = temp;
 			}
-		}		
+		}
 
 		void init_Positon(){			
 			DeckPosition =  GameObject.Find("DeckPosition").transform;
 			HandPosition =  GameObject.Find("HandPosition").transform;
 			DeadwoodPosition =  GameObject.Find("DeadwoodPosition").transform;
-		}			
+		}	
 
 		void init_UI(){
 			DUI = gameObject.AddComponent<DeckUI>();
