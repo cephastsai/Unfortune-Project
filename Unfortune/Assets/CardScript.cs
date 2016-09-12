@@ -13,7 +13,7 @@ public class CardScript : MonoBehaviour {
 
 	//Update
 	private bool trigger = true;
-	public  CardManager.cardSection myCardSectionShow;
+	public  CardManager.cardSection myCardSectionShow = CardManager.cardSection.Deck;
 	private CardManager.cardSection premyCardSection = CardManager.cardSection.Deck;
 
 
@@ -51,6 +51,7 @@ public class CardScript : MonoBehaviour {
 
 	//Update
 	public void Update_CardTrigger(){
+		//if section change
 		if(myCard.Place != premyCardSection){			
 			trigger = true;
 			myCard.isSectionOver = false;
@@ -62,11 +63,19 @@ public class CardScript : MonoBehaviour {
 
 	public void Update_CardScript(){
 
-		if(CM.isMainSectionOver && CM.MainSection == myCard.Place){
+		switch(myCard.Place){
+		case CardManager.cardSection.Hand:
+			SectionOver();
+			break;
+		case CardManager.cardSection.Deadwood:
+			SectionOver();
+			break;
+		}
+
+		if(CM.MainSection == myCard.Place){
 			switch(myCard.Place){
 			case CardManager.cardSection.Drawing:
-				if(trigger){
-					print("test");
+				if(trigger){					
 					//Add Component
 					gameObject.AddComponent<CardMoving>().GetInf(
 						CardManager.cardSection.Drawing, 
@@ -74,18 +83,19 @@ public class CardScript : MonoBehaviour {
 					);
 					trigger = false;
 				}
-
-				if(myCard.isSectionOver){
+				print("sec:"+myCard.isSectionOver);
+				if(myCard.isSectionOver){			
 					if(GetComponent<CardMoving>() != null){						
 						Destroy(GetComponent<CardMoving>());
-					}else{
-						myCard.Place = CardManager.cardSection.Hand;
+					}else{						
+						myCard.Place = CardManager.cardSection.Hand;					
 					}
 
 				}
-				break;
+				break;			
 			case CardManager.cardSection.Discard_H:			
 				if(trigger){
+					print("intoOver");
 					gameObject.AddComponent<CardMoving>().GetInf(
 						CardManager.cardSection.Discard_H,
 						GameManager.Instance.cardmanager.DeadwoodPosition.position
@@ -93,7 +103,7 @@ public class CardScript : MonoBehaviour {
 					trigger = false;
 				}		
 
-				if(myCard.isSectionOver){				
+				if(myCard.isSectionOver){					
 					if(GetComponent<CardMoving>() != null){
 						Destroy(GetComponent<CardMoving>());	
 					}else{

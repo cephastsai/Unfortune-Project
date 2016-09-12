@@ -67,7 +67,7 @@ namespace Manager{
 			bool tempflag = true;
 
 			foreach(Card i in CardList){
-				if(!i.isSectionOver){
+				if(!i.isSectionOver){					
 					tempflag = false;
 				}
 			}
@@ -77,7 +77,7 @@ namespace Manager{
 			if(isMainSectionOver &&MainSectionQue.Count >0){
 				MainSection = MainSectionQue.Dequeue();
 			}
-			print(isMainSectionOver);
+			print("MainSection:"+isMainSectionOver);
 			print(MainSection);
 		}
 
@@ -131,7 +131,7 @@ namespace Manager{
 		/// <summary>
 		/// Hand Function
 		/// </summary>
-		/*public void DiscardHandAll(){
+		public void DiscardHandAll(){
 			MainSectionQue.Enqueue(cardSection.Discard_H);
 			foreach(Card i in Hand){
 				i.Place = CardManager.cardSection.Discard_H;
@@ -139,7 +139,7 @@ namespace Manager{
 			//transfer
 			Deadwood.AddRange(Hand);
 			Hand.Clear();
-		}*/
+		}
 
 
 

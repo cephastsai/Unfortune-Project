@@ -8,6 +8,7 @@ public class Card{
 	public int CardKind; //card kind
 	public CardManager.cardSection Place; //card postion
 	public CardManager.cardSection targetPlace; // card target position
+	public bool isSectionOver;
 
 	//Card Section Queue
 	public Queue<CardManager.cardSection> CardQue = new Queue<CardManager.cardSection>();
@@ -18,39 +19,7 @@ public class Card{
 		ID = cardnum;
 		CardKind = Cardkind;
 		Place = sec;
+		isSectionOver = true;
 	}
-	/*
-	public void AddCardQue(CardManager.cardSection targetpos){
-		//check pos Section
-		switch(Place){
-		case CardManager.cardSection.Deck:
-			//check target
-			if(targetpos == CardManager.cardSection.Hand){				
-				CardQue.Enqueue(CardManager.cardSection.Drawing);
-				CardQue.Enqueue(CardManager.cardSection.Hand);
-			}else if(targetpos == CardManager.cardSection.Deadwood){
-				CardQue.Enqueue(CardManager.cardSection.Discard_D);
-				CardQue.Enqueue(CardManager.cardSection.Deadwood);
-			}
-			break;
-		case CardManager.cardSection.Hand:
-			if(targetpos == CardManager.cardSection.Deadwood){
-				CardQue.Enqueue(CardManager.cardSection.Discard_H);
-				CardQue.Enqueue(CardManager.cardSection.Deadwood);
-			}else if(targetpos == CardManager.cardSection.Table){
-				CardQue.Enqueue(CardManager.cardSection.Playing);
-				CardQue.Enqueue(CardManager.cardSection.Table);
-			}
-			break;
-		case CardManager.cardSection.Deadwood:
-			if(targetpos == CardManager.cardSection.Deck){
-				CardQue.Enqueue(CardManager.cardSection.Shuffle);
-				CardQue.Enqueue(CardManager.cardSection.Deck);
-			}
-			break;
-		case CardManager.cardSection.Table:
-			break;
-		}
-	}
-	*/
+
 }

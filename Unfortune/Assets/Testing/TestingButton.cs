@@ -10,11 +10,12 @@ public class TestingButton : MonoBehaviour {
 	}
 
 	public void EndofturnButton(){
-		//GameManager.Instance.cardmanager.DiscardHandAll();
+		GameManager.Instance.cardmanager.DiscardHandAll();
 		//GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
 	}
 
 	public void DrawButton(){
+		GameManager.Instance.cardmanager.DrawCard(5);
 		//GameObject.Find("GameManager").GetComponent<PlayerActions>().Drawing(5);
 	}
 }
