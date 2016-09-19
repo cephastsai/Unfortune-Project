@@ -38,6 +38,11 @@ namespace Manager{
 		public List<Card> Deadwood = new List<Card>();
 		public Transform DeadwoodPosition = null;
 
+		//card Table
+		public List<Card> Table = new List<Card>();
+		public TableManager Tablemanager;
+		public Transform TablePosition = null;
+
 		//UI Script
 		public DeckUI DUI;
 		public HandUI HUI;
@@ -48,6 +53,8 @@ namespace Manager{
 			//init funstion
 			init_Positon();
 			init_UI();
+
+			Tablemanager = gameObject.AddComponent<TableManager>();
 
 			//update init
 			GameManager.Instance.UpdateList += Update_MainSection;
@@ -132,15 +139,37 @@ namespace Manager{
 		/// Hand Function
 		/// </summary>
 		public void DiscardHandAll(){
-			MainSectionQue.Enqueue(cardSection.Discard_H);
-			foreach(Card i in Hand){
-				i.Place = CardManager.cardSection.Discard_H;
+			if(Hand.Count >0){
+				MainSectionQue.Enqueue(cardSection.Discard_H);
+				foreach(Card i in Hand){
+					i.Place = cardSection.Discard_H;
+				}
+				//transfer
+				Deadwood.AddRange(Hand);
+				Hand.Clear();
 			}
-			//transfer
-			Deadwood.AddRange(Hand);
-			Hand.Clear();
 		}
 
+		public void PlayCard(Card Playcard){
+			if(Hand.Find(x=> x == Playcard) != null){
+				//Playcard.AddCardQue(cardSection.Table);
+
+				//remove card
+				Card tempcard = new Card();
+				tempcard = Playcard;
+
+				//Hand Remove
+				Hand.Remove(Playcard);
+
+				//Table Script
+				Table.Add(tempcard);
+
+				tempcard.Place = cardSection.Table;
+
+			}else{
+				print("[CardManager]Card do not exist");
+			}			
+		}
 
 
 		/// <summary>
@@ -159,6 +188,23 @@ namespace Manager{
 		}
 
 		/// <summary>
+		/// Table Function
+		/// </summary>
+		public void DiscardTableAll(){
+			if(Table.Count >0){
+				MainSectionQue.Enqueue(cardSection.Discard_T);
+				foreach(Card i in Table){
+					i.Place = cardSection.Discard_T;
+				}
+				//transfer
+				Deadwood.AddRange(Table);
+				Table.Clear();
+				Tablemanager.init();
+			}
+		}
+
+
+		/// <summary>
 		/// private Function
 		/// </summary>
 		void Shuffle(List<Card> shuffleList){
@@ -174,6 +220,7 @@ namespace Manager{
 			DeckPosition =  GameObject.Find("DeckPosition").transform;
 			HandPosition =  GameObject.Find("HandPosition").transform;
 			DeadwoodPosition =  GameObject.Find("DeadwoodPosition").transform;
+			TablePosition =  GameObject.Find("TablePosition").transform;
 		}	
 
 		void init_UI(){

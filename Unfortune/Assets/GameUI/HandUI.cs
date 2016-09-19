@@ -11,7 +11,7 @@ namespace GameUI{
 
 		// UI Variable
 		private float width = 400f;
-		private float Hright = 100f;
+		private float Height = 100f;
 		private float Spacing = 15f;
 		private Transform HandPosition;
 		public int HandCardNumber;

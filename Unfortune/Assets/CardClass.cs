@@ -13,6 +13,11 @@ public class Card{
 	//Card Section Queue
 	public Queue<CardManager.cardSection> CardQue = new Queue<CardManager.cardSection>();
 
+	//Card Skill
+	public int action = 1;
+	public int attack = 1;
+	public int cards = 1;
+
 	public Card(){}
 
 	public Card(int cardnum, int Cardkind, CardManager.cardSection sec){

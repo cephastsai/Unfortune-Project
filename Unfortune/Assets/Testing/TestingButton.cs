@@ -11,6 +11,7 @@ public class TestingButton : MonoBehaviour {
 
 	public void EndofturnButton(){
 		GameManager.Instance.cardmanager.DiscardHandAll();
+		GameManager.Instance.cardmanager.DiscardTableAll();
 		//GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
 	}
 

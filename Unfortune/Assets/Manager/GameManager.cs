@@ -44,6 +44,7 @@ namespace Manager{
 		public CardManager cardmanager;
 		public GameObject PrefabsManagerGO;//need setting
 		public PrefabsManager prefabsmanager;
+		public TouchEvent TE;
 		//public PlayerActions playeractions;
 
 		void Start(){
@@ -82,6 +83,9 @@ namespace Manager{
 
 			//Player Actions
 			//playeractions = gameObject.AddComponent<PlayerActions>();
+
+			//TouchEvent
+			TE = gameObject.AddComponent<TouchEvent>();
 		
 		}
 	}

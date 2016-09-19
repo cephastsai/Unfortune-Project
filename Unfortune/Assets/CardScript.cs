@@ -65,9 +65,18 @@ public class CardScript : MonoBehaviour {
 
 		switch(myCard.Place){
 		case CardManager.cardSection.Hand:
+			if(transform.GetChild(0).GetComponent<PlayingCard>() == null){
+				transform.GetChild(0).gameObject.AddComponent<PlayingCard>().init();
+			}
 			SectionOver();
 			break;
 		case CardManager.cardSection.Deadwood:
+			SectionOver();
+			break;
+		case CardManager.cardSection.Table:
+			if(transform.GetChild(0).GetComponent<PlayingCard>() != null){
+				Destroy(transform.GetChild(0).GetComponent<PlayingCard>());
+			}
 			SectionOver();
 			break;
 		}
@@ -95,7 +104,26 @@ public class CardScript : MonoBehaviour {
 				break;			
 			case CardManager.cardSection.Discard_H:			
 				if(trigger){
+					Destroy(transform.GetChild(0).GetComponent<PlayingCard>());
 					print("intoOver");
+					gameObject.AddComponent<CardMoving>().GetInf(
+						CardManager.cardSection.Discard_H,
+						GameManager.Instance.cardmanager.DeadwoodPosition.position
+					);
+					trigger = false;
+				}		
+
+				if(myCard.isSectionOver){					
+					if(GetComponent<CardMoving>() != null){
+						Destroy(GetComponent<CardMoving>());	
+					}else{
+						myCard.Place = CardManager.cardSection.Deadwood;
+					}					
+				}
+				break;
+			case CardManager.cardSection.Discard_T:			
+				if(trigger){
+					Destroy(transform.GetChild(0).GetComponent<PlayingCard>());
 					gameObject.AddComponent<CardMoving>().GetInf(
 						CardManager.cardSection.Discard_H,
 						GameManager.Instance.cardmanager.DeadwoodPosition.position
