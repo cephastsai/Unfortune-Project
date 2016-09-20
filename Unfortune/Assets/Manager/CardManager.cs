@@ -43,6 +43,9 @@ namespace Manager{
 		public TableManager Tablemanager;
 		public Transform TablePosition = null;
 
+		//card check list
+		public List<Card> CheckList = new List<Card>();
+
 		//UI Script
 		public DeckUI DUI;
 		public HandUI HUI;
@@ -73,15 +76,20 @@ namespace Manager{
 		public void Update_MainSection(){
 			bool tempflag = true;
 
-			foreach(Card i in CardList){
+			foreach(Card i in CheckList){
 				if(!i.isSectionOver){					
 					tempflag = false;
 				}
 			}
 
+			if(tempflag){
+				CheckList.Clear();
+			}
+
 			isMainSectionOver = tempflag;
 
 			if(isMainSectionOver &&MainSectionQue.Count >0){
+				
 				MainSection = MainSectionQue.Dequeue();
 			}
 			print("MainSection:"+isMainSectionOver);
@@ -127,6 +135,7 @@ namespace Manager{
 
 				}else{
 					Deck.First().Place = cardSection.Drawing;
+					CheckList.Add(Deck.First());
 					//transfer
 					Hand.Add(Deck.First());
 					Deck.RemoveFirst();
@@ -144,6 +153,7 @@ namespace Manager{
 				foreach(Card i in Hand){
 					i.Place = cardSection.Discard_H;
 				}
+				CheckList.AddRange(Hand);
 				//transfer
 				Deadwood.AddRange(Hand);
 				Hand.Clear();
@@ -165,7 +175,7 @@ namespace Manager{
 				Table.Add(tempcard);
 
 				tempcard.Place = cardSection.Table;
-
+				CheckList.Add(tempcard);
 			}else{
 				print("[CardManager]Card do not exist");
 			}			
@@ -183,8 +193,31 @@ namespace Manager{
 			foreach(Card i in Deadwood){
 				i.Place = cardSection.Shuffle;
 				Deck.AddFirst(i);
-			}
+			}		
 			Deadwood.Clear();
+		}
+
+		public void EndoftheTurn(){
+			if(Hand.Count >0){
+				MainSectionQue.Enqueue(cardSection.Discard_H);
+				foreach(Card i in Hand){
+					i.Place = cardSection.Discard_H;
+				}
+				CheckList.AddRange(Hand);
+				//transfer
+				Deadwood.AddRange(Hand);
+				Hand.Clear();
+			}
+			if(Table.Count >0){				
+				foreach(Card i in Table){
+					i.Place = cardSection.Discard_H;
+				}
+				CheckList.AddRange(Table);
+				//transfer
+				Deadwood.AddRange(Table);
+				Table.Clear();
+				Tablemanager.init();
+			}
 		}
 
 		/// <summary>
@@ -196,6 +229,7 @@ namespace Manager{
 				foreach(Card i in Table){
 					i.Place = cardSection.Discard_T;
 				}
+				CheckList.AddRange(Table);
 				//transfer
 				Deadwood.AddRange(Table);
 				Table.Clear();

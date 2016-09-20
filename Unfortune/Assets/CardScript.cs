@@ -62,6 +62,9 @@ public class CardScript : MonoBehaviour {
 	}
 
 	public void Update_CardScript(){
+		if(!myCard.isSectionOver){
+			print(myCard.ID);
+		}
 
 		switch(myCard.Place){
 		case CardManager.cardSection.Hand:

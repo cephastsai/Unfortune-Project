@@ -10,8 +10,9 @@ public class TestingButton : MonoBehaviour {
 	}
 
 	public void EndofturnButton(){
-		GameManager.Instance.cardmanager.DiscardHandAll();
-		GameManager.Instance.cardmanager.DiscardTableAll();
+		//GameManager.Instance.cardmanager.DiscardHandAll();
+		//GameManager.Instance.cardmanager.DiscardTableAll();
+		GameManager.Instance.cardmanager.EndoftheTurn();
 		//GameObject.Find("GameManager").GetComponent<PlayerActions>().EndofTurn();
 	}
 
