@@ -21,6 +21,9 @@ public class Card : MonoBehaviour {
 		CardKind = Cardkind;
 		Place = sec;
 
+		//setting
+		SetCardSortingLayer("Deck");
+
 		//CardsSkill
 		CardsSkill.Skill tempskill = GameManager.Instance.Cardmanager.CardsS.CardsSkillList[CardKind];
 		action = tempskill.action;
@@ -47,32 +50,37 @@ public class Card : MonoBehaviour {
 		case CardManager.cardSection.Drawing:
 			Hand.Ins.HandList.Add(this);
 			Place = CardManager.cardSection.Hand;
+			SetCardSortingLayer("Hand");
 			break;
 		case CardManager.cardSection.Discard_H:
 			Deadwood.Ins.DeadwoodList.Add(this);
 			Place = CardManager.cardSection.Deadwood;
+			SetCardSortingLayer("Deadwood");
 			break;
 		case CardManager.cardSection.Discard_T:
 			Deadwood.Ins.DeadwoodList.Add(this);
 			Place = CardManager.cardSection.Deadwood;
+			SetCardSortingLayer("Deadwood");
 			break;
 		case CardManager.cardSection.Playing:
 			Table.Ins.TableList.Add(this);
 			Place = CardManager.cardSection.Table;
+			SetCardSortingLayer("Table");
 			break;
 		case CardManager.cardSection.Shuffle:
 			Deck.Ins.DeckList.Add(this);
 			Place = CardManager.cardSection.Deck;
+			SetCardSortingLayer("Deck");
 			break;
 		}
 	}
 
 	public void Drawing(){
 		transform.SetParent(Hand.Ins.transform);
-		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+		gameObject.AddComponent<DrawCardMoving>().ReadyToDrawing(
 			Hand.Ins.GetHandCardPosition(this)
 		);
-		CardsUp(true);
+		//CardsUp(true);
 	}
 
 	public void Discard(){
@@ -103,5 +111,10 @@ public class Card : MonoBehaviour {
 
 	public void UseSkill(){
 		GameManager.Instance.Cardmanager.CardsS.UseCardSkill(this);
+	}
+
+	public void SetCardSortingLayer(string SLname){
+		GetComponent<SpriteRenderer>().sortingLayerName =SLname;
+		transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName =SLname;
 	}
 }
