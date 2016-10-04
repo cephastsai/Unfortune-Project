@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
+	//Random
+	public static System.Random ran = new System.Random(Guid.NewGuid().GetHashCode());
 
 	//Manager
 	public CardManager Cardmanager;

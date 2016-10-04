@@ -4,7 +4,6 @@ using System.Collections;
 public class ThisTurn : MonoBehaviour {
 
 	//Basic Variable
-	public int Action = 0;
 	public int Attack = 0;
 	public string Will = "";
 
@@ -23,6 +22,9 @@ public class ThisTurn : MonoBehaviour {
 		//discard
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Discard_H);
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Discard_T);
+
+		//Variable setting
+		Table.Ins.initTable();
 
 		//drawing cards
 		Deck.Ins.DrawCards(initCards);

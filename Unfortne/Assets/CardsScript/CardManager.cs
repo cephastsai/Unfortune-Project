@@ -66,7 +66,7 @@ public class CardManager : MonoBehaviour {
 		//Change MainSection
 		if(isMainSectionOver && MainSectionQue.Count >0){
 			//print(MainSectionQue.Peek().MSection);
-			MainSec = MainSectionQue.Dequeue();
+			MainSec = MainSectionQue.Peek();
 			SectionStart();
 			isMainSectionOver = false;
 		}
@@ -80,21 +80,25 @@ public class CardManager : MonoBehaviour {
 			}
 
 			if(tempflag || MainSec.CheckLsit.Count ==0){
+				MainSectionQue.Dequeue();
 				isMainSectionOver = true;
 			}
 		}			
 	}
 
-	void SectionStart(){
+	public void SectionStart(){
 		switch(MainSec.MSection){
 		case cardSection.Drawing:		
-			Deck.Ins.Drawing(MainSec,1);
+			Deck.Ins.Drawing(MainSec);
 			break;
 		case cardSection.Discard_H:			
 			Hand.Ins.Discard_H_All(MainSec);
 			break;
 		case cardSection.Discard_T:			
 			Table.Ins.Discard_T_All(MainSec);
+			break;
+		case cardSection.Shuffle:
+			Deadwood.Ins.Shuffling(MainSec);
 			break;
 		}
 	}

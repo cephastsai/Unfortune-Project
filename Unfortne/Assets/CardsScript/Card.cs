@@ -33,9 +33,9 @@ public class Card : MonoBehaviour {
 	}		
 
 	public void CardsUp(bool isCardUp){//isCardUp -> true:Up,false:Back
-		if(isCardUp && transform.localRotation.y == 180){
-			transform.localRotation = Quaternion.Euler(0,-180,0);
-		}else if(!isCardUp && transform.localRotation.y == 0){
+		if(isCardUp && transform.localRotation.y != 0){			
+			transform.localRotation = Quaternion.Euler(0,0,0);
+		}else if(!isCardUp && transform.localRotation.y != 180){
 			transform.localRotation = Quaternion.Euler(0,180,0);
 		}
 	}
@@ -60,6 +60,10 @@ public class Card : MonoBehaviour {
 			Table.Ins.TableList.Add(this);
 			Place = CardManager.cardSection.Table;
 			break;
+		case CardManager.cardSection.Shuffle:
+			Deck.Ins.DeckList.Add(this);
+			Place = CardManager.cardSection.Deck;
+			break;
 		}
 	}
 
@@ -68,6 +72,7 @@ public class Card : MonoBehaviour {
 		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
 			Hand.Ins.GetHandCardPosition(this)
 		);
+		CardsUp(true);
 	}
 
 	public void Discard(){
@@ -75,6 +80,14 @@ public class Card : MonoBehaviour {
 		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
 			Deadwood.Ins.GetDeadwoodCardPosition()
 		);
+	}
+
+	public void Shuffle(int num){
+		transform.SetParent(Deck.Ins.transform);
+		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+			Deadwood.Ins.GetDeadwoodCardPosition()
+		);
+		CardsUp(false);
 	}
 
 	void SkillSetting(){

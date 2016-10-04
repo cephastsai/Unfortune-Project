@@ -143,5 +143,19 @@ public class Table : MonoBehaviour {
 		foreach(GameObject j in ArrowPlace){			
 			Destroy(j);
 		}
-	} 
+	}
+
+	public void initTable(){
+		//bool array
+		for(int i =0; i<isTableHavePlace.GetLength(0); i++){
+			for(int j =0; j<isTableHavePlace.GetLength(1); j++){
+				isTableHavePlace[i,j] = false;
+			}
+		}
+		isTableHavePlace[0,0] = true;
+
+		ActionNumber = 1;
+		LineOneCardNumber = 0;
+		twoLine = 0;
+	}
 }

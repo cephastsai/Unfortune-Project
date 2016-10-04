@@ -36,9 +36,9 @@ public class Deck : MonoBehaviour {
 	private Vector3 GetDeckCardPosition(){
 		
 		return new Vector3(
-			constantX*(DeckList.Count-1),
-			constantY*(DeckList.Count-1),
-			0.1f*(DeckList.Count-1)
+			-constantX*(DeckList.Count),
+			-constantY*(DeckList.Count),
+			-0.1f*(DeckList.Count-1)
 		);
 	}
 
@@ -53,20 +53,22 @@ public class Deck : MonoBehaviour {
 		DeckList.Add(Ncard.GetComponent<Card>());
 	}
 
-	public void Drawing(CardManager.MainSection Tsec,int CardsNumber){		
-		if(DeckList.Count>0){						
-			for(int i=0;i<CardsNumber;i++){
-				//section check
-				DeckList.Last().isSectionOver = false;
-				Tsec.CheckLsit.Add(DeckList.Last());
-				DeckList.Last().Place = CardManager.cardSection.Drawing;
-				DeckList.Last().Drawing();
+	public void Drawing(CardManager.MainSection Tsec){		
+									
+		if(DeckList.Count == 0){
+			Tsec.MSection = CardManager.cardSection.Shuffle;
+			GameManager.Instance.Cardmanager.SectionStart();
 
-				//remove
-				DeckList.Remove(DeckList.Last());
+		}else{
+			//section check
+			DeckList.Last().isSectionOver = false;
+			Tsec.CheckLsit.Add(DeckList.Last());
+			DeckList.Last().Place = CardManager.cardSection.Drawing;
+			DeckList.Last().Drawing();
 
-			}
-		}
+			//remove
+			DeckList.Remove(DeckList.Last());
+		}			
 
 	}
 
