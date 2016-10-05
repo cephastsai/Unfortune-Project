@@ -2,12 +2,12 @@
 using System.Collections;
 using System;
 
-public class DisCard_T : MonoBehaviour {
-
+public class DisCardMoving : MonoBehaviour {
+	
 	public static System.Random ran = new System.Random(Guid.NewGuid().GetHashCode());
 
 	public float TargetDistance;
-	public Transform Target;
+	public Vector3 Target;
 	public bool StartM = false;
 	public bool StartR = false;
 	private int z = 0;
@@ -16,11 +16,13 @@ public class DisCard_T : MonoBehaviour {
 	void Update () {
 		if (StartM) 
 		{
-			TargetDistance = Vector2.Distance (transform.localPosition, Target.localPosition);
-			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target.localPosition , TargetDistance/10);
+			TargetDistance = Vector2.Distance (transform.localPosition, Target);
+			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/10);
 			if (TargetDistance <= 0.1f)
 			{
+				GetComponent<Card>().SectionOver();
 				StartM = false;
+				Destroy(this);
 			}	
 		}
 		//Move
@@ -37,7 +39,7 @@ public class DisCard_T : MonoBehaviour {
 			//Rotate
 		}
 	}
-	public void ReadyToDisCard_T(Transform TargetO)
+	public void ReadyToDisCard_H(Vector3 TargetO)
 	{
 		Target = TargetO;
 		z = ran.Next (-25, 25);

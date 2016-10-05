@@ -57,6 +57,7 @@ public class Deck : MonoBehaviour {
 									
 		if(DeckList.Count == 0){
 			Tsec.MSection = CardManager.cardSection.Shuffle;
+			GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
 			GameManager.Instance.Cardmanager.SectionStart();
 
 		}else{

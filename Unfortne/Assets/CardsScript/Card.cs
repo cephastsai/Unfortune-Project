@@ -85,7 +85,7 @@ public class Card : MonoBehaviour {
 
 	public void Discard(){
 		transform.SetParent(Deadwood.Ins.transform);
-		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+		gameObject.AddComponent<DisCardMoving>().ReadyToDisCard_H(
 			Deadwood.Ins.GetDeadwoodCardPosition()
 		);
 	}

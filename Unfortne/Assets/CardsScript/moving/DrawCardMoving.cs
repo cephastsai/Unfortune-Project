@@ -38,6 +38,7 @@ public class DrawCardMoving : MonoBehaviour {
 		}
 		//Rotate
 	}
+
 	public void ReadyToDrawing(Vector3 TargetO)
 	{
 		Target = TargetO;
