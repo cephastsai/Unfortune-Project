@@ -100,8 +100,8 @@ public class Card : MonoBehaviour {
 
 	public void HandRemove(){
 		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-			new Vector3(transform.localPosition.x, transform.localPosition.y+30f),
-			2f
+			new Vector3(transform.localPosition.x, transform.localPosition.y+20f),
+			1f
 		);
 	}
 

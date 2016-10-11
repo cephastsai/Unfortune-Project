@@ -41,7 +41,8 @@ public class StartBurn : MonoBehaviour {
 		RanMat = ran.Next (1,4);
 		this.GetComponent<Renderer> ().material =GameManager.Instance.Cardmanager.BurnMaterial[RanMat];
 		//Random Material
-		Instantiate(Resources.Load("FireSpark"),this.transform.position, Quaternion.identity);
+		GameObject FS =  (GameObject)Instantiate(Resources.Load("FireSpark"),this.transform.position, Quaternion.identity);
+		FS.transform.SetParent(transform);
 		//Creat FireSpark
 		startburn = true;
 		//Burn!!!

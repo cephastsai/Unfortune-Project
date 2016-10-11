@@ -41,8 +41,9 @@ public class PlayCard : MonoBehaviour {
 					Hand.Ins.HandList.Remove(Hand.Ins.HandList.Find(x =>x == myCard));
 
 					//Skill
-					myCard.BS.UseSkill();
 					myCard.UseSkill();
+					myCard.BS.UseSkill();
+
 				}
 
 			}

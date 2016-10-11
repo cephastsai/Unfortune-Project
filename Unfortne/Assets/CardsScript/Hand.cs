@@ -129,6 +129,7 @@ public class Hand : MonoBehaviour {
 				i.HandRemove();
 				i.gameObject.AddComponent<StartBurn>().GetMat();
 				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+				break;
 			}
 		}
 	}

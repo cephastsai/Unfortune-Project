@@ -42,7 +42,7 @@ public class CardsSkill : MonoBehaviour {
 		CardsSkillList.Add(101, Nskill101);
 
 		Skill Nskill102 = new Skill(0,2,2);
-		Nskill102.skillkind = "";
+		Nskill102.skillkind = "HandRemove_100";
 		CardsSkillList.Add(102, Nskill102);
 
 	}
