@@ -100,7 +100,8 @@ public class Card : MonoBehaviour {
 
 	public void HandRemove(){
 		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-			new Vector3(transform.localPosition.x, transform.localPosition.y+30f)
+			new Vector3(transform.localPosition.x, transform.localPosition.y+30f),
+			2f
 		);
 	}
 
@@ -127,5 +128,5 @@ public class Card : MonoBehaviour {
 	public void SetCardSprtingOrder(Card i){
 		i.GetComponent<SpriteRenderer>().sortingOrder =Hand.Ins.HandList.FindIndex(x=> x ==i);
 		transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder =Hand.Ins.HandList.FindIndex(x=> x ==i);
-	}
+	}		
 }

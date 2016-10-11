@@ -57,7 +57,21 @@ public class Hand : MonoBehaviour {
 			// login hand list and position
 			foreach(Card i in HandList){
 				//position
-				i.transform.localPosition = SetHandCardPosition(i);
+
+				//i.transform.localPosition = SetHandCardPosition(i);
+				if(i.GetComponent<GameObjectMoving>() != null){
+					i.GetComponent<GameObjectMoving>().SetTergetPostion(
+						SetHandCardPosition(i),
+						5f
+					);
+				}else{
+					i.gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+						SetHandCardPosition(i),
+						5f
+					);
+				}
+				
+
 				i.transform.localRotation = Quaternion.Euler(0,0,0);
 				i.SetCardSprtingOrder(i);
 
@@ -69,7 +83,14 @@ public class Hand : MonoBehaviour {
 				if(i.GetComponent<Browsing>() == null){
 					i.gameObject.AddComponent<Browsing>();
 				}
+
+				if(i.GetComponent<CardCanPlay>() == null){
+					i.gameObject.AddComponent<CardCanPlay>().init();
+				}
+
+				i.GetComponent<CardCanPlay>().Cardposition = SetHandCardPosition(i);
 			}
+				
 
 			HandCardNumber = HandList.Count;
 			Reservations = HandList.Count;

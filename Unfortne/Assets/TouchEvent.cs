@@ -8,9 +8,11 @@ public class TouchEvent : MonoBehaviour {
 	public event MyTEMD_Object TEDObjectCR;
 	public event MyTEMD_Object TEDObjectHL;
 	public event MyTEMD_Object TEDObjectHR;
+	public event MyTEMD_Object TEDObjectHit;
 
 	public delegate void MyTEMD_Screen(Vector3 target);
 	public event MyTEMD_Screen TEDScreen;
+
 
 	void Update(){	
 		
@@ -106,6 +108,23 @@ public class TouchEvent : MonoBehaviour {
 		}else if(Input.GetMouseButtonUp(1)){
 			if(TEDObjectHR != null){						
 				TEDObjectHR(null);	
+			}
+		}
+
+
+		if(Hand.Ins.isCardsCanPlay){
+			
+			Ray touchray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+
+			if(Physics.Raycast(touchray, out hit)){	
+				if(TEDObjectHit != null){
+					TEDObjectHit(hit.transform);
+				}
+			}else{
+				if(TEDObjectHit != null){
+					TEDObjectHit(null);
+				}
 			}
 		}
 

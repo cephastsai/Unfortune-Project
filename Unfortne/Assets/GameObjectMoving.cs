@@ -3,12 +3,13 @@ using System.Collections;
 
 public class GameObjectMoving : MonoBehaviour {
 
-	public float speed = 3;
+	public float Speed = 10;
 	private Vector3 TargetPosition;
 
 
-	public void SetTergetPostion(Vector3 target){
+	public void SetTergetPostion(Vector3 target, float speed){
 		TargetPosition = target;
+		Speed = speed;
 	}
 
 	//update
@@ -19,7 +20,7 @@ public class GameObjectMoving : MonoBehaviour {
 		}
 
 		//speed -=0.1f;
-		transform.localPosition = Vector3.MoveTowards(transform.localPosition,TargetPosition, speed);
+		transform.localPosition = Vector3.MoveTowards(transform.localPosition,TargetPosition, Speed);
 	}
 
 }

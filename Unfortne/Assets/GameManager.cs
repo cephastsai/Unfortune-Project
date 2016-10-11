@@ -48,4 +48,10 @@ public class GameManager : MonoBehaviour {
 
 		GameMainSection = GameSection.Story;
 	}
+
+
+	public void SetGameSection(){
+
+
+	}
 }
