@@ -14,7 +14,6 @@ public class Browsing : MonoBehaviour {
 		Maincamera = GameObject.Find ("Main Camera");
 		Camera camera = Maincamera.GetComponent<Camera>();
 		//touch list
-		GameManager.Instance.TE.TEDObjectCR += CreateBigCard;
 		GameManager.Instance.TE.TEDObjectHR += BrowsingCard;
 	}
 
@@ -23,14 +22,15 @@ public class Browsing : MonoBehaviour {
 	}
 
 	public void CreateBigCard(Transform target){		
-		if(target == transform){			
+		if(target == transform){	
+			/*
 			BigCard = Instantiate(gameObject);
 			Destroy(BigCard.GetComponent<Browsing>());
 			BigCard.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			PreviewPoint = new Vector3 (BigCard.transform.position.x, BigCard.transform.position.y, 0);
 			BigCard.transform.localScale = new Vector3 (3, 3, 1);
 			BigCard.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
-			BigCard.transform.position = PreviewPoint;
+			BigCard.transform.position = PreviewPoint;*/
 
 			//print(BigCard.GetComponent<SpriteRenderer>().bounds.size.x);
 		}
@@ -38,19 +38,10 @@ public class Browsing : MonoBehaviour {
 
 
 	public void BrowsingCard(Transform target){
-		if (target == transform) {
-			if(BigCard != null)
-			{				
-				PreviewPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				PreviewPoint = new Vector3 (PreviewPoint.x, PreviewPoint.y, 0f);
-				BigCard.transform.position = PreviewPoint;
-			}
-
-		}else if(target == null){
-			if (BigCard != null)
-			{
-				Destroy (BigCard);
-			}
+		if (target == transform){			
+			GameManager.Instance.Cardmanager.BM.setcard(myCard);
+		}else{			
+			GameManager.Instance.Cardmanager.BM.removecard(myCard);
 		}
 	}
 

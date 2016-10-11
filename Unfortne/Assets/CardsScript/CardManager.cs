@@ -10,13 +10,18 @@ public class CardManager : MonoBehaviour {
 		Deck, Hand, Deadwood, Table,
 		Drawing, BacktoDeck, Playing, Shuffle,
 		Discard_H, Discard_T, Discard_D,
-		Remove
+		HandRemove, DeckRemove,
+		//MainSection
+		PlayingSKill, EndingTurn
 	};
 
 	//Class
 	public class MainSection{
 		public cardSection MSection = cardSection.nil;
 		public List<Card> CheckLsit = new List<Card>();
+
+		//Operator
+		public int cardkind;
 
 		public MainSection(cardSection sec){
 			MSection = sec;
@@ -27,9 +32,9 @@ public class CardManager : MonoBehaviour {
 	public Queue<CardManager.MainSection> MainSectionQue = new Queue<CardManager.MainSection>();
 	public CardManager.MainSection MainSec;
 	public bool isMainSectionOver = true;
+	public cardSection MainSecShow;
 
 	//testing
-	public GameObject testingcard;
 
 	//CardList
 	public List<Card> CardList = new List<Card>();
@@ -42,6 +47,11 @@ public class CardManager : MonoBehaviour {
 	//Turn
 	public ThisTurn TTurn;
 
+	//Manager
+	public BrowsingManager BM;
+
+	public Material[] BurnMaterial;
+
 	//Card Place
 	//public GameObject Deck;
 	//public GameObject Hand;
@@ -50,6 +60,7 @@ public class CardManager : MonoBehaviour {
 		//init
 		CardsS = GetComponent<CardsSkill>();
 		CardsS.init();
+		BM = GetComponent<BrowsingManager>();
 
 		for(int i=0; i<4;i++){
 			CreateCard(100);
@@ -67,6 +78,7 @@ public class CardManager : MonoBehaviour {
 		if(isMainSectionOver && MainSectionQue.Count >0){
 			//print(MainSectionQue.Peek().MSection);
 			MainSec = MainSectionQue.Peek();
+			MainSecShow = MainSec.MSection;
 			SectionStart();
 			isMainSectionOver = false;
 		}
@@ -79,9 +91,11 @@ public class CardManager : MonoBehaviour {
 				}
 			}
 
-			if(tempflag || MainSec.CheckLsit.Count ==0){
+			if(tempflag || MainSec.CheckLsit.Count ==0){				
 				MainSectionQue.Dequeue();
 				isMainSectionOver = true;
+				MainSec.MSection = cardSection.nil;
+				MainSecShow = MainSec.MSection;
 			}
 		}			
 	}
@@ -99,6 +113,12 @@ public class CardManager : MonoBehaviour {
 			break;
 		case cardSection.Shuffle:
 			Deadwood.Ins.Shuffling(MainSec);
+			break;
+		case cardSection.HandRemove:
+			Hand.Ins.HandRemove(MainSec);
+			break;
+		case cardSection.EndingTurn:
+			TTurn.EndofTheTurn();
 			break;
 		}
 	}
@@ -123,6 +143,12 @@ public class CardManager : MonoBehaviour {
 	public void AddMainQue(cardSection sec){
 		CardManager.MainSection NSection = new CardManager.MainSection(sec);
 		MainSectionQue.Enqueue(NSection);
+	}
+
+	public void AddMainQue(cardSection sec, int Cardkind){
+		CardManager.MainSection NSection = new CardManager.MainSection(sec);
+		MainSectionQue.Enqueue(NSection);
+		NSection.cardkind = Cardkind;
 	}
 
 	public GameObject GetCardsObject(int Cardkind){

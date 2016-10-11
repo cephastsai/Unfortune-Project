@@ -32,7 +32,7 @@ public class Hand : MonoBehaviour {
 
 	// UI Variable
 	private float Spacing = 10f;
-	private float Depth = -0.05f;
+	private float Depth = -0.1f;
 	public int HandCardNumber = 0;
 	private int Reservations = 0;
 
@@ -46,7 +46,7 @@ public class Hand : MonoBehaviour {
 			);
 	}
 
-	public Vector3 SetHandCardPosition(Card i){			
+	public Vector3 SetHandCardPosition(Card i){
 		return 
 			new Vector3(Spacing*(HandList.FindIndex(x=> x ==i)), 0f, Depth*(HandList.FindIndex(x=> x ==i)));
 	}
@@ -58,6 +58,8 @@ public class Hand : MonoBehaviour {
 			foreach(Card i in HandList){
 				//position
 				i.transform.localPosition = SetHandCardPosition(i);
+				i.transform.localRotation = Quaternion.Euler(0,0,0);
+				i.SetCardSprtingOrder(i);
 
 				//component
 				if(i.GetComponent<PlayCard>() == null){
@@ -79,6 +81,10 @@ public class Hand : MonoBehaviour {
 		}else{
 			isCardsCanPlay = true;
 		}
+		/*
+		if(Table.Ins.ActionNumber ==0){
+			isCardsCanPlay = false;
+		}*/
 	}
 
 	public void Discard_H_All(CardManager.MainSection Tsec){				
@@ -89,5 +95,20 @@ public class Hand : MonoBehaviour {
 			i.Discard();
 		}
 		HandList.Clear();
+	}
+
+	public void HandRemove(CardManager.MainSection Tsec){
+		foreach(Card i in Hand.Ins.HandList){
+			if(i.CardKind == 100){
+				HandList.Remove(i);
+				GameManager.Instance.Cardmanager.CardList.Remove(i);
+				i.isSectionOver = false;
+				Tsec.CheckLsit.Add(i);
+				i.Place = CardManager.cardSection.HandRemove;
+				i.HandRemove();
+				i.gameObject.AddComponent<StartBurn>().GetMat();
+				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+			}
+		}
 	}
 }

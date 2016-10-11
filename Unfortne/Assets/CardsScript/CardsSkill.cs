@@ -11,7 +11,9 @@ public class CardsSkill : MonoBehaviour {
 		public int cards = 0;
 
 		//Card Skill
+		public bool isEndingSkill = false;
 		public string skillkind = "";
+
 
 		public Skill(int act, int att, int car){
 			action = act;
@@ -23,11 +25,16 @@ public class CardsSkill : MonoBehaviour {
 	//Cards Skill List 
 	public Dictionary<int, Skill> CardsSkillList = new Dictionary<int, Skill>();
 
+	//EndingSkill
+	public delegate void SKillD();
+	public SKillD EndingSkill;
+
 	public void init(){
 		
 		//testing cards
-		Skill Nskill100 = new Skill(2,1,1);
-		Nskill100.skillkind = "";
+		Skill Nskill100 = new Skill(2,1,0);
+		Nskill100.isEndingSkill = true;
+		Nskill100.skillkind = "Hunger";
 		CardsSkillList.Add(100, Nskill100);
 
 		Skill Nskill101 = new Skill(1,0,1);
@@ -42,15 +49,34 @@ public class CardsSkill : MonoBehaviour {
 
 
 	public void UseCardSkill(Card i){
-
+		
 		if(CardsSkillList[i.CardKind].skillkind == ""){
-			
+			i.SectionOver();
 		}else{
 			Invoke(CardsSkillList[i.CardKind].skillkind, 0f);
+			i.SectionOver();
 		}			
 	}
 
+	public void TurnEndingSkill(){
+		
+	}
+
+
+
+
+
+	//Cards Skill Function
+
 	private void PlusInitCard(){
 		GameManager.Instance.Cardmanager.TTurn.initCards +=1;
+	}
+
+	private void HandRemove_100(){
+		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.HandRemove,100);
+	}
+
+	private void Hunger(){
+		
 	}
 }

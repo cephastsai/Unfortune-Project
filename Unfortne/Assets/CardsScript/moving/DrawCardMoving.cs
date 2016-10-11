@@ -13,7 +13,7 @@ public class DrawCardMoving : MonoBehaviour {
 		if (StartM) 
 		{
 			TargetDistance = Vector2.Distance (transform.localPosition, Target);
-			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/3);
+			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/4);
 			if (TargetDistance <= 0.1f)
 			{
 				GetComponent<Card>().SectionOver();

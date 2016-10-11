@@ -26,6 +26,12 @@ public class PlayCard : MonoBehaviour {
 				if(Table.Ins.ActionNumber >0){
 					//playing
 					myCard.Place = CardManager.cardSection.Playing;
+
+					//set Main section
+					GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Playing);
+					myCard.isSectionOver = false;
+					GameManager.Instance.Cardmanager.MainSec.CheckLsit.Add(myCard);
+
 					transform.SetParent(Table.Ins.transform);
 					gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
 						Table.Ins.GetTableCardposition(myCard)

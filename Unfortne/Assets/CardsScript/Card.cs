@@ -36,7 +36,7 @@ public class Card : MonoBehaviour {
 	}		
 
 	public void CardsUp(bool isCardUp){//isCardUp -> true:Up,false:Back
-		if(isCardUp && transform.localRotation.y != 0){			
+		if(isCardUp && transform.localRotation.y != 0){	
 			transform.localRotation = Quaternion.Euler(0,0,0);
 		}else if(!isCardUp && transform.localRotation.y != 180){
 			transform.localRotation = Quaternion.Euler(0,180,0);
@@ -92,10 +92,16 @@ public class Card : MonoBehaviour {
 
 	public void Shuffle(int num){
 		transform.SetParent(Deck.Ins.transform);
-		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+		gameObject.AddComponent<ShuffleMoving>().ReadyToShuffle(
 			Deadwood.Ins.GetDeadwoodCardPosition()
 		);
-		CardsUp(false);
+		//CardsUp(false);
+	}
+
+	public void HandRemove(){
+		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+			new Vector3(transform.localPosition.x, transform.localPosition.y+30f)
+		);
 	}
 
 	void SkillSetting(){
@@ -116,5 +122,10 @@ public class Card : MonoBehaviour {
 	public void SetCardSortingLayer(string SLname){
 		GetComponent<SpriteRenderer>().sortingLayerName =SLname;
 		transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName =SLname;
+	}
+
+	public void SetCardSprtingOrder(Card i){
+		i.GetComponent<SpriteRenderer>().sortingOrder =Hand.Ins.HandList.FindIndex(x=> x ==i);
+		transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder =Hand.Ins.HandList.FindIndex(x=> x ==i);
 	}
 }

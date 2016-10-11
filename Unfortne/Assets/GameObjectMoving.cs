@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameObjectMoving : MonoBehaviour {
 
-	public float speed = 10;
+	public float speed = 3;
 	private Vector3 TargetPosition;
 
 
@@ -18,7 +18,7 @@ public class GameObjectMoving : MonoBehaviour {
 			Destroy(this);
 		}
 
-		//speed +=0.1f;
+		//speed -=0.1f;
 		transform.localPosition = Vector3.MoveTowards(transform.localPosition,TargetPosition, speed);
 	}
 

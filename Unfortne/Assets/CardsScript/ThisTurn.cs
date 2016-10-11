@@ -17,7 +17,6 @@ public class ThisTurn : MonoBehaviour {
 	//Next Turn
 	public int initCards = 5;
 
-
 	public void EndofTheTurn(){
 		//discard
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Discard_H);
@@ -33,7 +32,7 @@ public class ThisTurn : MonoBehaviour {
 		//Ending
 		GameManager.Instance.Cardmanager.TTurn =  gameObject.AddComponent<ThisTurn>();
 		Destroy(this);
-	}
+	}		
 
 
 }
