@@ -29,10 +29,11 @@ public class StartBurn : MonoBehaviour {
 			//Burning
 		}
 		if(SliceNum>1)
-		{
+		{			
 			startburn = false;
 			SliceNum = 0;
 			//Go back when it finish
+			Destroy(gameObject);
 		}
 
 	}
