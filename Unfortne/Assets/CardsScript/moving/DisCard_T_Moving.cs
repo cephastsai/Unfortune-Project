@@ -25,6 +25,8 @@ public class DisCard_T_Moving : MonoBehaviour {
 			if (TargetDistance <= 0.1f)
 			{
 				StartM = false;
+				GetComponent<Card>().SectionOver();
+				Destroy(this);
 			}	
 		}
 		//Move

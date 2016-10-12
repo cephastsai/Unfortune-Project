@@ -87,6 +87,7 @@ public class CardManager : MonoBehaviour {
 			bool tempflag = true;
 			foreach(Card i in MainSec.CheckLsit){
 				if(!i.isSectionOver){
+					print(i.ID);
 					tempflag = false;
 				}
 			}
