@@ -33,9 +33,8 @@ public class PlayCard : MonoBehaviour {
 					GameManager.Instance.Cardmanager.MainSec.CheckLsit.Add(myCard);
 
 					transform.SetParent(Table.Ins.transform);
-					gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-						Table.Ins.GetTableCardposition(myCard),
-						7f
+					gameObject.AddComponent<PlayingMoving>().ReadyToPlay(
+						Table.Ins.GetTableCardposition(myCard)					
 					);
 
 					Hand.Ins.HandList.Remove(Hand.Ins.HandList.Find(x =>x == myCard));

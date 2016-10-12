@@ -83,9 +83,16 @@ public class Card : MonoBehaviour {
 		//CardsUp(true);
 	}
 
-	public void Discard(){
+	public void Discard_H(){
 		transform.SetParent(Deadwood.Ins.transform);
 		gameObject.AddComponent<DisCardMoving>().ReadyToDisCard_H(
+			Deadwood.Ins.GetDeadwoodCardPosition()
+		);
+	}
+
+	public void Discard_T(){
+		transform.SetParent(Deadwood.Ins.transform);
+		gameObject.AddComponent<DisCard_T_Moving>().ReadyToDisCard_T(
 			Deadwood.Ins.GetDeadwoodCardPosition()
 		);
 	}
@@ -100,9 +107,12 @@ public class Card : MonoBehaviour {
 
 	public void HandRemove(){
 		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-			new Vector3(transform.localPosition.x, transform.localPosition.y+20f),
-			1f
+			new Vector3(transform.localPosition.x, transform.localPosition.y+20f, transform.localPosition.z-5f),
+			0.1f
 		);
+		//gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Browsing";
+		//SetCardSortingLayer("Browsing");
+		//transform.position += new Vector3(0, 0, -5);
 	}
 
 	void SkillSetting(){

@@ -113,7 +113,7 @@ public class Hand : MonoBehaviour {
 			i.isSectionOver = false;
 			Tsec.CheckLsit.Add(i);
 			i.Place = CardManager.cardSection.Discard_H;
-			i.Discard();
+			i.Discard_H();
 		}
 		HandList.Clear();
 	}
