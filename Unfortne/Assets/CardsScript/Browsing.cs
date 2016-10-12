@@ -19,6 +19,9 @@ public class Browsing : MonoBehaviour {
 
 	void Update () {
 		//destory self
+		if(myCard.Place != CardManager.cardSection.Hand || myCard.Place != CardManager.cardSection.Table){
+			Destroy(this);
+		}
 	}
 
 	public void CreateBigCard(Transform target){		
