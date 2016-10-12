@@ -93,7 +93,7 @@ public class CardManager : MonoBehaviour {
 			}
 
 			if(tempflag || MainSec.CheckLsit.Count ==0){				
-				MainSectionQue.Dequeue();
+				MainSectionQue.Dequeue();				
 				isMainSectionOver = true;
 				MainSec.MSection = cardSection.nil;
 				MainSecShow = MainSec.MSection;

@@ -55,7 +55,10 @@ public class Deck : MonoBehaviour {
 
 	public void Drawing(CardManager.MainSection Tsec){		
 									
-		if(DeckList.Count == 0){
+		if(DeckList.Count +Deadwood.Ins.DeadwoodList.Count ==0){
+			print("0000");
+			GameManager.Instance.Cardmanager.MainSectionQue.Dequeue();
+		}else if(DeckList.Count == 0){
 			Tsec.MSection = CardManager.cardSection.Shuffle;
 			GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
 			GameManager.Instance.Cardmanager.SectionStart();

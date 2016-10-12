@@ -4,7 +4,9 @@ using System.Collections;
 public class testingButton : MonoBehaviour {
 
 	public void DrwaingButton(){
-		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
+		if(Deck.Ins.DeckList.Count +Deadwood.Ins.DeadwoodList.Count !=0){
+			GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
+		}
 	}
 
 	public void Discard_H(){
