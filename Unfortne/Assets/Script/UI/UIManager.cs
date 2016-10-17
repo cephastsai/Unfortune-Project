@@ -8,14 +8,14 @@ public class UIManager : MonoBehaviour {
 	public float K = 20;
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < transform.GetChild(0).childCount; i++) 
+		for (int i = 0; i < transform.childCount; i++) 
 		{
-			transform.GetChild(0).GetChild (i).gameObject.AddComponent<UIAnimation>().Init (
-				transform.GetChild(0).GetChild(i).position,
-				transform.GetChild(0).GetChild(i).position+transform.GetChild(0).GetChild(i).GetChild(0).localPosition,
+			transform.GetChild (i).gameObject.AddComponent<UIAnimation>().Init (
+				transform.GetChild(i).position,
+				transform.GetChild(i).position+transform.GetChild(i).GetChild(0).localPosition,
 				K
 			);
-			UIList.Add (transform.GetChild(0).GetChild (i).GetComponent<UIAnimation> ());
+			UIList.Add (transform.GetChild (i).GetComponent<UIAnimation> ());
 			//transform.GetChild (i).gameObject.SetActive (false);		
 		}
 
@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour {
 	void Update () {
 		//a.ToEndPoint ();
 	}
+
 	public void MapToStory()
 	{
 		foreach (UIAnimation i in UIList) 
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
+
 	public void StoryToFight()
 	{
 		foreach(UIAnimation i in UIList)
@@ -77,6 +79,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}		
 	}
+
 	public void FightToMap()
 	{
 		foreach(UIAnimation i in UIList)
@@ -109,6 +112,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}		
 	}
+
 	public void MapToFight()
 	{
 		foreach(UIAnimation i in UIList)
@@ -141,6 +145,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}		
 	}
+
 	public void FightToMemory()
 	{
 		foreach (UIAnimation i in UIList) 
@@ -159,6 +164,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
+
 	public void MemoryBack()
 	{
 		foreach (UIAnimation i in UIList) 

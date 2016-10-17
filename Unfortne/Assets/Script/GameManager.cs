@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour {
 
 	//Manager
 	public CardManager Cardmanager;
+	public MapManager Mapmanager;
 	public TouchEvent TE;
+	public UIManager UImanager;
 
 	public enum GameSection{
 		Map,
@@ -44,14 +46,34 @@ public class GameManager : MonoBehaviour {
 		//Manager setting
 		Cardmanager = GameObject.Find("CardManager").GetComponent<CardManager>();
 
+		Mapmanager = GameObject.Find("MapManager").GetComponent<MapManager>();
+		Mapmanager.init();
+
 		TE = GameObject.Find("TouchManager").GetComponent<TouchEvent>();
 
-		GameMainSection = GameSection.Story;
+		UImanager = GameObject.Find("UIManager").GetComponent<UIManager>();
+
+		GameMainSection = GameSection.Map;
+
+		SetGameSection(GameSection.Map);
 	}
 
 
-	public void SetGameSection(){
+	public void SetGameSection(GameSection GS){
 
+		switch(GS){
+		case GameSection.Map:
+			Mapmanager.SetStoryPiont();
+
+			break;
+		case GameSection.Story:
+			//set UI
+			UImanager.MapToStory();
+
+			break;
+		case GameSection.Cards:
+			break;
+		}
 
 	}
 }

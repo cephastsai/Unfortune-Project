@@ -5,14 +5,14 @@ public class UIAnimation : MonoBehaviour {
 
 	public Vector3 SelfPosition;
 	public Vector3 ChildPosition;
-	public bool ToChild = false;
-	public bool ToSelf = false;
-	public bool BlurPlus = false;
-	public bool BlurDec = false;
-	public bool FadeIn = false;
-	public bool BlackFadeIn = false;
-	public bool FadeOut = false;
-	public bool BlackFadeOut = false;
+	private bool ToChild = false;
+	private bool ToSelf = false;
+	private bool BlurPlus = false;
+	private bool BlurDec = false;
+	private bool FadeIn = false;
+	private bool BlackFadeIn = false;
+	private bool FadeOut = false;
+	private bool BlackFadeOut = false;
 	public float MoveDistance;
 	public float BlurAmount;
 	private float a = 0;

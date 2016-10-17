@@ -70,7 +70,7 @@ public class CardManager : MonoBehaviour {
 
 		//Turn Start
 		TTurn =  gameObject.AddComponent<ThisTurn>();
-		Deck.Ins.DrawCards(5);
+		//Deck.Ins.DrawCards(5);
 	}
 
 	void Update(){
