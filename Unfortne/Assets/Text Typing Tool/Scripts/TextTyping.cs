@@ -21,7 +21,7 @@ public class TextTyping : BaseMeshEffect
 	private int speedTyping;
 
 	private string textLabel;
-	private bool endTyping;
+	public bool endTyping;
 
 	void Awake()
 	{

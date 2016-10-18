@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour {
 	void Start () {
 		for (int i = 0; i < transform.childCount; i++) 
 		{
-			transform.GetChild (i).gameObject.AddComponent<UIAnimation>().Init (
+			transform.GetChild(i).gameObject.AddComponent<UIAnimation>().Init (
 				transform.GetChild(i).position,
 				transform.GetChild(i).position+transform.GetChild(i).GetChild(0).localPosition,
 				K
@@ -25,15 +25,17 @@ public class UIManager : MonoBehaviour {
 	void Update () {
 		//a.ToEndPoint ();
 	}
-
 	public void MapToStory()
 	{
 		foreach (UIAnimation i in UIList) 
 		{
 			switch (i.gameObject.name)
-			{		
-			case "Map":
-				i.MapBlurPlus ();
+			{
+			case "BlurMask":
+				i.MaskBlurPlus ();
+				break;
+			case "BG":
+				i.StartBGFadeIn ();
 				break;
 			case "LOG":
 				i.ToSelfPoint ();
@@ -45,7 +47,6 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
-
 	public void StoryToFight()
 	{
 		foreach(UIAnimation i in UIList)
@@ -79,7 +80,6 @@ public class UIManager : MonoBehaviour {
 			}
 		}		
 	}
-
 	public void FightToMap()
 	{
 		foreach(UIAnimation i in UIList)
@@ -106,13 +106,15 @@ public class UIManager : MonoBehaviour {
 				i.ToChildPoint ();
 				i.StartFadeOut ();
 				break;
-			case "Map":
-				i.MapBlurDec ();
+			case "BlurMask":
+				i.MaskBlurDec ();
+				break;
+			case "BG":
+				i.StartBGFadeOut ();
 				break;
 			}
 		}		
 	}
-
 	public void MapToFight()
 	{
 		foreach(UIAnimation i in UIList)
@@ -139,13 +141,15 @@ public class UIManager : MonoBehaviour {
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
 				break;
-			case "Map":
-				i.MapBlurPlus ();
+			case "BlurMask":
+				i.MaskBlurPlus ();
+				break;
+			case "BG":
+				i.StartBGFadeIn ();
 				break;
 			}
 		}		
 	}
-
 	public void FightToMemory()
 	{
 		foreach (UIAnimation i in UIList) 
@@ -164,7 +168,6 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
-
 	public void MemoryBack()
 	{
 		foreach (UIAnimation i in UIList) 

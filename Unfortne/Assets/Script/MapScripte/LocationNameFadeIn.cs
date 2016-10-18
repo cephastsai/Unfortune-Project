@@ -18,8 +18,9 @@ public class LocationNameFadeIn : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a += 2.5f * Time.deltaTime;
 		}
-		if (a >= 1) 
-		{
+
+		if (a >= 1 && FadeIn) 
+		{			
 			FadeIn = false;
 		}//FadeIn
 

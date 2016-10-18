@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
 	public MapManager Mapmanager;
 	public TouchEvent TE;
 	public UIManager UImanager;
+	public StoryManager Storymanager;
 
 	public enum GameSection{
 		Map,
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour {
 
 		UImanager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
+		Storymanager = GameObject.Find("StoryManager").GetComponent<StoryManager>();
+
 		GameMainSection = GameSection.Map;
 
 		SetGameSection(GameSection.Map);
@@ -72,6 +75,8 @@ public class GameManager : MonoBehaviour {
 
 			break;
 		case GameSection.Cards:
+			UImanager.StoryToFight();
+
 			break;
 		}
 

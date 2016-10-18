@@ -13,8 +13,10 @@ public class UIAnimation : MonoBehaviour {
 	private bool BlackFadeIn = false;
 	private bool FadeOut = false;
 	private bool BlackFadeOut = false;
-	public float MoveDistance;
-	public float BlurAmount;
+	private bool BGFadeIn = false;
+	private bool BGFadeOut = false;
+	private float MoveDistance;
+	private float BlurAmount;
 	private float a = 0;
 	public float K;
 	Renderer rend;
@@ -45,17 +47,17 @@ public class UIAnimation : MonoBehaviour {
 		ToSelf = true;
 	}
 
-	public void MapBlurPlus()
+	public void MaskBlurPlus()
 	{
 		rend = GetComponent<Renderer> ();
 		BlurAmount = 0;
 		BlurPlus = true;
 	}
 
-	public void MapBlurDec()
+	public void MaskBlurDec()
 	{
 		rend = GetComponent<Renderer> ();
-		BlurAmount = 13;
+		BlurAmount = 3.5f;
 		BlurDec = true;
 	}
 
@@ -80,7 +82,16 @@ public class UIAnimation : MonoBehaviour {
 	public void StartBlackFadeOut()
 	{
 		BlackFadeOut = true;
+	}
 
+	public void StartBGFadeIn()
+	{
+		BGFadeIn = true;
+	}
+
+	public void StartBGFadeOut()
+	{
+		BGFadeOut = true;
 	}
 
 	void Update () 
@@ -108,18 +119,18 @@ public class UIAnimation : MonoBehaviour {
 		//Go to SelfPoint
 		if (BlurPlus) 
 		{
-			BlurAmount += 13f * Time.deltaTime;
-			this.GetComponent<Renderer> ().material.SetFloat ("_Amount", BlurAmount);
+			BlurAmount += 3.5f * Time.deltaTime;
+			this.GetComponent<Renderer> ().material.SetFloat ("_blurSizeXY", BlurAmount);
 		}
-		if (BlurAmount >= 13) 
+		if (BlurAmount >= 3.5f) 
 		{
 			BlurPlus = false;
 		}//Blur++
 
 		if (BlurDec) 
 		{
-			BlurAmount -= 13f * Time.deltaTime;
-			this.GetComponent<Renderer> ().material.SetFloat ("_Amount", BlurAmount);
+			BlurAmount -= 3.5f * Time.deltaTime;
+			this.GetComponent<Renderer> ().material.SetFloat ("_blurSizeXY", BlurAmount);
 		}
 		if (BlurAmount <= 0) 
 		{
@@ -166,6 +177,25 @@ public class UIAnimation : MonoBehaviour {
 			BlackFadeOut = false;
 		}//Black fade Out
 
+		if (BGFadeIn) 
+		{
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
+			a += 2.5f * Time.deltaTime;
+		}
+		if (a >= 0.7f) 
+		{
+			BGFadeIn = false;
+			a = 0.7f;
+		}//BG Fade In
 
+		if (BGFadeOut) 
+		{
+			a -= 2.5f * Time.deltaTime;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
+		}
+		if (a <= 0) 
+		{
+			BGFadeOut = false;
+		}//BG Fade Out
 	}
 }

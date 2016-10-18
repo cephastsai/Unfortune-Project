@@ -15,6 +15,8 @@ public class MapMove : MonoBehaviour {
 			if (TargetDistance <= 0.1f)
 			{
 				StartM = false;
+				GameManager.Instance.Mapmanager.StartOption();
+
 			}	
 		}
 		//Move

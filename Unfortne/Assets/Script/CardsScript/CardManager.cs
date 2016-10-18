@@ -62,6 +62,9 @@ public class CardManager : MonoBehaviour {
 		CardsS.init();
 		BM = GetComponent<BrowsingManager>();
 
+		//set position
+
+
 		for(int i=0; i<4;i++){
 			CreateCard(100);
 			CreateCard(101);
@@ -160,6 +163,14 @@ public class CardManager : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+
+	public void CardUIIN(){
+		
+	}
+
+	public void CardUIExit(){
+		
 	}
 
 }

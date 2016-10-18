@@ -14,6 +14,12 @@ public class StoryManager : MonoBehaviour {
 
 	}
 
+	public void StoryTextTyping(string Info){
+		StoryText.text = Info;
+		StoryText.gameObject.GetComponent<TextTyping>().SetText();
+	}
+
+	//testing
 	public void SetTextInfo(string Info){
 		StoryText.text = Info;
 	}
