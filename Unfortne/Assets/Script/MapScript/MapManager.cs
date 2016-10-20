@@ -117,7 +117,8 @@ public class MapManager : MonoBehaviour {
 			//Instantiate(Resources.Load("Prifabs/Knife"));
 			GameObject Npiont = (GameObject)Instantiate(Resources.Load("Prifabs/Knife"), MainST.GetChild(i).data.SPposition, Quaternion.identity);
 			Npiont.AddComponent<MapStoryPiont>().init(MainST.GetChild(i).data.SPName);
-			Npiont.gameObject.name = "StoryPiont"+i;	
+			Npiont.gameObject.name = "StoryPiont"+i;
+			Npiont.GetComponent<SpriteRenderer>().sortingOrder = -7;
 		}
 	}
 
