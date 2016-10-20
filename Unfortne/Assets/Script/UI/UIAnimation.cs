@@ -154,6 +154,7 @@ public class UIAnimation : MonoBehaviour {
 		}
 		if (a <= 0) 
 		{
+			a =0;
 			FadeOut = false;
 		}//Fade Out
 

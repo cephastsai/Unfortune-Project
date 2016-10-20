@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Select : MonoBehaviour {
 
 	public List<Card> SelectList = new List<Card>();
 	public int SelectNumber = 0;
+	private int _SN;
 	public bool[] choseCard = new bool[20];
 
-	public float constantX = 1.5f;
+	public float constantX = 2f;
 
 	public GameObject Button;
+	public GameObject ChoseLock;
+	public Text SelectInfo;
 
 	public void init(List<int> CardID, int num){
 
@@ -19,13 +23,16 @@ public class Select : MonoBehaviour {
 		}
 
 		SelectNumber = num;
+		_SN = SelectNumber;
+		SelectInfo.text ="0/"+_SN;
 
 		for(int j=0; j<20; j++){
 			choseCard[j] = false;
-		}
+		}		
 
 		//click
 		GameManager.Instance.TE.TEDObjectCL += SelectCard;
+		GameManager.Instance.TE.TEDObjectHit += SelectCardHit;
 	}
 
 	public void AddList(Card selectCard){
@@ -43,10 +50,18 @@ public class Select : MonoBehaviour {
 				if(choseCard[i]){
 					choseCard[i] =false;
 					SelectNumber++;
+
+					//no select
+					Destroy(GameObject.Find("templock"+i));
 				}else{
-					if(SelectNumber >=0){
+					if(SelectNumber >0){
 						choseCard[i] = true;
 						SelectNumber--;
+
+						//select
+						GameObject templock = Instantiate(ChoseLock);
+						templock.AddComponent<LockingFrame>().FrameLock();
+						templock.name = "templock"+i;
 					}
 				}
 
@@ -55,6 +70,8 @@ public class Select : MonoBehaviour {
 				}else{
 					Button.SetActive(true);
 				}
+
+				SelectInfo.text = (_SN-SelectNumber)+"/"+_SN;
 			}
 		}
 	}
@@ -64,8 +81,14 @@ public class Select : MonoBehaviour {
 		GameManager.Instance.Cardmanager.CardUIIN();
 		GameManager.Instance.UImanager.ChoseToFight();
 
+		SelectInfo.text = "";
+
 		for(int i =0; i<SelectList.Count; i++){
 			if(choseCard[i]){
+				//destroy lock
+				Destroy(GameObject.Find("templock"+i));
+
+				//goto deadwood
 				SelectList[i].Place = CardManager.cardSection.Deadwood;
 				SelectList[i].transform.SetParent(Deadwood.Ins.transform);
 				SelectList[i].gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
@@ -82,10 +105,32 @@ public class Select : MonoBehaviour {
 		//over setting
 		SelectList.Clear();
 		GameManager.Instance.TE.TEDObjectCL -= SelectCard;
+		GameManager.Instance.TE.TEDObjectHit -= SelectCardHit;
 		SelectNumber = 0;
 
 		for(int j=0; j<20; j++){
 			choseCard[j] = false;
+		}
+	}
+
+	public void SelectCardHit(Transform target){
+		for(int i=0; i<SelectList.Count; i++){
+			if(target == SelectList[i].transform){	
+				if(!choseCard[i]){
+					if(SelectNumber >0){
+						ChoseLock.transform.position = SelectList[i].transform.position;
+						ChoseLock.SetActive(true);
+					}
+				}else{
+					if(ChoseLock.activeSelf ==true){
+						ChoseLock.SetActive(false);
+					}
+				}
+			}
+		}
+
+		if(target == null){
+			ChoseLock.SetActive(false);
 		}
 	}
 }

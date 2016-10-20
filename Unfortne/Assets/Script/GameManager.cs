@@ -74,15 +74,16 @@ public class GameManager : MonoBehaviour {
 			UImanager.MapToStory();
 
 			break;
-		case GameSection.Cards:
-			UImanager.StoryToChose();
+		case GameSection.Cards:			
 			if(Mapmanager.MainST.data.SelectCardID.Count >0){
+				UImanager.StoryToChose();
 				Hand.Ins.isCardsCanPlay = false;
 				Cardmanager.select.init(Mapmanager.MainST.data.SelectCardID, Mapmanager.MainST.data.SelectNum);
 			}else{
+				UImanager.StoryToFight();
 				Cardmanager.CardUIIN();
 			}
-
+			Cardmanager.Status.text = Mapmanager.MainST.data.SPtitle;
 			break;
 		}
 

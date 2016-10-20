@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -53,6 +54,8 @@ public class CardManager : MonoBehaviour {
 	public BrowsingManager BM;
 	public Select select;
 
+	//stuff
+	public Text Status;
 	public Material[] BurnMaterial;
 
 	//Card Place

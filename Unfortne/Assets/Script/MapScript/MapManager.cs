@@ -10,14 +10,16 @@ public class MapManager : MonoBehaviour {
 		public Vector3 SPposition;
 		public string SPName;
 		public string SPstory;
+		public string SPtitle;
 		public List<int> OptionCardID = new List<int>();
 		public List<int> SelectCardID = new List<int>();
 		public int SelectNum;
 
-		public StoryPiont(Vector3 pos,string Name, string data){
+		public StoryPiont(Vector3 pos,string Name, string data, string title){
 			SPposition = pos;
 			SPName = Name;
 			SPstory = data;
+			SPtitle = title;
 		}
 	}
 
@@ -80,7 +82,8 @@ public class MapManager : MonoBehaviour {
 		StoryPiont Npiont1 = new StoryPiont(
 			new Vector3(-6.31f, -2.15f, 91f),
 			"黎明之時",
-			"太陽升起，復仇的計畫即將開始。\n你拿起了你的刀。\n準備前進了，你抬起頭來，卻又被巴了下去。\n\n\"把你的東西準備好，小子!\n帶你該帶的東西，沒用的東西就別帶了。\""
+			"太陽升起，復仇的計畫即將開始。\n你拿起了你的刀。\n準備前進了，你抬起頭來，卻又被巴了下去。\n\n\"把你的東西準備好，小子!\n帶你該帶的東西，沒用的東西就別帶了。\"",
+			"看來我應該要選擇我要帶什麼東西，不知道帶什麼東西比較好~"
 		);
 		Npiont1.SelectCardID.Add(102);
 		Npiont1.SelectCardID.Add(101);
@@ -92,7 +95,8 @@ public class MapManager : MonoBehaviour {
 		StoryPiont Npiont2 = new StoryPiont(
 			new Vector3(-7f, -3f, 91f),
 			"測試",
-			"太神啦"
+			"太神啦",
+			""
 		);
 		MainST.GetChild(0).AddChild(Npiont2);
 
@@ -111,8 +115,7 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
-	public void SetStoryPiont(){
-		print(MainST.GetChildCount());
+	public void SetStoryPiont(){		
 		for(int i=0; i<MainST.GetChildCount(); i++){
 			//Instantiate(Resources.Load("Prifabs/Knife"));
 			GameObject Npiont = (GameObject)Instantiate(Resources.Load("Prifabs/Knife"), MainST.GetChild(i).data.SPposition, Quaternion.identity);
