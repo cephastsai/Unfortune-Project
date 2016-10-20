@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class UIAnimation : MonoBehaviour {
@@ -18,7 +18,7 @@ public class UIAnimation : MonoBehaviour {
 	private float MoveDistance;
 	private float BlurAmount;
 	private float a = 0;
-	public float K;
+	private float K;
 	Renderer rend;
 
 	public void Init(Vector3 _SelfPosition,Vector3 _ChildPosition,float _K)

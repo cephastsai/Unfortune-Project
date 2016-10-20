@@ -69,7 +69,9 @@ public class CardsSkill : MonoBehaviour {
 		}			
 	}
 
-	public void TurnEndingSkill(){
+	public void TurnEndingSkill(){		
+		GameManager.Instance.Cardmanager.TTurn.EndofTheTurn();
+
 		//runningEndingSkill = true;
 		/*if(EndingSkill != null){
 			EndingSkill();

@@ -47,6 +47,7 @@ public class CardManager : MonoBehaviour {
 
 	//Turn
 	public ThisTurn TTurn;
+	public bool Endingflag = false;
 
 	//Manager
 	public BrowsingManager BM;
@@ -108,7 +109,18 @@ public class CardManager : MonoBehaviour {
 				MainSec.MSection = cardSection.nil;
 				MainSecShow = MainSec.MSection;
 			}
-		}			
+		}
+
+		//Ending
+
+		if(Endingflag){
+			if(MainSectionQue.Count ==0){
+				GameManager.Instance.UImanager.FightToMap();
+				CardUIExit();
+				GameManager.Instance.SetGameSection(GameManager.GameSection.Map);
+				Endingflag = false;
+			}
+		}
 	}
 
 	public void SectionStart(){

@@ -1,16 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour {
 
 	public List<UIAnimation> UIList = new List<UIAnimation>();
-	public float K = 20;
+	private float K = 20;
 	// Use this for initialization
 	void Start () {
 		for (int i = 0; i < transform.childCount; i++) 
 		{
-			transform.GetChild(i).gameObject.AddComponent<UIAnimation>().Init (
+			transform.GetChild (i).gameObject.AddComponent<UIAnimation>().Init (
 				transform.GetChild(i).position,
 				transform.GetChild(i).position+transform.GetChild(i).GetChild(0).localPosition,
 				K
@@ -73,6 +73,10 @@ public class UIManager : MonoBehaviour {
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
 				break;
+			case "Status":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
 			case "LOG":
 				i.ToChildPoint ();
 				i.StartFadeOut ();
@@ -103,6 +107,10 @@ public class UIManager : MonoBehaviour {
 				i.StartFadeOut ();
 				break;
 			case "CARDFRAME":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "Status":
 				i.ToChildPoint ();
 				i.StartFadeOut ();
 				break;
@@ -141,6 +149,10 @@ public class UIManager : MonoBehaviour {
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
 				break;
+			case "Status":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
 			case "BlurMask":
 				i.MaskBlurPlus ();
 				break;
@@ -164,6 +176,10 @@ public class UIManager : MonoBehaviour {
 				i.ToChildPoint ();
 				i.StartFadeOut ();
 				break;
+			case "Status":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
 			
 			}
 		}
@@ -178,10 +194,91 @@ public class UIManager : MonoBehaviour {
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
 				break;
+			case "Status":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
 			case "Black":
 				i.StartBlackFadeOut ();
 				break;
 			
+			}
+		}
+	}
+	public void StoryToChose()
+	{
+		foreach (UIAnimation i in UIList) 
+		{
+			switch (i.gameObject.name) 
+			{
+			case "bottom":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			case "TOP":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			case "DAY":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			case "OPTION":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			case "Status":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			case "ChoseCard":
+				i.StartFadeIn ();
+				break;
+			case "BlurMask":
+				i.MaskBlurPlus ();
+				break;
+			case "BG":
+				i.StartBGFadeIn ();
+				break;
+			case "CARDFRAME":
+				i.transform.position = i.ChildPosition;
+				break;
+			case "LOG":
+				i.ToChildPoint();
+				i.StartFadeOut();
+				break;
+			}
+		}
+	}
+	public void ChoseToFight()
+	{
+		foreach (UIAnimation i in UIList) 
+		{
+			switch (i.gameObject.name) 
+			{
+			case "ChoseCard":
+				i.StartFadeOut ();
+				break;
+			case "CARDFRAME":
+				i.ToSelfPoint ();
+				i.StartFadeIn ();
+				break;
+			}
+		}
+	}
+	public void FightToChose()
+	{
+		foreach (UIAnimation i in UIList) 
+		{
+			switch (i.gameObject.name) 
+			{
+			case "ChoseCard":
+				i.StartFadeIn ();
+				break;
+			case "CARDFRAME":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
 			}
 		}
 	}

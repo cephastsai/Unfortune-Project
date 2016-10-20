@@ -62,7 +62,7 @@ public class Hand : MonoBehaviour {
 				//position
 
 				//i.transform.localPosition = SetHandCardPosition(i);
-				if(i.GetComponent<GameObjectMoving>() != null){
+				if(i.GetComponent<GameObjectMoving>() != null){					
 					i.GetComponent<GameObjectMoving>().SetTergetPostion(
 						SetHandCardPosition(i),
 						5f

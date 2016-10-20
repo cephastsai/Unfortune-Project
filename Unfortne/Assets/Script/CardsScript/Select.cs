@@ -62,6 +62,7 @@ public class Select : MonoBehaviour {
 	public void SelectOver(){
 		Button.SetActive(false);
 		GameManager.Instance.Cardmanager.CardUIIN();
+		GameManager.Instance.UImanager.ChoseToFight();
 
 		for(int i =0; i<SelectList.Count; i++){
 			if(choseCard[i]){
@@ -71,6 +72,7 @@ public class Select : MonoBehaviour {
 					Deadwood.Ins.GetDeadwoodCardPosition(),
 					0.5f
 				);
+				Deadwood.Ins.DeadwoodList.Add(SelectList[i]);
 
 			}else{
 				GameManager.Instance.Cardmanager.PrviewCardRemove(SelectList[i]);

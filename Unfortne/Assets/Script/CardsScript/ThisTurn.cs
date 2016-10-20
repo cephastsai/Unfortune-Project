@@ -30,6 +30,7 @@ public class ThisTurn : MonoBehaviour {
 
 
 		//Ending
+		GameManager.Instance.Cardmanager.Endingflag = true;
 		GameManager.Instance.Cardmanager.TTurn =  gameObject.AddComponent<ThisTurn>();
 		Destroy(this);
 	}		

@@ -5,7 +5,8 @@ public class testingButton : MonoBehaviour {
 
 	public void DrwaingButton(){
 		if(Deck.Ins.DeckList.Count +Deadwood.Ins.DeadwoodList.Count !=0){
-			GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
+			Deck.Ins.DrawCards(1);	
+		//GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Drawing);
 		}
 	}
 

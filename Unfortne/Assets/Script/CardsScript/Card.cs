@@ -84,7 +84,7 @@ public class Card : MonoBehaviour {
 		}
 	}
 
-	public void Drawing(){
+	public void Drawing(){		
 		transform.SetParent(Hand.Ins.transform);
 		gameObject.AddComponent<DrawCardMoving>().ReadyToDrawing(
 			Hand.Ins.GetHandCardPosition(this)
@@ -93,6 +93,9 @@ public class Card : MonoBehaviour {
 	}
 
 	public void Discard_H(){
+		if(GetComponent<GameObjectMoving>() !=null){
+			Destroy(GetComponent<GameObjectMoving>());
+		}	
 		transform.SetParent(Deadwood.Ins.transform);
 		gameObject.AddComponent<DisCardMoving>().ReadyToDisCard_H(
 			Deadwood.Ins.GetDeadwoodCardPosition()

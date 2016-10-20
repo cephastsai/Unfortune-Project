@@ -89,6 +89,13 @@ public class MapManager : MonoBehaviour {
 		Npiont1.SelectNum = 3;
 		MainST.AddChild(Npiont1);
 
+		StoryPiont Npiont2 = new StoryPiont(
+			new Vector3(-7f, -3f, 91f),
+			"測試",
+			"太神啦"
+		);
+		MainST.GetChild(0).AddChild(Npiont2);
+
 		/*
 		StoryPiont Npoint2 = new StoryPiont(
 			new Vector3(-8.09f, -0.82f, 91f),
@@ -104,7 +111,8 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
-	public void SetStoryPiont(){		
+	public void SetStoryPiont(){
+		print(MainST.GetChildCount());
 		for(int i=0; i<MainST.GetChildCount(); i++){
 			//Instantiate(Resources.Load("Prifabs/Knife"));
 			GameObject Npiont = (GameObject)Instantiate(Resources.Load("Prifabs/Knife"), MainST.GetChild(i).data.SPposition, Quaternion.identity);

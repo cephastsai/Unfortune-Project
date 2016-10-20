@@ -30,7 +30,7 @@ public class Deadwood : MonoBehaviour {
 	//Cards List
 	public List<Card> DeadwoodList = new List<Card>();
 
-	public Vector3 GetDeadwoodCardPosition(){
+	public Vector3 GetDeadwoodCardPosition(){		
 		return new Vector3(0,0,0);
 	}
 

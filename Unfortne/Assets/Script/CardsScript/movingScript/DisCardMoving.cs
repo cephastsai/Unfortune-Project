@@ -15,11 +15,11 @@ public class DisCardMoving : MonoBehaviour {
 	public float PositionY;
 	public float y = 180;
 
-	void Update () {
+	void Update () {		
 		if (StartM) 
 		{
 			TargetDistance = Vector2.Distance (transform.localPosition, Target);
-			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/10);
+			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/5);
 			if (TargetDistance <= 0.1f)
 			{
 				GetComponent<Card>().SectionOver();
@@ -43,8 +43,8 @@ public class DisCardMoving : MonoBehaviour {
 	}
 	public void ReadyToDisCard_H(Vector3 TargetO)
 	{
-		PositionX = (float)(ran.Next (-2, 2))/10f;
-		PositionY = (float)(ran.Next (-2, 2))/10f;
+		PositionX = (float)(ran.Next (-20, 20))/100f;
+		PositionY = (float)(ran.Next (-20, 20))/100f;
 		Target = new Vector3(TargetO.x+PositionX,TargetO.y+PositionY,TargetO.z);
 		RotateZ = ran.Next (-25, 25);
 		StartM = true;
