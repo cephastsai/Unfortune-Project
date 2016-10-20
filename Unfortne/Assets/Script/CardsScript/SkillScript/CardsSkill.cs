@@ -28,6 +28,7 @@ public class CardsSkill : MonoBehaviour {
 	//EndingSkill
 	public delegate void SKillD();
 	public SKillD EndingSkill;
+	public bool runningEndingSkill = false;
 
 	public void init(){
 		
@@ -38,7 +39,7 @@ public class CardsSkill : MonoBehaviour {
 		CardsSkillList.Add(100, Nskill100);
 
 		Skill Nskill101 = new Skill(1,0,1);
-		Nskill101.skillkind = "PlusInitCard";
+		Nskill101.skillkind = "TurnEndingSkill";
 		CardsSkillList.Add(101, Nskill101);
 
 		Skill Nskill102 = new Skill(0,2,2);
@@ -46,6 +47,16 @@ public class CardsSkill : MonoBehaviour {
 		CardsSkillList.Add(102, Nskill102);
 
 	}
+
+	/*void Update(){
+		if(runningEndingSkill){
+			if(EndingSkill ==null){
+				GameManager.Instance.Cardmanager.TTurn.EndofTheTurn();
+
+				runningEndingSkill = false;
+			}
+		}
+	}*/
 
 
 	public void UseCardSkill(Card i){
@@ -59,7 +70,10 @@ public class CardsSkill : MonoBehaviour {
 	}
 
 	public void TurnEndingSkill(){
-		
+		//runningEndingSkill = true;
+		/*if(EndingSkill != null){
+			EndingSkill();
+		}*/			
 	}
 
 
@@ -77,6 +91,12 @@ public class CardsSkill : MonoBehaviour {
 	}
 
 	private void Hunger(){
-		
+		/*print("12");
+		if(!runningEndingSkill){
+			print("123");
+			EndingSkill += Hunger;
+		}
+		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.HandRemove,100);
+		EndingSkill -= Hunger;*/
 	}
 }
