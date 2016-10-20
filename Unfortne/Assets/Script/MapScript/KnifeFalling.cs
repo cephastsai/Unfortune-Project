@@ -18,10 +18,14 @@ public class KnifeFalling : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Distance = Vector2.Distance (transform.localPosition, FallingPosition);
-		transform.localPosition = Vector2.MoveTowards (transform.localPosition , FallingPosition , 0.4f);
+		if(!Stop){
+			Distance = Vector2.Distance (transform.localPosition, FallingPosition);
+			transform.localPosition = Vector2.MoveTowards (transform.localPosition , FallingPosition , 0.4f);
+		}
+
 		if (Distance <= 0.1f&&Stop==false) 
 		{
+			transform.localPosition +=new Vector3(0, 0, 91.01f);
 			LNPO = (GameObject)Instantiate(Resources.Load("Prifabs/LocalNameBG"),LocationNamePosition, Quaternion.identity);
 			GameManager.Instance.Mapmanager.ShowText(GetComponent<MapStoryPiont>().SPName);
 			Stop = true;

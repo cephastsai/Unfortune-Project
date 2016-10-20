@@ -10,8 +10,8 @@ public class MapMove : MonoBehaviour {
 	void Update () {
 		if (StartM) 
 		{
-			TargetDistance = Vector2.Distance (transform.localPosition, Target);
-			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/10);
+			TargetDistance = Vector3.Distance (transform.localPosition, Target);
+			transform.localPosition = Vector3.MoveTowards (transform.localPosition , Target , TargetDistance/10);
 			if (TargetDistance <= 0.1f)
 			{
 				StartM = false;

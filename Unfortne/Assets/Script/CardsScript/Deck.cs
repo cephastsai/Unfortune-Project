@@ -33,6 +33,10 @@ public class Deck : MonoBehaviour {
 	public float constantX = 0.005f;
 	public float constantY = 0.005f;
 
+	//position
+	public Transform Deckpos;
+	public Transform DeckposE;
+
 	private Vector3 GetDeckCardPosition(){
 		
 		return new Vector3(

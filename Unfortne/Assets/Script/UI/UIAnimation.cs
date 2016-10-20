@@ -179,7 +179,6 @@ public class UIAnimation : MonoBehaviour {
 
 		if (BGFadeIn) 
 		{
-			print("123");
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a += 2.5f * Time.deltaTime;
 		}

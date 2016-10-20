@@ -23,6 +23,9 @@ public class Hand : MonoBehaviour {
 		}
 	}
 
+	//position
+	public Transform Handpos;
+	public Transform HandposE;
 
 	//list
 	public List<Card> HandList = new List<Card>();

@@ -22,7 +22,13 @@ public class Card : MonoBehaviour {
 		Place = sec;
 
 		//setting
-		SetCardSortingLayer("Deck");
+		if(sec == CardManager.cardSection.Deck){
+			SetCardSortingLayer("Deck");
+			Deck.Ins.init(gameObject);
+		}else if(sec == CardManager.cardSection.Select){
+			SetCardSortingLayer("Table");
+			GameManager.Instance.Cardmanager.select.AddList(this);
+		}
 
 		//CardsSkill
 		CardsSkill.Skill tempskill = GameManager.Instance.Cardmanager.CardsS.CardsSkillList[CardKind];

@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour {
 		Drawing, BacktoDeck, Playing, Shuffle,
 		Discard_H, Discard_T, Discard_D,
 		HandRemove, DeckRemove,
+		Select,
 		//MainSection
 		PlayingSKill, EndingTurn
 	};
@@ -49,6 +50,7 @@ public class CardManager : MonoBehaviour {
 
 	//Manager
 	public BrowsingManager BM;
+	public Select select;
 
 	public Material[] BurnMaterial;
 
@@ -61,8 +63,12 @@ public class CardManager : MonoBehaviour {
 		CardsS = GetComponent<CardsSkill>();
 		CardsS.init();
 		BM = GetComponent<BrowsingManager>();
+		select = GameObject.Find("Select").GetComponent<Select>();
 
 		//set position
+		Deck.Ins.transform.localPosition = Deck.Ins.DeckposE.position;
+		Hand.Ins.transform.localPosition = Hand.Ins.HandposE.position;
+		Deadwood.Ins.transform.localPosition = Deadwood.Ins.DeadwoodposE.position;
 
 
 		for(int i=0; i<4;i++){
@@ -73,7 +79,7 @@ public class CardManager : MonoBehaviour {
 
 		//Turn Start
 		TTurn =  gameObject.AddComponent<ThisTurn>();
-		//Deck.Ins.DrawCards(5);
+		Deck.Ins.DrawCards(5);
 	}
 
 	void Update(){
@@ -141,8 +147,24 @@ public class CardManager : MonoBehaviour {
 		//Card List
 		CardList.Add(NcardObject.GetComponent<Card>());
 
-		Deck.Ins.init(NcardObject);
+	}
 
+	public void CreateCPreviewCard(int CardKind){
+		GameObject NcardObject = Instantiate(GetCardsObject(CardKind));
+		NcardObject.AddComponent<Card>().init(CardID, CardKind, cardSection.Select);
+
+		//Card name
+		NcardObject.name = "Card"+CardID;
+		//Card ID
+		CardID++;
+		//Card List
+		CardList.Add(NcardObject.GetComponent<Card>());
+
+	}
+
+	public void PrviewCardRemove(Card target){
+		CardList.Remove(target);
+		Destroy(target.gameObject);
 	}
 
 	public void AddMainQue(cardSection sec){
@@ -166,11 +188,15 @@ public class CardManager : MonoBehaviour {
 	}
 
 	public void CardUIIN(){
-		
+		Deck.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deck.Ins.Deckpos.position);
+		Hand.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Hand.Ins.Handpos.position);
+		Deadwood.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deadwood.Ins.Deadwoodpos.position);
 	}
 
 	public void CardUIExit(){
-		
+		Deck.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deck.Ins.DeckposE.position);
+		Hand.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Hand.Ins.HandposE.position);
+		Deadwood.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deadwood.Ins.DeadwoodposE.position);
 	}
 
 }

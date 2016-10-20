@@ -23,6 +23,10 @@ public class Deadwood : MonoBehaviour {
 		}
 	}
 
+	//position
+	public Transform Deadwoodpos;
+	public Transform DeadwoodposE;
+
 	//Cards List
 	public List<Card> DeadwoodList = new List<Card>();
 

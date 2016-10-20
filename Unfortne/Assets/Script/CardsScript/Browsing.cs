@@ -19,7 +19,9 @@ public class Browsing : MonoBehaviour {
 
 	void Update () {
 		//destory self
-		if(myCard.Place != CardManager.cardSection.Hand && myCard.Place != CardManager.cardSection.Table){			
+		if(myCard.Place != CardManager.cardSection.Hand 
+			&& myCard.Place != CardManager.cardSection.Table
+			&&  myCard.Place != CardManager.cardSection.Select){			
 			Destroy(this);
 		}
 	}

@@ -10,7 +10,9 @@ public class MapManager : MonoBehaviour {
 		public Vector3 SPposition;
 		public string SPName;
 		public string SPstory;
-		public int[] OptionCardID = new int[5];
+		public List<int> OptionCardID = new List<int>();
+		public List<int> SelectCardID = new List<int>();
+		public int SelectNum;
 
 		public StoryPiont(Vector3 pos,string Name, string data){
 			SPposition = pos;
@@ -75,19 +77,25 @@ public class MapManager : MonoBehaviour {
 		//StoryButton = GameObject.Find("StoryCuntinue");
 		//temp story setting
 
-		StoryPiont Npoint1 = new StoryPiont(
-			new Vector3(-6.31f, -2.15f, -1f),
-			"測試點1",
-			"韓國電競為何強？KeSPA接受中國採訪給你答案(1)\n\n剛結束的S6四分之一決賽上，來自LCK賽區的三支韓國隊都出線進入四強。LPL賽區的IM雖\n敗猶榮，但剩下的RNG和EDG均在比賽中敗給了自己的對手SKT和ROX Tigers。"
+		StoryPiont Npiont1 = new StoryPiont(
+			new Vector3(-6.31f, -2.15f, 91f),
+			"黎明之時",
+			"太陽升起，復仇的計畫即將開始。\n你拿起了你的刀。\n準備前進了，你抬起頭來，卻又被巴了下去。\n\n\"把你的東西準備好，小子!\n帶你該帶的東西，沒用的東西就別帶了。\""
 		);
-		MainST.AddChild(Npoint1);
+		Npiont1.SelectCardID.Add(102);
+		Npiont1.SelectCardID.Add(101);
+		Npiont1.SelectCardID.Add(100);
+		Npiont1.SelectCardID.Add(101);
+		Npiont1.SelectNum = 3;
+		MainST.AddChild(Npiont1);
 
+		/*
 		StoryPiont Npoint2 = new StoryPiont(
-			new Vector3(-8.09f, -0.82f, -1f),
+			new Vector3(-8.09f, -0.82f, 91f),
 			"測試點2",
-			"每次看到我的精髓欄裡面有個跳錢\n\n我就覺得好感傷\n\n從S2之後就沒有用過這個經髓了\n\n想當年  龜殼 賢者 三跳錢"
+			"錢"
 		);
-		MainST.AddChild(Npoint2);
+		MainST.AddChild(Npoint2);*/
 	}
 
 	void Update(){
@@ -121,6 +129,7 @@ public class MapManager : MonoBehaviour {
 				GameManager.Instance.Mapmanager.Player.GetComponent<MapMove>().ReadyToMove(MainST.GetChild(i).data.SPposition);
 				NowPlayerPosition = MainST.GetChild(i).data;
 				NowSPnum = i;
+				MainST = MainST.GetChild(i);
 			}else{				
 				SPtext[i].text ="";
 				GameObject.Find("StoryPiont"+i).GetComponent<KnifeFalling>().DestoryOption();
@@ -135,7 +144,7 @@ public class MapManager : MonoBehaviour {
 
 		//transitions
 		GameManager.Instance.UImanager.MapToStory();
-		GameManager.Instance.Storymanager.StoryTextTyping(MainST.GetChild(NowSPnum).data.SPstory);
+		GameManager.Instance.Storymanager.StoryTextTyping(MainST.data.SPstory);
 		showflag = true;
 	}
 

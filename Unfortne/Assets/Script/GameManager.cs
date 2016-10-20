@@ -76,6 +76,12 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameSection.Cards:
 			UImanager.StoryToFight();
+			if(Mapmanager.MainST.data.SelectCardID.Count >0){
+				Hand.Ins.isCardsCanPlay = false;
+				Cardmanager.select.init(Mapmanager.MainST.data.SelectCardID, Mapmanager.MainST.data.SelectNum);
+			}else{
+				Cardmanager.CardUIIN();
+			}
 
 			break;
 		}

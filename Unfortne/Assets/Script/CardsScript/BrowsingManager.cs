@@ -55,8 +55,7 @@ public class BrowsingManager : MonoBehaviour {
 	}
 
 	public void removecard(Card i){
-		if(browsingCard == i){
-			print("remove");
+		if(browsingCard == i){			
 			browsingCard = null;
 		}
 	}
