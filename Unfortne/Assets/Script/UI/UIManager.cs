@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour {
 				K
 			);
 			UIList.Add (transform.GetChild (i).GetComponent<UIAnimation> ());
-			//transform.GetChild (i).gameObject.SetActive (false);		
+				
 		}
 
 	}
@@ -211,6 +211,13 @@ public class UIManager : MonoBehaviour {
 		{
 			switch (i.gameObject.name) 
 			{
+			case"LOG":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case"ChoseCard":
+				i.StartFadeIn ();
+				break;
 			case "bottom":
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
@@ -230,22 +237,6 @@ public class UIManager : MonoBehaviour {
 			case "Status":
 				i.ToSelfPoint ();
 				i.StartFadeIn ();
-				break;
-			case "ChoseCard":
-				i.StartFadeIn ();
-				break;
-			case "BlurMask":
-				i.MaskBlurPlus ();
-				break;
-			case "BG":
-				i.StartBGFadeIn ();
-				break;
-			case "CARDFRAME":
-				i.transform.position = i.ChildPosition;
-				break;
-			case "LOG":
-				i.ToChildPoint();
-				i.StartFadeOut();
 				break;
 			}
 		}
@@ -278,6 +269,44 @@ public class UIManager : MonoBehaviour {
 			case "CARDFRAME":
 				i.ToChildPoint ();
 				i.StartFadeOut ();
+				break;
+			}
+		}
+	}
+	public void ChoseToMap()
+	{
+		foreach (UIAnimation i in UIList) 
+		{
+			switch (i.gameObject.name) 
+			{
+			case "ChoseCard":
+				i.StartFadeOut ();
+				break;
+			case "bottom":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "TOP":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "DAY":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "OPTION":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "Status":
+				i.ToChildPoint ();
+				i.StartFadeOut ();
+				break;
+			case "BlurMask":
+				i.MaskBlurDec ();
+				break;
+			case "BG":
+				i.StartBGFadeOut ();
 				break;
 			}
 		}

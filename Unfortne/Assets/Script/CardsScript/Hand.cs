@@ -55,60 +55,63 @@ public class Hand : MonoBehaviour {
 	}
 
 	void Update(){
+		if(GameManager.GameMainSection == GameManager.GameSection.Cards){
+			if(HandList.Count != HandCardNumber){
+				// login hand list and position
+				foreach(Card i in HandList){
+					//position
 
-		if(HandList.Count != HandCardNumber){
-			// login hand list and position
-			foreach(Card i in HandList){
-				//position
+					//i.transform.localPosition = SetHandCardPosition(i);
+					if(i.GetComponent<GameObjectMoving>() != null){					
+						i.GetComponent<GameObjectMoving>().SetTergetPostion(
+							SetHandCardPosition(i),
+							5f
+						);
+					}else{
+						i.gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+							SetHandCardPosition(i),
+							5f
+						);
+					}
 
-				//i.transform.localPosition = SetHandCardPosition(i);
-				if(i.GetComponent<GameObjectMoving>() != null){					
-					i.GetComponent<GameObjectMoving>().SetTergetPostion(
-						SetHandCardPosition(i),
-						5f
-					);
-				}else{
-					i.gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-						SetHandCardPosition(i),
-						5f
-					);
-				}
-				
 
-				i.transform.localRotation = Quaternion.Euler(0,0,0);
-				i.SetCardSprtingOrder(i);
+					i.transform.localRotation = Quaternion.Euler(0,0,0);
+					i.SetCardSprtingOrder(i);
 
-				//component
-				if(i.GetComponent<PlayCard>() == null){
-					i.gameObject.AddComponent<PlayCard>();
-				}
+					//component
+					if(i.GetComponent<PlayCard>() == null){
+						i.gameObject.AddComponent<PlayCard>();
+					}
 
-				if(i.GetComponent<Browsing>() == null){		
-					i.gameObject.AddComponent<Browsing>();
-				}
+					if(i.GetComponent<Browsing>() == null){		
+						i.gameObject.AddComponent<Browsing>();
+					}
 
-				if(i.GetComponent<CardCanPlay>() == null){
-					i.gameObject.AddComponent<CardCanPlay>().init();
-				}
+					if(i.GetComponent<CardCanPlay>() == null){
+						i.gameObject.AddComponent<CardCanPlay>().init();
+					}else{
+						i.GetComponent<CardCanPlay>().Cardposition = SetHandCardPosition(i);
+					}																			
 
-				i.GetComponent<CardCanPlay>().Cardposition = SetHandCardPosition(i);
+				}					
+
+				HandCardNumber = HandList.Count;
+				Reservations = HandList.Count;
 			}
-				
-
-			HandCardNumber = HandList.Count;
-			Reservations = HandList.Count;
-		}
 
 
-		if(GameManager.Instance.Cardmanager.MainSectionQue.Count >0){
-			isCardsCanPlay = false;
-		}else{
-			isCardsCanPlay = true;
-		}
-		/*
-		if(Table.Ins.ActionNumber ==0){
-			isCardsCanPlay = false;
-		}*/
+			if(GameManager.Instance.Cardmanager.MainSectionQue.Count >0){
+				isCardsCanPlay = false;
+			}else{
+				isCardsCanPlay = true;
+			}
+
+			/*
+			if(Table.Ins.ActionNumber ==0){
+				isCardsCanPlay = false;
+			}*/
+		}			
+
 	}
 
 	public void Discard_H_All(CardManager.MainSection Tsec){				

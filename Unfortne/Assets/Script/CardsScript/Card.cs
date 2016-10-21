@@ -28,6 +28,8 @@ public class Card : MonoBehaviour {
 		}else if(sec == CardManager.cardSection.Select){
 			SetCardSortingLayer("Table");
 			GameManager.Instance.Cardmanager.select.AddList(this);
+		}else if(sec == CardManager.cardSection.Get){
+			GameManager.Instance.Cardmanager.getCards.SetgetCard(this);
 		}
 
 		//CardsSkill
@@ -98,21 +100,21 @@ public class Card : MonoBehaviour {
 		}	
 		transform.SetParent(Deadwood.Ins.transform);
 		gameObject.AddComponent<DisCardMoving>().ReadyToDisCard_H(
-			Deadwood.Ins.GetDeadwoodCardPosition()
+			Deadwood.Ins.GetDeadwoodCardPosition(this)
 		);
 	}
 
 	public void Discard_T(){
 		transform.SetParent(Deadwood.Ins.transform);
 		gameObject.AddComponent<DisCard_T_Moving>().ReadyToDisCard_T(
-			Deadwood.Ins.GetDeadwoodCardPosition()
+			Deadwood.Ins.GetDeadwoodCardPosition(this)
 		);
 	}
 
 	public void Shuffle(int num){
 		transform.SetParent(Deck.Ins.transform);
 		gameObject.AddComponent<ShuffleMoving>().ReadyToShuffle(
-			Deadwood.Ins.GetDeadwoodCardPosition()
+			Deadwood.Ins.GetDeadwoodCardPosition(this)
 		);
 		//CardsUp(false);
 	}

@@ -17,6 +17,8 @@ public class Select : MonoBehaviour {
 	public Text SelectInfo;
 
 	public void init(List<int> CardID, int num){
+		GameManager.Instance.Cardmanager.CardUIIN();
+		Hand.Ins.isCardsCanPlay = false;
 
 		foreach(int i in CardID){
 			GameManager.Instance.Cardmanager.CreateCPreviewCard(i);
@@ -78,8 +80,8 @@ public class Select : MonoBehaviour {
 
 	public void SelectOver(){
 		Button.SetActive(false);
-		GameManager.Instance.Cardmanager.CardUIIN();
-		GameManager.Instance.UImanager.ChoseToFight();
+		GameManager.Instance.Cardmanager.CardUIExit();
+		GameManager.Instance.UImanager.ChoseToMap();
 
 		SelectInfo.text = "";
 
@@ -91,11 +93,12 @@ public class Select : MonoBehaviour {
 				//goto deadwood
 				SelectList[i].Place = CardManager.cardSection.Deadwood;
 				SelectList[i].transform.SetParent(Deadwood.Ins.transform);
+				Deadwood.Ins.DeadwoodList.Add(SelectList[i]);
 				SelectList[i].gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-					Deadwood.Ins.GetDeadwoodCardPosition(),
+					Deadwood.Ins.GetDeadwoodCardPosition(SelectList[i]),
 					0.5f
 				);
-				Deadwood.Ins.DeadwoodList.Add(SelectList[i]);
+
 
 			}else{
 				GameManager.Instance.Cardmanager.PrviewCardRemove(SelectList[i]);
@@ -115,7 +118,7 @@ public class Select : MonoBehaviour {
 
 	public void SelectCardHit(Transform target){
 		for(int i=0; i<SelectList.Count; i++){
-			if(target == SelectList[i].transform){	
+			if(target == SelectList[i].transform){				
 				if(!choseCard[i]){
 					if(SelectNumber >0){
 						ChoseLock.transform.position = SelectList[i].transform.position;

@@ -21,7 +21,9 @@ public class Browsing : MonoBehaviour {
 		//destory self
 		if(myCard.Place != CardManager.cardSection.Hand 
 			&& myCard.Place != CardManager.cardSection.Table
-			&&  myCard.Place != CardManager.cardSection.Select){			
+			&&  myCard.Place != CardManager.cardSection.Select
+			&& 	myCard.Place != CardManager.cardSection.Get
+		){			
 			Destroy(this);
 		}
 	}

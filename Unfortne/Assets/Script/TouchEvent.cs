@@ -112,7 +112,7 @@ public class TouchEvent : MonoBehaviour {
 		}
 
 
-		if(Hand.Ins.isCardsCanPlay){
+		if(true){
 			
 			Ray touchray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;

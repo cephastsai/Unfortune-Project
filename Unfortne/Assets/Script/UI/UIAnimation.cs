@@ -19,6 +19,8 @@ public class UIAnimation : MonoBehaviour {
 	private float BlurAmount;
 	private float a = 0;
 	private float K;
+	private Color White = Color.white;
+	private Color Clear = new Vector4(1,1,1,0);
 	Renderer rend;
 
 	public void Init(Vector3 _SelfPosition,Vector3 _ChildPosition,float _K)
@@ -139,10 +141,10 @@ public class UIAnimation : MonoBehaviour {
 
 		if (FadeIn) 
 		{
-			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a += 2.5f * Time.deltaTime;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 		}
-		if (a >= 1) 
+		if (GetComponent<SpriteRenderer> ().color.a>=1&&FadeIn) 
 		{
 			FadeIn = false;
 		}//FadeIn
@@ -152,9 +154,10 @@ public class UIAnimation : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a -= 2.5f * Time.deltaTime;
 		}
-		if (a <= 0) 
+		if (GetComponent<SpriteRenderer> ().color.a<= 0&&FadeOut) 
 		{
-			a =0;
+			a = 0;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			FadeOut = false;
 		}//Fade Out
 
@@ -163,8 +166,9 @@ public class UIAnimation : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a += 2.5f * Time.deltaTime;;
 		}
-		if (a >= 0.7f) 
+		if (a >= 0.7f&&BlackFadeIn) 
 		{
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			BlackFadeIn = false;
 		}//Black fade In
 
@@ -173,8 +177,10 @@ public class UIAnimation : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a -= 2.5f * Time.deltaTime;;
 		}
-		if (a <= 0) 
+		if (a <= 0&&BlackFadeOut) 
 		{
+			a = 0;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			BlackFadeOut = false;
 		}//Black fade Out
 
@@ -183,10 +189,11 @@ public class UIAnimation : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			a += 2.5f * Time.deltaTime;
 		}
-		if (a >= 0.7f) 
+		if (a >= 0.7f&&BGFadeIn) 
 		{
-			BGFadeIn = false;
 			a = 0.7f;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
+			BGFadeIn = false;
 		}//BG Fade In
 
 		if (BGFadeOut) 
@@ -194,8 +201,10 @@ public class UIAnimation : MonoBehaviour {
 			a -= 2.5f * Time.deltaTime;
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 		}
-		if (a <= 0) 
+		if (a <= 0&&BGFadeOut) 
 		{
+			a = 0;
+			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			BGFadeOut = false;
 		}//BG Fade Out
 	}

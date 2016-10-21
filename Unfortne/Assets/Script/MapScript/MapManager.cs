@@ -93,12 +93,16 @@ public class MapManager : MonoBehaviour {
 		MainST.AddChild(Npiont1);
 
 		StoryPiont Npiont2 = new StoryPiont(
-			new Vector3(-7f, -3f, 91f),
+			new Vector3(-7.5f, -3f, 91f),
 			"測試",
 			"太神啦",
 			""
 		);
-		MainST.GetChild(0).AddChild(Npiont2);
+		Npiont2.OptionCardID.Add(100);
+		Npiont2.OptionCardID.Add(102);
+		Npiont2.OptionCardID.Add(101);
+		//MainST.GetChild(0).AddChild(Npiont2);
+		MainST.AddChild(Npiont2);
 
 		/*
 		StoryPiont Npoint2 = new StoryPiont(
@@ -141,12 +145,12 @@ public class MapManager : MonoBehaviour {
 				GameManager.Instance.Mapmanager.Player.GetComponent<MapMove>().ReadyToMove(MainST.GetChild(i).data.SPposition);
 				NowPlayerPosition = MainST.GetChild(i).data;
 				NowSPnum = i;
-				MainST = MainST.GetChild(i);
 			}else{				
 				SPtext[i].text ="";
 				GameObject.Find("StoryPiont"+i).GetComponent<KnifeFalling>().DestoryOption();
 			}				
 		}
+		MainST = MainST.GetChild(NowSPnum);
 	}
 
 	public void StartOption(){		

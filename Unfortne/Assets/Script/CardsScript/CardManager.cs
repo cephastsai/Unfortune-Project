@@ -12,7 +12,7 @@ public class CardManager : MonoBehaviour {
 		Drawing, BacktoDeck, Playing, Shuffle,
 		Discard_H, Discard_T, Discard_D,
 		HandRemove, DeckRemove,
-		Select,
+		Select, Get,
 		//MainSection
 		PlayingSKill, EndingTurn
 	};
@@ -53,6 +53,8 @@ public class CardManager : MonoBehaviour {
 	//Manager
 	public BrowsingManager BM;
 	public Select select;
+	public GetCards getCards;
+	public GameObject CardEndingButton;
 
 	//stuff
 	public Text Status;
@@ -68,6 +70,7 @@ public class CardManager : MonoBehaviour {
 		CardsS.init();
 		BM = GetComponent<BrowsingManager>();
 		select = GameObject.Find("Select").GetComponent<Select>();
+		getCards = GameObject.Find("GetCards").GetComponent<GetCards>();
 
 		//set position
 		Deck.Ins.transform.localPosition = Deck.Ins.DeckposE.position;
@@ -83,7 +86,7 @@ public class CardManager : MonoBehaviour {
 
 		//Turn Start
 		TTurn =  gameObject.AddComponent<ThisTurn>();
-		Deck.Ins.DrawCards(5);
+		//Deck.Ins.DrawCards(5);
 	}
 
 	void Update(){
@@ -118,9 +121,7 @@ public class CardManager : MonoBehaviour {
 
 		if(Endingflag){
 			if(MainSectionQue.Count ==0){
-				GameManager.Instance.UImanager.FightToMap();
-				CardUIExit();
-				GameManager.Instance.SetGameSection(GameManager.GameSection.Map);
+				CardEndingButton.SetActive(true);
 				Endingflag = false;
 			}
 		}
@@ -177,6 +178,19 @@ public class CardManager : MonoBehaviour {
 
 	}
 
+	public void CreateGetCard(int CardKind){
+		GameObject NcardObject = Instantiate(GetCardsObject(CardKind));
+		NcardObject.AddComponent<Card>().init(CardID, CardKind, cardSection.Get);
+
+		//Card name
+		NcardObject.name = "Card"+CardID;
+		//Card ID
+		CardID++;
+		//Card List
+		CardList.Add(NcardObject.GetComponent<Card>());
+
+	}
+
 	public void PrviewCardRemove(Card target){
 		CardList.Remove(target);
 		Destroy(target.gameObject);
@@ -212,6 +226,13 @@ public class CardManager : MonoBehaviour {
 		Deck.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deck.Ins.DeckposE.position);
 		Hand.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Hand.Ins.HandposE.position);
 		Deadwood.Ins.gameObject.AddComponent<UIMoving>().SetTergetPostion(Deadwood.Ins.DeadwoodposE.position);
+	}
+
+	public void CardEndingButtonClick(){
+		CardEndingButton.SetActive(false);
+		GameManager.Instance.UImanager.FightToMap();
+		CardUIExit();
+		GameManager.Instance.SetGameSection(GameManager.GameSection.Map);
 	}
 
 }

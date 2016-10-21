@@ -12,22 +12,24 @@ public class CardCanPlay : MonoBehaviour {
 		GameManager.Instance.TE.TEDObjectHit += CardHit;
 	}
 
-	public void CardHit(Transform target){
-		if(Table.Ins.ActionNumber >0){
-			if(target == transform){
-				if(!isCardhit){
-					transform.localPosition = new Vector3(Cardposition.x, Cardposition.y+CardUpHeight, Cardposition.z);
-					isCardhit = true;
-				}
-			}else if(target == null){
-				if(isCardhit){
-					transform.localPosition = new Vector3(Cardposition.x, Cardposition.y, Cardposition.z);
-					isCardhit = false;
-				}
-			}else{
-				if(isCardhit){
-					transform.localPosition = new Vector3(Cardposition.x, Cardposition.y, Cardposition.z);
-					isCardhit = false;
+	public void CardHit(Transform target){		
+		if(Hand.Ins.isCardsCanPlay){			
+			if(Table.Ins.ActionNumber >0){
+				if(target == transform){
+					if(!isCardhit){
+						transform.localPosition = new Vector3(Cardposition.x, Cardposition.y+CardUpHeight, Cardposition.z);
+						isCardhit = true;
+					}
+				}else if(target == null){
+					if(isCardhit){
+						transform.localPosition = new Vector3(Cardposition.x, Cardposition.y, Cardposition.z);
+						isCardhit = false;
+					}
+				}else{
+					if(isCardhit){
+						transform.localPosition = new Vector3(Cardposition.x, Cardposition.y, Cardposition.z);
+						isCardhit = false;
+					}
 				}
 			}
 		}
