@@ -41,7 +41,10 @@ public class PlayCard : MonoBehaviour {
 
 					//Skill
 					myCard.UseSkill();
-					myCard.BS.UseSkill();
+					if(myCard.BS != null){
+						myCard.BS.UseSkill();
+					}
+
 
 				}
 

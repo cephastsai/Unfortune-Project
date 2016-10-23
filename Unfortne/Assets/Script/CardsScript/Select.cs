@@ -82,6 +82,7 @@ public class Select : MonoBehaviour {
 		Button.SetActive(false);
 		GameManager.Instance.Cardmanager.CardUIExit();
 		GameManager.Instance.UImanager.ChoseToMap();
+		GameManager.Instance.SetGameSection(GameManager.GameSection.Map);
 
 		SelectInfo.text = "";
 
@@ -114,6 +115,8 @@ public class Select : MonoBehaviour {
 		for(int j=0; j<20; j++){
 			choseCard[j] = false;
 		}
+
+
 	}
 
 	public void SelectCardHit(Transform target){

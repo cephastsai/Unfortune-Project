@@ -99,12 +99,14 @@ public class Hand : MonoBehaviour {
 				Reservations = HandList.Count;
 			}
 
-
-			if(GameManager.Instance.Cardmanager.MainSectionQue.Count >0){
-				isCardsCanPlay = false;
-			}else{
-				isCardsCanPlay = true;
+			if(GameManager.Instance.Cardmanager.Endingflag){
+				if(GameManager.Instance.Cardmanager.MainSectionQue.Count >0){
+					isCardsCanPlay = false;
+				}else{
+					isCardsCanPlay = true;
+				}
 			}
+
 
 			/*
 			if(Table.Ins.ActionNumber ==0){
@@ -124,9 +126,9 @@ public class Hand : MonoBehaviour {
 		HandList.Clear();
 	}
 
-	public void HandRemove(CardManager.MainSection Tsec){
+	public void HandRemove(CardManager.MainSection Tsec){		
 		foreach(Card i in Hand.Ins.HandList){
-			if(i.CardKind == 100){
+			if(i.CardKind == Tsec.cardkind){
 				//HandList.Remove(i);
 				GameManager.Instance.Cardmanager.CardList.Remove(i);
 				i.isSectionOver = false;

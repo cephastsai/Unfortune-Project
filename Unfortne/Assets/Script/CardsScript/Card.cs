@@ -6,7 +6,9 @@ public class Card : MonoBehaviour {
 	public int ID; //create card ID
 	public int CardKind; //card kind
 	public CardManager.cardSection Place; //card postion
+	public string Info;
 	public bool isSectionOver;
+	public bool isOptionCard = false;
 
 	//Card Skill
 	public int action = 0;
@@ -20,6 +22,7 @@ public class Card : MonoBehaviour {
 		ID = cardnum;
 		CardKind = Cardkind;
 		Place = sec;
+		Info = GameManager.Instance.Cardmanager.CardsS.CardsSkillList[Cardkind].CardInfo;
 
 		//setting
 		if(sec == CardManager.cardSection.Deck){
@@ -38,6 +41,10 @@ public class Card : MonoBehaviour {
 		attack = tempskill.attack;
 		cards = tempskill.cards;
 		SkillSetting();
+
+		if(CardKind >1000){
+			isOptionCard = true;
+		}
 
 
 		isSectionOver = true;
@@ -83,6 +90,10 @@ public class Card : MonoBehaviour {
 		case CardManager.cardSection.HandRemove:
 			Hand.Ins.HandList.Remove(this);
 			break;
+		case CardManager.cardSection.GetCard:
+			Hand.Ins.HandList.Add(this);
+			Place = CardManager.cardSection.Hand;
+			break;
 		}
 	}
 
@@ -126,10 +137,18 @@ public class Card : MonoBehaviour {
 		);
 	}
 
+	public void GetCard(){
+		transform.SetParent(Hand.Ins.transform);
+		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
+			Hand.Ins.GetHandCardPosition(this),
+			0.5f
+		);
+	}
+
 	void SkillSetting(){
 		//bacis skill
 		if(action ==0 && attack ==0 && cards ==0){
-			print("nothing");
+			
 		}else{
 			gameObject.AddComponent<BacisSkill>().init(action, attack, cards);
 			BS = gameObject.GetComponent<BacisSkill>();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ThisTurn : MonoBehaviour {
 
@@ -14,10 +15,30 @@ public class ThisTurn : MonoBehaviour {
 	public int ActionConstant = 0;
 	public int AttackConstant = 0;
 
+	//OptionCard
+	public List<Card> OptionCardList  =new List<Card>();
+
 	//Next Turn
 	public int initCards = 5;
 
 	public void EndofTheTurn(){
+		Hand.Ins.isCardsCanPlay = false;
+		//option card destroy
+		foreach(Card i in OptionCardList){
+			if(i.Place == CardManager.cardSection.Hand){
+				Hand.Ins.HandList.Remove(i);
+				i.gameObject.AddComponent<StartBurn>().GetMat();
+				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+			}
+
+			if(i.Place == CardManager.cardSection.Table){
+				Table.Ins.TableList.Remove(i);
+				i.gameObject.AddComponent<StartBurn>().GetMat();
+				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+			}
+		}
+
+
 		//discard
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Discard_H);
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.Discard_T);
@@ -30,7 +51,7 @@ public class ThisTurn : MonoBehaviour {
 
 
 		//Ending
-		GameManager.Instance.Cardmanager.Endingflag = true;
+		GameManager.Instance.Cardmanager.Endingflag = true;	
 		GameManager.Instance.Cardmanager.TTurn =  gameObject.AddComponent<ThisTurn>();
 		Destroy(this);
 	}		

@@ -74,25 +74,34 @@ public class GetCards : MonoBehaviour {
 		GameManager.Instance.Cardmanager.CardUIIN();
 		GameManager.Instance.UImanager.ChoseToFight();
 
+		foreach(Card i in GetCardsList){
+			if(i.isOptionCard){
+				GameManager.Instance.Cardmanager.TTurn.OptionCardList.Add(i);
+			}
+		}			
 
 		//cards
-		foreach(Card i in GetCardsList){
+		/*foreach(Card i in GetCardsList){
 			//goto deadwood
-			i.Place = CardManager.cardSection.Deadwood;
-			i.transform.SetParent(Deadwood.Ins.transform);
-			Deadwood.Ins.DeadwoodList.Add(i);
-			i.gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(
-				Deadwood.Ins.GetDeadwoodCardPosition(i),
-				0.5f
-			);
-		}
+			GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.GetCard);
+		}*/
+		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.GetCard);
 
 		//variable setting
-		GetCardsList.Clear();
 		Hand.Ins.isCardsCanPlay = true;
 		if(Hand.Ins.HandList.Count ==0){
 			Deck.Ins.DrawCards(5);
 		}
 
+	}
+
+	public void GetCard(CardManager.MainSection Tsec){		
+		foreach(Card i in GetCardsList){			
+			i.isSectionOver = false;
+			Tsec.CheckLsit.Add(i);
+			i.Place = CardManager.cardSection.GetCard;
+			i.GetCard();
+		}
+		GetCardsList.Clear();
 	}
 }

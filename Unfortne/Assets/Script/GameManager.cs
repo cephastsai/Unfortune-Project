@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour {
 	public UIManager UImanager;
 	public StoryManager Storymanager;
 
+	//Game Variable
+	public int Money = 0;
+
 	public enum GameSection{
 		Map,
 		Story,
@@ -65,9 +68,10 @@ public class GameManager : MonoBehaviour {
 	public void SetGameSection(GameSection GS){
 
 		switch(GS){
-		case GameSection.Map:
+		case GameSection.Map:			
 			GameMainSection = GameSection.Map;
 			Mapmanager.SetStoryPiont();
+			//print(Mapmanager.MainST.data.SPName);
 			Hand.Ins.isCardsCanPlay = false;
 			break;
 		case GameSection.Story:

@@ -9,7 +9,7 @@ public class CardManager : MonoBehaviour {
 	public enum cardSection{
 		nil, 
 		Deck, Hand, Deadwood, Table,
-		Drawing, BacktoDeck, Playing, Shuffle,
+		Drawing, BacktoDeck, Playing, Shuffle, GetCard,
 		Discard_H, Discard_T, Discard_D,
 		HandRemove, DeckRemove,
 		Select, Get,
@@ -49,6 +49,9 @@ public class CardManager : MonoBehaviour {
 	//Turn
 	public ThisTurn TTurn;
 	public bool Endingflag = false;
+	public Text AttackText;
+	public Text ActionText;
+	public Text MoneyText;
 
 	//Manager
 	public BrowsingManager BM;
@@ -125,9 +128,17 @@ public class CardManager : MonoBehaviour {
 				Endingflag = false;
 			}
 		}
+
+
+		//text
+		if(GameManager.GameMainSection == GameManager.GameSection.Cards){
+			AttackText.text = TTurn.Attack.ToString();
+			ActionText.text = Table.Ins.ActionNumber.ToString();
+			MoneyText.text = GameManager.Instance.Money.ToString();
+		}
 	}
 
-	public void SectionStart(){
+	public void SectionStart(){		
 		switch(MainSec.MSection){
 		case cardSection.Drawing:		
 			Deck.Ins.Drawing(MainSec);
@@ -146,6 +157,9 @@ public class CardManager : MonoBehaviour {
 			break;
 		case cardSection.EndingTurn:
 			TTurn.EndofTheTurn();
+			break;
+		case cardSection.GetCard:			
+			getCards.GetCard(MainSec);
 			break;
 		}
 	}
@@ -234,5 +248,24 @@ public class CardManager : MonoBehaviour {
 		CardUIExit();
 		GameManager.Instance.SetGameSection(GameManager.GameSection.Map);
 	}
+
+	/*public void RemoveOptionCard(){
+		foreach(Card i in Table.Ins.TableList){
+			if(i.isOptionCard){
+				Table.Ins.TableList.Remove(i);
+				i.gameObject.AddComponent<StartBurn>().GetMat();
+				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+				break;
+			}
+		}
+
+		foreach(Card i in Hand.Ins.HandList){
+			if(i.isOptionCard){
+				Hand.Ins.HandList.Remove(i);
+				i.gameObject.AddComponent<StartBurn>().GetMat();
+				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+			}
+		}
+	}*/
 
 }
