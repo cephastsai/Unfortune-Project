@@ -42,4 +42,8 @@ public class CardCanPlay : MonoBehaviour {
 			Destroy(this);
 		}
 	}
+
+	void OnDestroy(){
+		GameManager.Instance.TE.TEDObjectHit -= CardHit;
+	}
 }

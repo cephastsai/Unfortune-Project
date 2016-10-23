@@ -5,18 +5,19 @@ using UnityEngine.UI;
 public class StoryManager : MonoBehaviour {
 
 	public Text StoryText;
+	public GameObject Log;
 
 	void Start () {
 
 		//init 
 		StoryText = GameObject.Find("StoryText").GetComponent<Text>();
 
-
 	}
 
 	public void StoryTextTyping(string Info){
 		StoryText.text = Info;
 		StoryText.gameObject.GetComponent<TextTyping>().SetText();
+		GameManager.Instance.TE.TEDObjectCL += SkipTest;
 	}
 
 	//testing
@@ -29,7 +30,10 @@ public class StoryManager : MonoBehaviour {
 		StoryText.gameObject.GetComponent<TextTyping>().SetText();
 	}
 
-	void Update () {
-	
+	public void SkipTest(Transform target){	
+		if(target == Log.transform){			
+			StoryText.gameObject.GetComponent<TextTyping>().Skip();
+			GameManager.Instance.TE.TEDObjectCL -= SkipTest;
+		}
 	}
 }

@@ -26,12 +26,14 @@ public class ThisTurn : MonoBehaviour {
 		//option card destroy
 		foreach(Card i in OptionCardList){
 			if(i.Place == CardManager.cardSection.Hand){
+				GameManager.Instance.Cardmanager.CardList.Remove(i);
 				Hand.Ins.HandList.Remove(i);
 				i.gameObject.AddComponent<StartBurn>().GetMat();
 				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
 			}
 
 			if(i.Place == CardManager.cardSection.Table){
+				GameManager.Instance.Cardmanager.CardList.Remove(i);
 				Table.Ins.TableList.Remove(i);
 				i.gameObject.AddComponent<StartBurn>().GetMat();
 				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();

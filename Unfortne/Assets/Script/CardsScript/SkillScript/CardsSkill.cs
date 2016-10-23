@@ -14,11 +14,12 @@ public class CardsSkill : MonoBehaviour {
 		//Card Skill
 		public bool isEndingSkill = false;
 		public string skillkind = "";
+		public bool isRemoveSelf = false;
 
 
-		public Skill(int act, int att, int car){
+		public Skill(int act, int att, int car){			
 			action = act;
-			attack = act;
+			attack = att;
 			cards = car;
 		}
 	}
@@ -47,32 +48,33 @@ public class CardsSkill : MonoBehaviour {
 
 		Skill Nskill102 = new Skill(0,2,2);
 		Nskill102.skillkind = "";
-		Nskill102.CardInfo ="將手牌中一張[飢餓]移出遊戲";
+		Nskill102.CardInfo ="\n將手牌中一張[飢餓]移出遊戲";
 		CardsSkillList.Add(102, Nskill102);
 
 		Skill Nskill103 = new Skill(1,0,1);
 		Nskill103.skillkind = "HandRemove_108";
-		Nskill103.CardInfo ="<b>行動+1\n抽1張牌</b>\n\n將手牌中一張[飢餓]移出遊戲";
+		Nskill103.CardInfo ="<b>\n行動+1\n抽1張牌</b>\n\n將手牌中一張[飢餓]移出遊戲";
 		CardsSkillList.Add(103, Nskill103);
 
 		Skill Nskill104 = new Skill(2,1,0);
 		Nskill104.skillkind = "";
-		Nskill104.CardInfo ="<b>行動+2\n攻擊+1</b>";
+		Nskill104.CardInfo ="<b>\n行動+2\n攻擊+1</b>";
 		CardsSkillList.Add(104, Nskill104);
 
 		Skill Nskill105 = new Skill(1,2,0);
 		Nskill105.skillkind = "";
-		Nskill105.CardInfo ="<b>行動+1\n攻擊+2</b>";
+		Nskill105.CardInfo ="<b>\n行動+1\n攻擊+2</b>";
 		CardsSkillList.Add(105, Nskill105);
 
 		Skill Nskill106 = new Skill(0,0,1);
-		Nskill106.skillkind = "";
-		Nskill106.CardInfo ="<b>抽1張牌</b>";
+		Nskill106.skillkind = "AddMoney";
+		Nskill106.isRemoveSelf = true;
+		Nskill106.CardInfo ="<b>\n抽1張牌</b>";
 		CardsSkillList.Add(106, Nskill106);
 
 		Skill Nskill107 = new Skill(2,0,1);
 		Nskill107.skillkind = "";
-		Nskill107.CardInfo ="<b>行動+2\n抽1張牌</b>";
+		Nskill107.CardInfo ="<b>\n行動+2\n抽1張牌</b>";
 		CardsSkillList.Add(107, Nskill107);
 
 		Skill Nskill108 = new Skill(0,0,0);
@@ -82,12 +84,30 @@ public class CardsSkill : MonoBehaviour {
 
 		Skill Nskill109 = new Skill(1,0,1);
 		Nskill109.skillkind = "HandRemove_108";
-		Nskill109.CardInfo ="<b>行動+1\n抽1張牌</b>\n\n將手牌中一張[飢餓]移出遊戲";
+		Nskill109.CardInfo ="<b>\n行動+1\n抽1張牌</b>\n\n將手牌中一張[飢餓]移出遊戲";
 		CardsSkillList.Add(109, Nskill109);
+
+		Skill Nskill110 = new Skill(0,1,0);
+		Nskill110.skillkind = "";
+		Nskill110.CardInfo ="<b>\n攻擊+1</b>\n\n此回合打出X張[復仇]，\n攻擊+X";
+		CardsSkillList.Add(110, Nskill110);
+
+		Skill Nskill111 = new Skill(0,0,1);
+		Nskill111.skillkind = "";
+		Nskill111.CardInfo ="<b>\n抽1張牌</b>";
+		CardsSkillList.Add(111, Nskill111);
 
 		Skill Nskill1001 = new Skill(0,0,0);
 		Nskill1001.skillkind = "TurnEndingSkill";
 		CardsSkillList.Add(1001, Nskill1001);
+
+		Skill Nskill1002 = new Skill(0,0,0);
+		Nskill1002.skillkind = "TurnEndingSkill";
+		CardsSkillList.Add(1002, Nskill1002);
+
+		Skill Nskill1003= new Skill(0,0,0);
+		Nskill1003.skillkind = "TurnEndingSkill";
+		CardsSkillList.Add(1003, Nskill1003);
 
 	}
 
@@ -103,6 +123,10 @@ public class CardsSkill : MonoBehaviour {
 
 
 	public void UseCardSkill(Card i){
+
+		if(CardsSkillList[i.CardKind].isRemoveSelf){
+			Table.Ins.Removeself(i);
+		}
 		
 		if(CardsSkillList[i.CardKind].skillkind == ""){
 			i.SectionOver();
@@ -145,5 +169,9 @@ public class CardsSkill : MonoBehaviour {
 		}
 		GameManager.Instance.Cardmanager.AddMainQue(CardManager.cardSection.HandRemove,100);
 		EndingSkill -= Hunger;*/
+	}
+
+	public void AddMoney(){
+		GameManager.Instance.Money +=10;
 	}
 }

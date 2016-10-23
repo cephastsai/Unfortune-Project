@@ -149,7 +149,7 @@ public class Card : MonoBehaviour {
 		//bacis skill
 		if(action ==0 && attack ==0 && cards ==0){
 			
-		}else{
+		}else{			
 			gameObject.AddComponent<BacisSkill>().init(action, attack, cards);
 			BS = gameObject.GetComponent<BacisSkill>();
 		}

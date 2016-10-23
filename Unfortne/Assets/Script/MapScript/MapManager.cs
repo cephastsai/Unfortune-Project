@@ -115,11 +115,19 @@ public class MapManager : MonoBehaviour {
 			"這個老頭子是吃錯藥了嗎?\n不不不，他根本沒錢買藥啊!\n看來我應該要好好想想要怎麼坑他嘿嘿。\n\n<color=#EE2C0CFF>[選擇一張選項卡打出]</color>"
 		);
 		Npoint3.OptionCardID.Add(108);
-		Npoint3.OptionCardID.Add(1001);
-		Npoint3.OptionCardID.Add(1001);
-		Npoint3.OptionCardID.Add(1001);
+		Npoint3.OptionCardID.Add(1002);
+		Npoint3.OptionCardID.Add(1003);	
 		MainST.GetChild(0).AddChild(Npoint3);
 		//MainST.AddChild(Npoint3);
+
+		StoryPiont Npoint4 = new StoryPiont(
+			new Vector3(-4f, -4f, 91f),
+			"打賞",
+			"老頭子白了你一眼，\"你這個傢伙只會要東西!\"\n他邊說邊把手舉了起來，用力的巴你的頭。\n\"痛死啦，旅行還沒開始就要被你打死了!\"\n\n\"你是軟蛋是不是。\"說完就隨手丟了幾枚金幣給你\n\"拿去啦，食物自己去森林裡面找!\"",
+			"切!老頭子真小氣，算了，至少有拿到一些錢。\n還是乖乖去打獵填飽肚子吧\n\n<color=#EE2C0CFF>[目標:攻擊力1]</color>"
+		);
+			
+		MainST.GetChild(0).GetChild(0).AddChild(Npoint4);
 	}
 
 	void Update(){

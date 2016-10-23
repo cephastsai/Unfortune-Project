@@ -50,5 +50,9 @@ public class PlayCard : MonoBehaviour {
 
 			}
 		}			
-	}		
+	}	
+
+	void OnDestroy(){
+		GameManager.Instance.TE.TEDObjectCL -= PlayingCard;
+	}
 }

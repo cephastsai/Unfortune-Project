@@ -81,11 +81,14 @@ public class CardManager : MonoBehaviour {
 		Deadwood.Ins.transform.localPosition = Deadwood.Ins.DeadwoodposE.position;
 
 
-		for(int i=0; i<4;i++){
+		/*for(int i=0; i<4;i++){
 			CreateCard(100);
 			CreateCard(101);
 			CreateCard(102);
-		}
+		}*/
+		CreateCard(110);
+		CreateCard(108);
+		CreateCard(108);
 
 		//Turn Start
 		TTurn =  gameObject.AddComponent<ThisTurn>();

@@ -104,5 +104,12 @@ public class Table : MonoBehaviour {
 		ActionNumber = 1;
 		isIndentation = false;
 	}
-		
+
+
+	public void Removeself(Card target){
+		GameManager.Instance.Cardmanager.CardList.Remove(target);
+		Table.Ins.TableList.Remove(target);
+		target.gameObject.AddComponent<StartBurn>().GetMat();
+		target.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
+	}
 }
