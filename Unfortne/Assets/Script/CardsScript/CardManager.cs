@@ -86,9 +86,14 @@ public class CardManager : MonoBehaviour {
 			CreateCard(101);
 			CreateCard(102);
 		}*/
+
+		//CreateCard(108);
+		//CreateCard(108);
+		CreateCard(112);
+		CreateCard(112);
+		CreateCard(112);
 		CreateCard(110);
-		CreateCard(108);
-		CreateCard(108);
+
 
 		//Turn Start
 		TTurn =  gameObject.AddComponent<ThisTurn>();

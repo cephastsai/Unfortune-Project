@@ -88,7 +88,7 @@ public class CardsSkill : MonoBehaviour {
 		CardsSkillList.Add(109, Nskill109);
 
 		Skill Nskill110 = new Skill(0,1,0);
-		Nskill110.skillkind = "";
+		Nskill110.skillkind = "BladeofRevenge";
 		Nskill110.CardInfo ="<b>\n攻擊+1</b>\n\n此回合打出X張[復仇]，\n攻擊+X";
 		CardsSkillList.Add(110, Nskill110);
 
@@ -96,6 +96,11 @@ public class CardsSkill : MonoBehaviour {
 		Nskill111.skillkind = "";
 		Nskill111.CardInfo ="<b>\n抽1張牌</b>";
 		CardsSkillList.Add(111, Nskill111);
+
+		Skill Nskill112 = new Skill(0,0,0);
+		Nskill112.skillkind = "";
+		Nskill112.CardInfo ="<color=#A6C0FFFF>刀已出鞘，人已不在；\n不為己尊，只為復仇。</color>\n\n[此卡無任何效果]";
+		CardsSkillList.Add(112, Nskill112);
 
 		Skill Nskill1001 = new Skill(0,0,0);
 		Nskill1001.skillkind = "TurnEndingSkill";
@@ -108,6 +113,14 @@ public class CardsSkill : MonoBehaviour {
 		Skill Nskill1003= new Skill(0,0,0);
 		Nskill1003.skillkind = "TurnEndingSkill";
 		CardsSkillList.Add(1003, Nskill1003);
+
+		Skill Nskill1004= new Skill(0,0,0);
+		Nskill1004.skillkind = "TurnEndingSkill";
+		CardsSkillList.Add(1004, Nskill1004);
+
+		Skill Nskill1005= new Skill(0,0,0);
+		Nskill1005.skillkind = "TurnEndingSkill";
+		CardsSkillList.Add(1005, Nskill1005);
 
 	}
 
@@ -173,5 +186,15 @@ public class CardsSkill : MonoBehaviour {
 
 	public void AddMoney(){
 		GameManager.Instance.Money +=10;
+	}
+
+	public void BladeofRevenge(){
+		int Rnum = 0;
+		foreach(Card i in Table.Ins.TableList){
+			if(i.CardKind == 112){
+				Rnum++;
+			}
+		}
+		GameManager.Instance.Cardmanager.TTurn.Attack +=Rnum;
 	}
 }

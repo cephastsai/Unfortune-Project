@@ -126,7 +126,7 @@ public class Hand : MonoBehaviour {
 		HandList.Clear();
 	}
 
-	public void HandRemove(CardManager.MainSection Tsec){		
+	public void HandRemove(CardManager.MainSection Tsec){
 		foreach(Card i in Hand.Ins.HandList){
 			if(i.CardKind == Tsec.cardkind){
 				//HandList.Remove(i);

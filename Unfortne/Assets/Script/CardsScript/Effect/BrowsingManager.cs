@@ -35,6 +35,13 @@ public class BrowsingManager : MonoBehaviour {
 				BigCard.AddComponent<Card>().SetCardSortingLayer("Browsing");
 				BigCard.transform.localScale = new Vector3(0.3f,0.3f,1);
 
+				//info
+				if(browsingCard.isOptionCard){
+					if(CardInfo.activeSelf == true){
+						CardInfo.SetActive(false);
+					}	
+				}
+
 				prebrowsingCard =browsingCard;
 			}
 

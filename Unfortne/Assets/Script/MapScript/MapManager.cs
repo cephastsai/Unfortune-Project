@@ -126,8 +126,20 @@ public class MapManager : MonoBehaviour {
 			"老頭子白了你一眼，\"你這個傢伙只會要東西!\"\n他邊說邊把手舉了起來，用力的巴你的頭。\n\"痛死啦，旅行還沒開始就要被你打死了!\"\n\n\"你是軟蛋是不是。\"說完就隨手丟了幾枚金幣給你\n\"拿去啦，食物自己去森林裡面找!\"",
 			"切!老頭子真小氣，算了，至少有拿到一些錢。\n還是乖乖去打獵填飽肚子吧\n\n<color=#EE2C0CFF>[目標:攻擊力1]</color>"
 		);
-			
+		Npoint4.OptionCardID.Add(1004);
 		MainST.GetChild(0).GetChild(0).AddChild(Npoint4);
+
+		StoryPiont Npoint5 = new StoryPiont(
+			new Vector3(-5f, -3f, 91f),
+			"回程",
+			"你終於打到了一隻兔子，好險沒有白跑一趟。\n不然會去老頭子一定又會不高興，然後你還沒有晚餐可以吃。\n想到這裡你肚子也咕嚕咕魯地叫了起來，\n這隻兔子看起來還蠻多肉的，烤起來一定很好吃~\n把東西整理好，趕快回去吧!",
+			"\n整理一下裝備，看看有沒有什麼東西沒帶的。"
+		);
+		Npoint5.OptionCardID.Add(108);
+		Npoint5.OptionCardID.Add(108);
+		Npoint5.OptionCardID.Add(111);
+		Npoint5.OptionCardID.Add(1005);
+		MainST.GetChild(0).GetChild(0).GetChild(0).AddChild(Npoint5);
 	}
 
 	void Update(){

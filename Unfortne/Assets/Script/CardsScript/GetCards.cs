@@ -100,6 +100,7 @@ public class GetCards : MonoBehaviour {
 			i.isSectionOver = false;
 			Tsec.CheckLsit.Add(i);
 			i.Place = CardManager.cardSection.GetCard;
+			i.SetCardSortingLayer("Hand");
 			i.GetCard();
 		}
 		GetCardsList.Clear();
