@@ -27,6 +27,7 @@ public class KnifeFalling : MonoBehaviour {
 		{
 			transform.localPosition +=new Vector3(0, 0, 91.01f);
 			LNPO = (GameObject)Instantiate(Resources.Load("Prifabs/LocalNameBG"),LocationNamePosition, Quaternion.identity);
+			LNPO.GetComponent<SpriteRenderer>().sortingOrder = -7;
 			GameManager.Instance.Mapmanager.ShowText(GetComponent<MapStoryPiont>().SPName);
 			Stop = true;
 		}

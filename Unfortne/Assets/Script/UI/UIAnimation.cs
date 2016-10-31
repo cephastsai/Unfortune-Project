@@ -100,6 +100,7 @@ public class UIAnimation : MonoBehaviour {
 	{
 		if (ToChild) 
 		{
+			ToSelf = false;
 			MoveDistance = Vector3.Distance (transform.position, ChildPosition);
 			transform.position = Vector3.MoveTowards (transform.position , ChildPosition , MoveDistance/K);
 			if (MoveDistance <= 0.1f)
@@ -111,6 +112,7 @@ public class UIAnimation : MonoBehaviour {
 		//Go to ChildPoint
 		if (ToSelf) 
 		{
+			ToChild = false;
 			MoveDistance = Vector3.Distance (transform.position, SelfPosition);
 			transform.position = Vector3.MoveTowards (transform.position , SelfPosition , MoveDistance/K);
 			if (MoveDistance <= 0.01f)
