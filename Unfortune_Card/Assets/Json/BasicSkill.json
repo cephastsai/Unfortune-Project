@@ -1,0 +1,52 @@
+{
+  "Skill_1": {
+    "Action": 1,
+    "Attack": 0,
+    "Cards": 1
+  },
+  "Skill_2": {
+    "Action": 2,
+    "Attack": 1,
+    "Cards": 0
+  },
+  "Skill_3": {
+    "Action": 1,
+    "Attack": 2,
+    "Cards": 0
+  },
+  "Skill_4": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 1
+  },
+  "Skill_5": {
+    "Action": 2,
+    "Attack": 0,
+    "Cards": 1
+  },
+  "Skill_6": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 0
+  },
+  "Skill_7": {
+    "Action": 1,
+    "Attack": 0,
+    "Cards": 1
+  },
+  "Skill_8": {
+    "Action": 0,
+    "Attack": 1,
+    "Cards": 0
+  },
+  "Skill_9": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 1
+  },
+  "Skill_10": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 0
+  }
+}
