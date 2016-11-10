@@ -30,6 +30,7 @@ public class ThisTurn : MonoBehaviour {
 
 		//Variable setting
 		Table.Ins.initTable();
+		FightingManager.Ins.PlayerAttack =Attack;
 
 		//drawing cards
 		Deck.Ins.DrawCards(initCards);

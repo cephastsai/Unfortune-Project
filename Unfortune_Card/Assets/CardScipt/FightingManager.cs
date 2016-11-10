@@ -26,11 +26,23 @@ public class FightingManager : MonoBehaviour {
 	public int Turn = 1;
 	public bool isPlayerTurn = true;
 
+	//fighting Variable
+	public int PlayerAttack = 0;
+	public int EnemyAttack = 0;
+	public int Settlement = 0;
+
+	public int PlayerHP = 10;
+	public int EnemyHP = 10;
+
 
 	public void init(bool whoturn){
 
 		//FightingManager initialization
 		isPlayerTurn = whoturn;
+		PlayerAttack = 0;
+		EnemyAttack = 0;
+		Settlement = 0;
+		EnemyHP = 10;
 
 		//Set Fighting UI 
 
@@ -51,11 +63,23 @@ public class FightingManager : MonoBehaviour {
 		isPlayerTurn = !isPlayerTurn;
 		if(Turn%2 == 0){
 			//Settlement
+			Settlement = PlayerAttack -EnemyAttack;
+			print("Settlement:" +Settlement);
 
+			if(Settlement >0){
+				EnemyHP -=Settlement;
+			}else{
+				PlayerHP +=Settlement;
+			}
+
+			//Variable initialization
+			PlayerAttack = 0;
+			EnemyAttack = 0;
+			Settlement = 0;
 
 		}else{
 			if(isPlayerTurn){
-				
+				PlayerCardManager.Ins.TurnStart();
 			}else{
 				EnemyCardManager.Ins.TurnStart();
 			}
@@ -64,15 +88,22 @@ public class FightingManager : MonoBehaviour {
 
 		//if heal <0
 		//FightingEnd function
-
+		if(EnemyHP <=0){
+			EnemyHP =0;
+			FightingEnd();
+		}
 
 		Turn++;
 	}
 
 
 	public void FightingEnd(){
-
+		print("Fighting Ending");
 		//FightingManager initialization
+		Turn = 1;
+		PlayerAttack = 0;
+		EnemyAttack = 0;
+		EnemyHP = 10;
 
 		//Set Fighting UI
 

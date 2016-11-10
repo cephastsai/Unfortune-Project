@@ -37,6 +37,8 @@ public class EnemyCardManager : MonoBehaviour {
 		}
 	}
 
+
+
 	//Card CheckList
 	public Queue<EnemyCardManager.MainSection> MainSectionQue = new Queue<EnemyCardManager.MainSection>();
 	public EnemyCardManager.MainSection MainSec;
@@ -51,6 +53,8 @@ public class EnemyCardManager : MonoBehaviour {
 
 	//Manager
 
+	//AI Section
+	public bool isEnemyAIOn = false;
 
 	public void init(){
 
@@ -130,11 +134,15 @@ public class EnemyCardManager : MonoBehaviour {
 
 		EDeck.Ins.DrawCards(5);
 
+		isEnemyAIOn = true;
+
 	}
 
 	public void TurnEnd(){
 		TTurn.EndofTheTurn();
 
 		EHand.Ins.isCardsCanPlay = false;
+
+		isEnemyAIOn = false;
 	}
 }

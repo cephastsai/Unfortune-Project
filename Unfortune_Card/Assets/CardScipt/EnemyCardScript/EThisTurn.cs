@@ -22,17 +22,17 @@ public class EThisTurn : MonoBehaviour {
 	public int initCards = 5;
 
 	public void EndofTheTurn(){
-		Hand.Ins.isCardsCanPlay = false;
+		EHand.Ins.isCardsCanPlay = false;
 		//option card destroy
 		foreach(Card i in OptionCardList){
 			if(i.Place == CardManager.cardSection.Hand){				
-				Hand.Ins.HandList.Remove(i);
+				EHand.Ins.HandList.Remove(i);
 				i.gameObject.AddComponent<StartBurn>().GetMat();
 				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
 			}
 
 			if(i.Place == CardManager.cardSection.Table){				
-				Table.Ins.TableList.Remove(i);
+				ETable.Ins.TableList.Remove(i);
 				i.gameObject.AddComponent<StartBurn>().GetMat();
 				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
 			}
@@ -44,15 +44,19 @@ public class EThisTurn : MonoBehaviour {
 		EnemyCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_T);
 
 		//Variable setting
-		Table.Ins.initTable();
+		ETable.Ins.initTable();
+		FightingManager.Ins.EnemyAttack = Attack;
 
 		//drawing cards
-		Deck.Ins.DrawCards(initCards);
+		EDeck.Ins.DrawCards(initCards);
 
 
 		//Ending
 		EnemyCardManager.Ins.Endingflag = true;	
 		EnemyCardManager.Ins.TTurn =  gameObject.AddComponent<EThisTurn>();
+
+		FightingManager.Ins.TurnEnding();
+
 		Destroy(this);
 	}		
 
