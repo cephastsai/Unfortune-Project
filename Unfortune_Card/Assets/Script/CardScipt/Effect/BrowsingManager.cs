@@ -53,8 +53,7 @@ public class BrowsingManager : MonoBehaviour {
 			if(BigCard != null){
 				Destroy(BigCard);
 			}
-		}
-
+		}			
 
 		//Card Info
 		/*
@@ -66,11 +65,11 @@ public class BrowsingManager : MonoBehaviour {
 		}else{
 			//card info gameObject
 			if(browsingCard != null){
-				if(!browsingCard.isOptionCard){
-					if(CardInfo.activeSelf == false){
-						CardInfo.SetActive(true);
-					}	
-				}
+				
+				if(CardInfo.activeSelf == false){
+					CardInfo.SetActive(true);
+				}	
+
 			}
 
 
@@ -88,7 +87,7 @@ public class BrowsingManager : MonoBehaviour {
 					InfoText.text = browsingCard.Info;
 				}
 			}
-		}	*/		
+		}		*/	
 
 	}
 

@@ -46,8 +46,10 @@ public class EnemyAI_Simple : MonoBehaviour {
 									}
 								}
 								//print("playcard:"+WeightsCardList[temp].ID);
-								WeightsCardList[temp].gameObject.GetComponent<EPlayCard>().PlayingCard();
-								WeightsCardList.Remove(temp);
+								if(WeightsCardList[temp].gameObject.GetComponent<EPlayCard>() != null){
+									WeightsCardList[temp].gameObject.GetComponent<EPlayCard>().PlayingCard();
+									WeightsCardList.Remove(temp);
+								}
 								isWaitPlayCard = false;
 							}
 						}

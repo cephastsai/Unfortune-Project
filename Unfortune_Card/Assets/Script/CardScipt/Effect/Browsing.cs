@@ -22,14 +22,15 @@ public class Browsing : MonoBehaviour {
 		if(myCard.isPlayerCard){
 			if(myCard.Place != CardManager.cardSection.Hand 
 				&& myCard.Place != CardManager.cardSection.Table
-				&&  myCard.Place != CardManager.cardSection.Select
-				&& 	myCard.Place != CardManager.cardSection.Get
-			){			
+				&&  myCard.Place != CardManager.cardSection.Playing
+			){
+				PlayerCardManager.Ins.BM.removecard(myCard);
 				Destroy(this);
 			}
 		}else{
 			if(myCard.Place != CardManager.cardSection.Table
-				&&myCard.Place != CardManager.cardSection.Playing){			
+				&&myCard.Place != CardManager.cardSection.Playing){
+				PlayerCardManager.Ins.BM.removecard(myCard);
 				Destroy(this);
 			}
 		}
