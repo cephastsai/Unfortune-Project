@@ -132,8 +132,6 @@ public class EnemyCardManager : MonoBehaviour {
 
 		EHand.Ins.isCardsCanPlay = true;
 
-		EDeck.Ins.DrawCards(5);
-
 		isEnemyAIOn = true;
 
 	}

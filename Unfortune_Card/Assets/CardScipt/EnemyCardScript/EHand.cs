@@ -81,11 +81,7 @@ public class EHand : MonoBehaviour {
 					//component
 					if(i.GetComponent<EPlayCard>() == null){
 						i.gameObject.AddComponent<EPlayCard>();
-					}
-
-					/*if(i.GetComponent<Browsing>() == null){		
-						i.gameObject.AddComponent<Browsing>();
-					}*/
+					}						
 
 					EnemyCardManager.Ins.gameObject.GetComponent<EnemyAI_Simple>().SettingCard();
 

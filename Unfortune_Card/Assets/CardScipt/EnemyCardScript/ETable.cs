@@ -45,6 +45,10 @@ public class ETable : MonoBehaviour {
 		ActionNumber--;
 		ActionNumber +=playingCard.action;
 
+		if(playingCard.GetComponent<Browsing>() == null){		
+			playingCard.gameObject.AddComponent<Browsing>();
+		}
+
 		return new Vector3(0, 0, 0);
 	}
 

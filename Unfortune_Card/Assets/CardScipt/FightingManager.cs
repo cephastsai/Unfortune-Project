@@ -51,6 +51,7 @@ public class FightingManager : MonoBehaviour {
 
 		//Enemy CardManager initialzation
 		EnemyCardManager.Ins.gameObject.AddComponent<EnemyAI_Simple>();
+		EDeck.Ins.DrawCards(5);
 
 		//Turn Start
 		PlayerCardManager.Ins.TurnStart();

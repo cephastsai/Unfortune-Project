@@ -42,7 +42,12 @@ public class BrowsingManager : MonoBehaviour {
 			if(BigCard != null){
 				//BigCard.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				Vector3 tempVec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				BigCard.transform.position = new Vector3(tempVec.x-2, tempVec.y+3, 0.1f);
+				if(browsingCard.isPlayerCard){
+					BigCard.transform.position = new Vector3(tempVec.x-2, tempVec.y+3, 0.1f);
+				}else{
+					BigCard.transform.position = new Vector3(tempVec.x-2, tempVec.y-3, 0.1f);
+				}
+
 			}
 		}else{
 			if(BigCard != null){
