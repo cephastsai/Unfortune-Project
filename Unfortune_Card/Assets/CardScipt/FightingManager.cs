@@ -62,7 +62,7 @@ public class FightingManager : MonoBehaviour {
 		//variable setting
 		isPlayerTurn = !isPlayerTurn;
 		if(Turn%2 == 0){
-			//Settlement
+			//Turn Settlement
 			Settlement = PlayerAttack -EnemyAttack;
 			print("Settlement:" +Settlement);
 
@@ -77,23 +77,24 @@ public class FightingManager : MonoBehaviour {
 			EnemyAttack = 0;
 			Settlement = 0;
 
+		}
+
+		//FightingEnd function
+		if(EnemyHP <=0){
+			EnemyHP =0;
+			FightingEnd();
 		}else{
+			//Turn not end
 			if(isPlayerTurn){
 				PlayerCardManager.Ins.TurnStart();
 			}else{
 				EnemyCardManager.Ins.TurnStart();
 			}
+
+			Turn++;
 		}
 
 
-		//if heal <0
-		//FightingEnd function
-		if(EnemyHP <=0){
-			EnemyHP =0;
-			FightingEnd();
-		}
-
-		Turn++;
 	}
 
 
@@ -105,7 +106,12 @@ public class FightingManager : MonoBehaviour {
 		EnemyAttack = 0;
 		EnemyHP = 10;
 
+		//Fighting Settlement
+
+
 		//Set Fighting UI
+
+
 
 	}
 
