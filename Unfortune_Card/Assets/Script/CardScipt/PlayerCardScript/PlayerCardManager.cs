@@ -51,7 +51,6 @@ public class PlayerCardManager : MonoBehaviour {
 	public bool Endingflag = false;
 
 	//Manager
-	public BrowsingManager BM;
 	public GameObject CardEndingButton;
 
 
@@ -60,7 +59,7 @@ public class PlayerCardManager : MonoBehaviour {
 
 	public void init(){
 		
-		BM = GetComponent<BrowsingManager>();
+
 
 
 	}

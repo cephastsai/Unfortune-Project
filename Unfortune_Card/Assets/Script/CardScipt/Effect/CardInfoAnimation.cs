@@ -5,54 +5,48 @@ public class CardInfoAnimation : MonoBehaviour {
 
 	public RectTransform RT;
 	private bool isAnimationStart = false;
-	private bool isCIwidthOver = false;
 
 	private float Timer;
-	private bool TimerOn = false;
+	private bool isTimerOn = false;
 
 
-	public void start(){
-
-		TimerOn  = true;
+	public void start(){		
 		Timer = Time.time;
-		isCIwidthOver = false;
+		isAnimationStart = false;
+		isTimerOn = true;
 
-		RT.localScale = new Vector3(0, 0.1f, 1);
+		RT.localScale = new Vector3(0, 1, 1);
 	}
 
 	public void end(){
 		RT.localScale = new Vector3(1, 1, 1);
 		isAnimationStart = false;
-		TimerOn = false;
+		isTimerOn = false;
 	}
 
 
 	void Update () {
 		//Timer
-		if(TimerOn){
+		//print(isAnimationStart);
+		if(isTimerOn){
 			if(Time.time - Timer > 0.4f){
 				isAnimationStart = true;
+				isTimerOn = false;
 			}
 		}
 
+		
+
 		//Animation
 		if(isAnimationStart){
-			if(!isCIwidthOver){
-				RT.localScale += new Vector3(0.1f, 0, 0);
+			
+			RT.localScale += new Vector3(0.06f, 0, 0);
 
-				if(RT.localScale.x >= 1){				
-					RT.localScale = new Vector3(1, 0.06f, 1);
-					isCIwidthOver = true;
-				}
-
-			}else{
-				RT.localScale += new Vector3(0, 0.04f, 0);
-
-				if(RT.localScale.y >= 1){			
-					end();
-				}
-			}
-													
+			if(RT.localScale.x >= 1){				
+				RT.localScale = new Vector3(1, 1, 1);
+				CardManager.Ins.BM.SetInfoText();
+				isAnimationStart = false;
+			}																
 		}
 	}
 

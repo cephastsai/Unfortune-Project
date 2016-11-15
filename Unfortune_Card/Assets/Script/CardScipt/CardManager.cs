@@ -39,15 +39,13 @@ public class CardManager : MonoBehaviour {
 
 	public CreateCard CCard;
 	private int CardID = 0;
+	public BrowsingManager BM;
 
-	//Card Place
-	//public GameObject Deck;
-	//public GameObject Hand;
 
 	void Start(){
 		CCard = GetComponent<CreateCard>();
 		CCard.init();
-
+		BM = GetComponent<BrowsingManager>();
 
 		//temp
 		CreateCard(2, true);

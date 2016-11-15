@@ -62,6 +62,7 @@ public class BrowsingManager : MonoBehaviour {
 			if(CardInfo.activeSelf == true){
 				CardInfo.SetActive(false);
 				CIAnimation.end();
+				InfoText.text = "";
 			}
 
 		}else{
@@ -71,6 +72,7 @@ public class BrowsingManager : MonoBehaviour {
 				if(CardInfo.activeSelf == false){
 					CardInfo.SetActive(true);
 					CIAnimation.start();
+					InfoText.text = "";
 				}	
 
 			}
@@ -85,15 +87,21 @@ public class BrowsingManager : MonoBehaviour {
 			//Info
 			if(browsingCard != null){
 				if(InfoCardKind != browsingCard.CardKind){
+					InfoText.text = "";
 					InfoCardKind = browsingCard.CardKind;
 					CIAnimation.start();
 					//setinfo
-					InfoText.text = browsingCard.Info;
+
 				}
 			}
 		}			
 
 	}
+
+	public void SetInfoText(){			
+		InfoText.text = browsingCard.Info;
+	}
+
 
 	public void setcard(Card i){		
 		if(browsingCard ==null){

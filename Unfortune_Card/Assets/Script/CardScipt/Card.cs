@@ -47,6 +47,8 @@ public class Card : MonoBehaviour {
 		SkillSetting();
 
 
+		Info = CardManager.Ins.gameObject.GetComponent<CardsInfoLoader>().GetCardsInfo(Cardkind);
+
 		isSectionOver = true;
 	}		
 

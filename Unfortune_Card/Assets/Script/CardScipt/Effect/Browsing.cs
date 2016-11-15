@@ -24,13 +24,13 @@ public class Browsing : MonoBehaviour {
 				&& myCard.Place != CardManager.cardSection.Table
 				&&  myCard.Place != CardManager.cardSection.Playing
 			){
-				PlayerCardManager.Ins.BM.removecard(myCard);
+				CardManager.Ins.BM.removecard(myCard);
 				Destroy(this);
 			}
 		}else{
 			if(myCard.Place != CardManager.cardSection.Table
 				&&myCard.Place != CardManager.cardSection.Playing){
-				PlayerCardManager.Ins.BM.removecard(myCard);
+				CardManager.Ins.BM.removecard(myCard);
 				Destroy(this);
 			}
 		}
@@ -40,9 +40,9 @@ public class Browsing : MonoBehaviour {
 
 	public void BrowsingCard(Transform target){
 		if (target == transform){			
-			PlayerCardManager.Ins.BM.setcard(myCard);
+			CardManager.Ins.BM.setcard(myCard);
 		}else{			
-			PlayerCardManager.Ins.BM.removecard(myCard);
+			CardManager.Ins.BM.removecard(myCard);
 		}
 	}
 
