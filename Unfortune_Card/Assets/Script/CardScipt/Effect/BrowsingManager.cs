@@ -11,6 +11,7 @@ public class BrowsingManager : MonoBehaviour {
 	[SerializeField]private Card prebrowsingCard;
 
 	public GameObject CardInfo;
+	public CardInfoAnimation CIAnimation;
 	public Text InfoText;
 	public int InfoCardKind =0;
 
@@ -20,6 +21,7 @@ public class BrowsingManager : MonoBehaviour {
 		//initd
 		Maincamera = GameObject.Find ("Main Camera");
 		Camera camera = Maincamera.GetComponent<Camera>();
+		CIAnimation = CardInfo.GetComponent<CardInfoAnimation>();
 		//InfoText.gameObject.GetComponent<Canvas>();
 	}
 
@@ -29,7 +31,6 @@ public class BrowsingManager : MonoBehaviour {
 			if(BigCard == null || prebrowsingCard != browsingCard){				
 				Destroy(BigCard);
 				BigCard = GameManager.Instance.Cardmanager.CCard.Createcard(browsingCard.CardKind);
-				//BigCard.transform.position= Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				Vector3 tempVec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				BigCard.transform.position = new Vector3(tempVec.x, tempVec.y, 0.1f);
 				BigCard.AddComponent<Card>().SetCardSortingLayer("Browsing");
@@ -56,10 +57,11 @@ public class BrowsingManager : MonoBehaviour {
 		}			
 
 		//Card Info
-		/*
+
 		if(BigCard == null){
 			if(CardInfo.activeSelf == true){
 				CardInfo.SetActive(false);
+				CIAnimation.end();
 			}
 
 		}else{
@@ -68,13 +70,14 @@ public class BrowsingManager : MonoBehaviour {
 				
 				if(CardInfo.activeSelf == false){
 					CardInfo.SetActive(true);
+					CIAnimation.start();
 				}	
 
 			}
 
 
 			CardInfo.transform.position = new Vector3(
-				BigCard.transform.position.x +3.7f,
+				BigCard.transform.position.x +2f,
 				BigCard.transform.position.y,
 				BigCard.transform.position.z
 			);
@@ -83,11 +86,12 @@ public class BrowsingManager : MonoBehaviour {
 			if(browsingCard != null){
 				if(InfoCardKind != browsingCard.CardKind){
 					InfoCardKind = browsingCard.CardKind;
+					CIAnimation.start();
 					//setinfo
 					InfoText.text = browsingCard.Info;
 				}
 			}
-		}		*/	
+		}			
 
 	}
 

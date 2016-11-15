@@ -55,7 +55,6 @@ public class FightingManager : MonoBehaviour {
 
 		//Turn Start
 		PlayerCardManager.Ins.TurnStart();
-
 	}
 
 	public void TurnEnding(){
