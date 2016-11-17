@@ -40,12 +40,17 @@ public class CardManager : MonoBehaviour {
 	public CreateCard CCard;
 	private int CardID = 0;
 	public BrowsingManager BM;
+	public CardsSkill CardsS;
 
 
 	void Start(){
+		//init
 		CCard = GetComponent<CreateCard>();
 		CCard.init();
 		BM = GetComponent<BrowsingManager>();
+		CardsS = GetComponent<CardsSkill>();
+		CardsS.init();
+		GetComponent<CardsInfoLoader>().loading();
 
 		//temp
 		CreateCard(2, true);

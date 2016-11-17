@@ -40,7 +40,6 @@ public class BasicSkillLoader : MonoBehaviour {
 				int.Parse(jsonData[i]["Attack"].ToString()),
 				int.Parse(jsonData[i]["Cards"].ToString())
 			);
-
 			BasicSkillList.Add(i, NBS);
 		}
 	}

@@ -1,0 +1,14 @@
+{
+  "0":{
+    "ID": 0,
+    "Skill": "HandRemove_Hunger"
+  },
+   "5":{
+    "ID": 5,
+    "Skill": "HandRemove_Hunger"
+  },
+   "6":{
+    "ID": 6,
+    "Skill": "BladeofRevenge"
+  }
+}

@@ -213,7 +213,7 @@ public class Card : MonoBehaviour {
 	}
 
 	public void UseSkill(){
-		//GameManager.Instance.Cardmanager.CardsS.UseCardSkill(this);
+		GameManager.Instance.Cardmanager.CardsS.UseCardSkill(this);
 	}
 
 	public void SetCardSortingLayer(string SLname){

@@ -12,23 +12,18 @@ public class CardsInfoLoader : MonoBehaviour {
 	private string jsonString;
 	private JsonData jsonData;
 
-	void Start(){
-		loading();
-	}
-
-
-	private void loading(){
+	public void loading(){
 
 		jsonString = File.ReadAllText(Application.dataPath +"/Json/CardsInfoJson.json");
 		jsonData = JsonMapper.ToObject(jsonString);
 
-		for(int i=0; i<jsonData.Count; i++){
+		for(int i=0; i<jsonData.Count; i++){			
 			CardsInfoList.Add(jsonData[i].ToString());
 		}			
 	}
 
 
-	public string GetCardsInfo(int _cardkind){
+	public string GetCardsInfo(int _cardkind){		
 		return CardsInfoList[_cardkind];
 	}
 }
