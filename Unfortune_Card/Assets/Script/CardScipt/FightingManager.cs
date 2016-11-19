@@ -26,6 +26,9 @@ public class FightingManager : MonoBehaviour {
 	public int Turn = 1;
 	public bool isPlayerTurn = true;
 
+	private bool isPlayerTurnEnd = false;
+	private bool isEnemyTurnEnd = false;
+
 	//fighting Variable
 	public int PlayerAttack = 0;
 	public int EnemyAttack = 0;
@@ -38,6 +41,7 @@ public class FightingManager : MonoBehaviour {
 	public void init(bool whoturn){
 
 		//FightingManager initialization
+		Turn = 1;
 		isPlayerTurn = whoturn;
 		PlayerAttack = 0;
 		EnemyAttack = 0;
@@ -56,6 +60,31 @@ public class FightingManager : MonoBehaviour {
 		//Turn Start
 		PlayerCardManager.Ins.TurnStart();
 	}
+
+	void Update(){
+
+
+		// Ending Waiting
+		if(isPlayerTurnEnd){
+			if(PlayerCardManager.Ins.MainSectionQue.Count ==0){				
+				if(PlayerCardManager.Ins.isMainSectionOver){
+					
+					EnemyCardManager.Ins.TurnStart();
+					isPlayerTurnEnd = false;
+				}
+			}
+		}
+
+		if(isEnemyTurnEnd){
+			if(EnemyCardManager.Ins.MainSectionQue.Count ==0){
+				//if(EnemyCardManager.Ins.isMainSectionOver){					
+					PlayerCardManager.Ins.TurnStart();
+					isEnemyTurnEnd = false;
+				//}
+			}
+		}
+	}
+
 
 	public void TurnEnding(){
 		
@@ -86,14 +115,13 @@ public class FightingManager : MonoBehaviour {
 		}else{
 			//Turn not end
 			if(isPlayerTurn){
-				PlayerCardManager.Ins.TurnStart();
+				isEnemyTurnEnd = true;
 			}else{
-				EnemyCardManager.Ins.TurnStart();
+				isPlayerTurnEnd = true;
 			}
 
 			Turn++;
-		}
-
+		}			
 
 	}
 
@@ -101,10 +129,7 @@ public class FightingManager : MonoBehaviour {
 	public void FightingEnd(){
 		print("Fighting Ending");
 		//FightingManager initialization
-		Turn = 1;
-		PlayerAttack = 0;
-		EnemyAttack = 0;
-		EnemyHP = 10;
+
 
 		//Fighting Settlement
 

@@ -82,6 +82,7 @@ public class CardsSkill : MonoBehaviour {
 
 	public void BladeofRevenge(Card target){
 		if(isSkillEnd){
+			
 		}else{
 			int Rnum = 0;
 			foreach(Card i in Table.Ins.TableList){
