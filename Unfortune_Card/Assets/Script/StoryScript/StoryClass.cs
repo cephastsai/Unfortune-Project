@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Story : MonoBehaviour {
 
 	public Vector3 _Psition;
 
 	public int StoryKind;
+
+	public int[] MapNodeID = new int[10];
+
+	public List<string> StoryInfo = new List<string>();
+
+	public string StoryInfoSort;
 
 }
 
