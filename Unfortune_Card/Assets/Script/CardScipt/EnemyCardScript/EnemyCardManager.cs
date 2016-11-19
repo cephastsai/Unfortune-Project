@@ -137,6 +137,19 @@ public class EnemyCardManager : MonoBehaviour {
 	}
 
 	public void TurnEnd(){
+		print("EnemyManager");
+		//Ending Skill
+		CardManager.Ins.CardsS.isSkillEnd = true;
+
+		foreach(Card i in EHand.Ins.HandList){
+			i.UseSkill();
+		}
+
+		foreach(Card i in ETable.Ins.TableList){
+			i.UseSkill();
+		}
+
+
 		TTurn.EndofTheTurn();
 
 		EHand.Ins.isCardsCanPlay = false;

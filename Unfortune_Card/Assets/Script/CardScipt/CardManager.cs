@@ -54,18 +54,14 @@ public class CardManager : MonoBehaviour {
 
 		//temp
 		CreateCard(2, true);
+		CreateCard(6, true);
 		CreateCard(2, true);
-		CreateCard(2, true);
-		CreateCard(0, true);
+		CreateCard(6, true);
 
 		CreateCard(2, false);
 		CreateCard(4, false);
 		CreateCard(5, false);
-		CreateCard(6, false);
-		CreateCard(4, false);
-		CreateCard(7, false);
-		CreateCard(3, false);
-		CreateCard(8, false);
+
 				
 	}
 

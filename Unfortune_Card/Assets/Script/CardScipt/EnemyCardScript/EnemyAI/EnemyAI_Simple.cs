@@ -16,48 +16,44 @@ public class EnemyAI_Simple : MonoBehaviour {
 
 		if(EnemyCardManager.Ins.isEnemyAIOn){
 			//AI
-			if(!FightingManager.Ins.isPlayerTurn){
-				if(EnemyCardManager.Ins.MainSectionQue.Count == 0 && EnemyCardManager.Ins.isMainSectionOver){
-					if(WeightsCardList.Count != 0){
-
-						if(ETable.Ins.ActionNumber ==0 || EHand.Ins.HandList.Count ==0){
-							if(!isWaitPlayCard){
-								Timer = Time.time;
-								isWaitPlayCard = true;
-								ranWaitingTime = 1;
-							}
-
-							if(Time.time - Timer > ranWaitingTime){
-								EnemyCardManager.Ins.TurnEnd();
-							}
-														
-						}else{
-							if(!isWaitPlayCard){
-								Timer = Time.time;
-								isWaitPlayCard = true;
-								ranWaitingTime = (float)GameManager.ran.Next(5, 15)/10f;
-							}
-
-							if(Time.time - Timer > ranWaitingTime){
-								int temp = WeightsCardList.Last().Key;
-								foreach(KeyValuePair<int, Card> item in WeightsCardList){
-									if(item.Key > temp){
-										temp = item.Key;
-									}
-								}
-								//print("playcard:"+WeightsCardList[temp].ID);
-								if(WeightsCardList[temp].gameObject.GetComponent<EPlayCard>() != null){
-									WeightsCardList[temp].gameObject.GetComponent<EPlayCard>().PlayingCard();
-									WeightsCardList.Remove(temp);
-								}
-								isWaitPlayCard = false;
-							}
+			if(!FightingManager.Ins.isPlayerTurn){				
+				if(EnemyCardManager.Ins.MainSectionQue.Count == 0 && EnemyCardManager.Ins.isMainSectionOver){										
+						
+					if(ETable.Ins.ActionNumber ==0 || EHand.Ins.HandList.Count ==0){
+						print("st");
+						if(!isWaitPlayCard){
+							Timer = Time.time;
+							isWaitPlayCard = true;
+							ranWaitingTime = 1;
 						}
 
+						if(Time.time - Timer > ranWaitingTime){
+							EnemyCardManager.Ins.TurnEnd();
+						}
+													
+					}else{
+						if(!isWaitPlayCard){
+							Timer = Time.time;
+							isWaitPlayCard = true;
+							ranWaitingTime = (float)GameManager.ran.Next(5, 15)/10f;
+						}
 
-					}
-
-
+						if(Time.time - Timer > ranWaitingTime){
+							int temp = WeightsCardList.Last().Key;
+							foreach(KeyValuePair<int, Card> item in WeightsCardList){
+								if(item.Key > temp){
+									temp = item.Key;
+								}
+							}
+							//print("playcard:"+WeightsCardList[temp].ID);
+							if(WeightsCardList[temp].gameObject.GetComponent<EPlayCard>() != null){
+								WeightsCardList[temp].gameObject.GetComponent<EPlayCard>().PlayingCard();
+								WeightsCardList.Remove(temp);
+							}
+							isWaitPlayCard = false;
+						}
+					}						
+						
 				}
 			}
 		}

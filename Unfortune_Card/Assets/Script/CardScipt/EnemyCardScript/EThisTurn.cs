@@ -23,21 +23,6 @@ public class EThisTurn : MonoBehaviour {
 
 	public void EndofTheTurn(){
 		EHand.Ins.isCardsCanPlay = false;
-		//option card destroy
-		foreach(Card i in OptionCardList){
-			if(i.Place == CardManager.cardSection.Hand){				
-				EHand.Ins.HandList.Remove(i);
-				i.gameObject.AddComponent<StartBurn>().GetMat();
-				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
-			}
-
-			if(i.Place == CardManager.cardSection.Table){				
-				ETable.Ins.TableList.Remove(i);
-				i.gameObject.AddComponent<StartBurn>().GetMat();
-				i.transform.GetChild(0).gameObject.AddComponent<StartBurn>().GetMat();
-			}
-		}
-
 
 		//discard
 		EnemyCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_H);

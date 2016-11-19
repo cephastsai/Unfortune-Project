@@ -42,14 +42,13 @@ public class CardsSkill : MonoBehaviour {
 
 	public void UseCardSkill(Card i){
 		
-		if(!CardsSkillList.ContainsKey(i.CardKind)){
-			i.SectionOver();
-		}else{
+		if(CardsSkillList.ContainsKey(i.CardKind)){
+			
 			gameObject.SendMessage(CardsSkillList[i.CardKind], i);
 
 			//Invoke(CardsSkillList[i.CardKind].skillkind, 0f);
-			i.SectionOver();
-		}			
+		}
+		i.SectionOver();
 	}			
 
 
@@ -59,8 +58,12 @@ public class CardsSkill : MonoBehaviour {
 		PlayerCardManager.Ins.TTurn.initCards +=1;
 	}
 
-	private void HandRemove_Hunger(Card target){		
-		PlayerCardManager.Ins.AddMainQue(CardManager.cardSection.HandRemove, 9);
+	private void HandRemove_Hunger(Card target){
+		if(isSkillEnd){
+			
+		}else{
+			PlayerCardManager.Ins.AddMainQue(CardManager.cardSection.HandRemove, 9);
+		}
 	}
 
 	private void Hunger(Card target){
@@ -78,12 +81,16 @@ public class CardsSkill : MonoBehaviour {
 	}
 
 	public void BladeofRevenge(Card target){
-		int Rnum = 0;
-		foreach(Card i in Table.Ins.TableList){
-			if(i.CardKind == 112){
-				Rnum++;
+		if(isSkillEnd){
+		}else{
+			int Rnum = 0;
+			foreach(Card i in Table.Ins.TableList){
+				if(i.CardKind == 112){
+					Rnum++;
+				}
 			}
+			PlayerCardManager.Ins.TTurn.Attack +=Rnum;
 		}
-		PlayerCardManager.Ins.TTurn.Attack +=Rnum;
+
 	}
 }

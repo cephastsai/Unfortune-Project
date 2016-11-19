@@ -145,6 +145,9 @@ public class PlayerCardManager : MonoBehaviour {
 	//Fighting function
 
 	public void TurnStart(){
+		//Ending Skill
+		//CardManager.Ins.CardsS.isSkillEnd = true;
+
 		TTurn =  gameObject.AddComponent<ThisTurn>();
 
 		Hand.Ins.isCardsCanPlay = true;
@@ -154,6 +157,17 @@ public class PlayerCardManager : MonoBehaviour {
 	}
 
 	public void TurnEnd(){
+		//Ending Skill
+		CardManager.Ins.CardsS.isSkillEnd = true;
+
+		foreach(Card i in Hand.Ins.HandList){
+			i.UseSkill();
+		}
+
+		foreach(Card i in Table.Ins.TableList){
+			i.UseSkill();
+		}
+
 		TTurn.EndofTheTurn();
 
 		Hand.Ins.isCardsCanPlay = false;
