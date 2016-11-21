@@ -17,6 +17,7 @@ public class DrawCardMoving : MonoBehaviour {
 			if (TargetDistance <= 0.1f)
 			{
 				GetComponent<Card>().SectionOver();
+				this.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
 				StartM = false;
 				Destroy(this);
 			}	
@@ -27,7 +28,7 @@ public class DrawCardMoving : MonoBehaviour {
 			this.transform.rotation = Quaternion.Euler (0f, y, 0f);
 			if (y != 0) 
 			{
-				y -= 10;
+				y -= 20;
 			}
 			if (y <= 0) 
 			{
