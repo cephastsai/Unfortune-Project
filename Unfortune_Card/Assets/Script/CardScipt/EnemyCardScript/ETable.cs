@@ -35,11 +35,34 @@ public class ETable : MonoBehaviour {
 	public int IndentationCardNum = 6;
 	private bool isIndentation = false;
 
+	//Discard_T
+	private Stack<Card> Discard_T_List = new Stack<Card>();
+	private bool isDiscard_TStart = false;
+	private float Timer = 0;
+	private float preDiscardTime = 0.2f;
 
 	void Start(){				
 		ActionNumber = 1;
 		isIndentation = false;
 	}
+
+	void Update(){
+
+		if(isDiscard_TStart){
+			if(Discard_T_List.Count >0){
+				if(Time.time - Timer >= preDiscardTime){					
+					Card temp =  Discard_T_List.Pop();
+					temp.Place =CardManager.cardSection.Discard_T;
+					temp.Discard_T();
+
+					Timer = Time.time;
+				}
+			}else{
+				isDiscard_TStart = false;
+			}
+		}
+	}
+
 
 	public Vector3 GetTableCardposition(Card playingCard){
 		ActionNumber--;
@@ -107,9 +130,13 @@ public class ETable : MonoBehaviour {
 		foreach(Card i in TableList){
 			i.isSectionOver = false;
 			Tsec.CheckLsit.Add(i);
-			i.Place = CardManager.cardSection.Discard_T;
-			i.Discard_T();
+
+			Discard_T_List.Push(i);
 		}
+
+		isDiscard_TStart = true;
+		Timer = Time.time;
+
 		TableList.Clear();
 	}
 

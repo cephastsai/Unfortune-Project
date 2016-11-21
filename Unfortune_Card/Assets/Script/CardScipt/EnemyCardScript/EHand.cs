@@ -39,6 +39,13 @@ public class EHand : MonoBehaviour {
 	public int HandCardNumber = 0;
 	private int Reservations = 0;
 
+	//Discard_T
+	private Stack<Card> Discard_H_List = new Stack<Card>();
+	private bool isDiscard_HStart = false;
+	private float Timer = 0;
+	private float preDiscardTime = 0.2f;
+
+
 	public Vector3 GetHandCardPosition(Card i){
 		Reservations++;	
 		return 
@@ -107,6 +114,23 @@ public class EHand : MonoBehaviour {
 			if(Table.Ins.ActionNumber ==0){
 				isCardsCanPlay = false;
 			}*/
+
+			//discard_H
+			if(isDiscard_HStart){
+				if(Discard_H_List.Count >0){
+					if(Time.time - Timer >= preDiscardTime){					
+						Card temp =  Discard_H_List.Pop();
+						temp.Place =CardManager.cardSection.Discard_T;
+						temp.Discard_T();
+
+						Timer = Time.time;
+					}
+				}else{
+					isDiscard_HStart = false;
+				}
+			}
+
+
 		}			
 
 	}
@@ -115,9 +139,13 @@ public class EHand : MonoBehaviour {
 		foreach(Card i in HandList){
 			i.isSectionOver = false;
 			Tsec.CheckLsit.Add(i);
-			i.Place = CardManager.cardSection.Discard_H;
-			i.Discard_H();
+
+			Discard_H_List.Push(i);
 		}
+
+		isDiscard_HStart = true;
+		Timer = Time.time;
+
 		HandList.Clear();
 	}
 

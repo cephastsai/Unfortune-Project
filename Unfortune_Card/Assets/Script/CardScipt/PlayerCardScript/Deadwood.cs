@@ -32,12 +32,20 @@ public class Deadwood : MonoBehaviour {
 	public Transform Deadwoodpos;
 	public Transform DeadwoodposE;
 
+	//Position
+	public float constantX = 0.005f;
+	public float constantY = 0.005f;
+
 	//Cards List
 	public List<Card> DeadwoodList = new List<Card>();
 
 	public Vector3 GetDeadwoodCardPosition(Card target){
 		target.SetCardSprtingOrderNumber(DeadwoodList.Count);	
-		return new Vector3(0,0,0);
+		return new Vector3(
+			-constantX*(DeadwoodList.Count),
+			-constantY*(DeadwoodList.Count),
+			-0.1f*(DeadwoodList.Count-1)
+		);
 	}
 
 	public void Shuffling(PlayerCardManager.MainSection Tsec){

@@ -19,8 +19,7 @@ public class EnemyAI_Simple : MonoBehaviour {
 			if(!FightingManager.Ins.isPlayerTurn){				
 				if(EnemyCardManager.Ins.MainSectionQue.Count == 0 && EnemyCardManager.Ins.isMainSectionOver){										
 						
-					if(ETable.Ins.ActionNumber ==0 || EHand.Ins.HandList.Count ==0){
-						print("st");
+					if(ETable.Ins.ActionNumber ==0 || EHand.Ins.HandList.Count ==0){						
 						if(!isWaitPlayCard){
 							Timer = Time.time;
 							isWaitPlayCard = true;
