@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,7 +19,9 @@ public class CreateCard : MonoBehaviour {
 
 		//card top
 		GameObject CardTop = new GameObject("card");
+		//CardTop.AddComponent<RectTransform>();	
 		CardTop.AddComponent<SpriteRenderer>().sprite = CardImageList[cardKind];
+		//CardTop.AddComponent<Image>().sprite = CardImageList[cardKind];
 		CardTop.transform.localScale = new Vector3(0.1f, 0.1f, 1);
 
 		//card back
