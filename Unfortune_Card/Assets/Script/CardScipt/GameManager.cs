@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 		}else if(_instance != this){
 			Destroy(gameObject);
 		}
+
+		init();
 	}
 
 	//Random
@@ -45,18 +47,19 @@ public class GameManager : MonoBehaviour {
 	};
 	public static GameSection GameMainSection;
 
-
+	void init(){
+		Cardmanager = GameObject.Find("CardManager").GetComponent<CardManager>();
+		Fightingmanager = GameObject.Find("FightingManager").GetComponent<FightingManager>();
+		TE = GameObject.Find("TouchManager").GetComponent<TouchEvent>();
+	}
 
 	void Start(){
 		//Manager setting
-		Cardmanager = GameObject.Find("CardManager").GetComponent<CardManager>();
-		Fightingmanager = GameObject.Find("FightingManager").GetComponent<FightingManager>();
+
 		Fightingmanager.init(true);
 
 		//Mapmanager = GameObject.Find("MapManager").GetComponent<MapManager>();
 		//Mapmanager.init();
-
-		TE = GameObject.Find("TouchManager").GetComponent<TouchEvent>();
 
 		//UImanager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
