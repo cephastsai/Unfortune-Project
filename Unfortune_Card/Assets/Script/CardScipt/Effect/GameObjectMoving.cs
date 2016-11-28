@@ -15,7 +15,9 @@ public class GameObjectMoving : MonoBehaviour {
 	//update
 	void Update(){
 		if(Vector2.Distance(transform.localPosition,TargetPosition) <0.1f){
-			GetComponent<Card>().SectionOver();
+			if(GetComponent<Card>() !=null){
+				GetComponent<Card>().SectionOver();
+			}
 			Destroy(this);
 		}
 

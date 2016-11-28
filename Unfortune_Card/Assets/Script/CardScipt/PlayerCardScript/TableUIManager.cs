@@ -11,13 +11,12 @@ public class TableUIManager : MonoBehaviour {
 	private float startTablePosition;
 	private float speed;
 
-
 	void Start(){
 		GameManager.Instance.TE.TEDObjectHL += DropTableUI;
 	}
 
 	void Update(){
-		if(!isHold){
+		if(!isHold){			
 			Table.Ins.transform.localPosition += new Vector3(speed*Time.deltaTime, 0, 0);
 
 			if(speed<1 && speed >-1){
@@ -29,13 +28,29 @@ public class TableUIManager : MonoBehaviour {
 					speed++;
 				}
 			}
+
+			if(Table.Ins.transform.localPosition.x < -5.7f){
+				float resistance = 10f -(5.7f +Table.Ins.transform.localPosition.x)*10f;
+				Table.Ins.transform.localPosition += new Vector3(resistance*Time.deltaTime, 0, 0);
+			}
+
+			if(Table.Ins.transform.localPosition.x /*+ 
+				GetComponent<TableSlot>().lastSlotPos*/
+				> 5.7f){
+				float resistance = 10f + (Table.Ins.transform.localPosition.x -5.7f)*10f;
+				Table.Ins.transform.localPosition -= new Vector3(resistance*Time.deltaTime, 0, 0);
+			}
+
 		}
+
+
+
 	}
 
 
 	public void DropTableUI(Transform target){
 
-		if(target == transform){						
+		if(target == transform){			
 			Vector3 tempVec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			if(!isHold){
@@ -50,9 +65,12 @@ public class TableUIManager : MonoBehaviour {
 			
 
 
-		}else if(target == null){			
-			speed = (Table.Ins.transform.localPosition.x - startTablePosition)/(Time.time - startTime);
-			isHold = false;
+		}else if(target == null){
+			if(isHold){
+				speed = (Table.Ins.transform.localPosition.x - startTablePosition)/(Time.time - startTime);
+				isHold = false;
+			}
+
 		}
 
 	}

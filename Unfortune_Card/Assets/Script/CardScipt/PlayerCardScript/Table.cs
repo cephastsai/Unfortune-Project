@@ -29,7 +29,7 @@ public class Table : MonoBehaviour {
 	public List<Card> TableList = new List<Card>();
 
 	//Variable
-	private float Width = 1.5f;
+	private float Width = 1.555f;
 	private float indentationWidth = 0.5f;
 	public int ActionNumber = 1;
 	public int IndentationCardNum = 6;
