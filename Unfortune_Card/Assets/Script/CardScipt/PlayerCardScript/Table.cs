@@ -71,6 +71,7 @@ public class Table : MonoBehaviour {
 
 		playingCard.SetCardSprtingOrderNumber(TableList.Count-1);
 
+		/*
 		if(TableList.Count+1 >IndentationCardNum){
 			if(!isIndentation){
 				for(int i =0; i<TableList.Count; i++){
@@ -105,6 +106,7 @@ public class Table : MonoBehaviour {
 			}
 
 		}
+		*/
 
 		ActionNumber--;
 		ActionNumber +=playingCard.action;

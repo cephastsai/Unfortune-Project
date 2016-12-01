@@ -5,7 +5,7 @@ public class TableSlot : MonoBehaviour {
 
 	//slot
 	public GameObject Slot; // name : Slot
-	private int SlotNum = 0;
+	public int SlotNum = 0;
 	private float Width = 1.555f;
 	public float lastSlotPos = 0;
 

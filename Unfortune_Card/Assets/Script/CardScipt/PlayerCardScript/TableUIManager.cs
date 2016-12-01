@@ -34,17 +34,16 @@ public class TableUIManager : MonoBehaviour {
 				Table.Ins.transform.localPosition += new Vector3(resistance*Time.deltaTime, 0, 0);
 			}
 
-			if(Table.Ins.transform.localPosition.x /*+ 
-				GetComponent<TableSlot>().lastSlotPos*/
-				> 5.7f){
-				float resistance = 10f + (Table.Ins.transform.localPosition.x -5.7f)*10f;
-				Table.Ins.transform.localPosition -= new Vector3(resistance*Time.deltaTime, 0, 0);
-			}
+			/*if(GetComponent<TableSlot>().SlotNum >10){
+				
+			}else{
+				if(Table.Ins.transform.localPosition.x >-4.14f){					
+					float resistance = 10f +(Table.Ins.transform.localPosition.x -4.145f)*10f;
+					Table.Ins.transform.localPosition += new Vector3(resistance*Time.deltaTime, 0, 0);
+				}
+			}	*/			
 
-		}
-
-
-
+		}			
 	}
 
 
