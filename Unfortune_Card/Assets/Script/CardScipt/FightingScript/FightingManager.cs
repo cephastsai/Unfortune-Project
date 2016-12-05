@@ -106,22 +106,24 @@ public class FightingManager : MonoBehaviour {
 			EnemyAttack = 0;
 			Settlement = 0;
 
-		}
-
-		//FightingEnd function
-		if(EnemyHP <=0){
-			EnemyHP =0;
-			FightingEnd();
 		}else{
-			//Turn not end
-			if(isPlayerTurn){
-				isEnemyTurnEnd = true;
+			//FightingEnd function
+			if(EnemyHP <=0){
+				EnemyHP =0;
+				FightingEnd();
 			}else{
-				isPlayerTurnEnd = true;
-			}
+				//Turn not end
+				if(isPlayerTurn){
+					isEnemyTurnEnd = true;
+				}else{
+					isPlayerTurnEnd = true;
+				}
 
-			Turn++;
-		}			
+				Turn++;
+			}			
+
+		}// Settlement
+
 
 	}
 

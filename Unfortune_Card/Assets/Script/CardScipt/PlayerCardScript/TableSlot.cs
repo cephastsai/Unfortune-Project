@@ -6,7 +6,7 @@ public class TableSlot : MonoBehaviour {
 	//slot
 	public GameObject Slot; // name : Slot
 	public int SlotNum = 0;
-	private float Width = 1.555f;
+	private float Width = 2.04f;
 	public float lastSlotPos = 0;
 
 	//Timer
@@ -49,7 +49,7 @@ public class TableSlot : MonoBehaviour {
 		slot.transform.SetParent(Table.Ins.transform);
 		slot.transform.localPosition = new Vector3( SlotNum*Width, 2.1f, 0);
 		slot.GetComponent<SpriteRenderer>().material = SlotMat;
-		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.2f);
+		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.1f);
 		lastSlotPos = SlotNum*Width;	
 		SlotNum++;
 	}

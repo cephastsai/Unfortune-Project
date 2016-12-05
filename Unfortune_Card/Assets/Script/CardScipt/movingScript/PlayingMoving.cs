@@ -12,7 +12,7 @@ public class PlayingMoving : MonoBehaviour {
 		{
 			TargetDistance = Vector2.Distance (transform.localPosition, Target);
 			transform.localPosition = Vector2.MoveTowards (transform.localPosition , Target , TargetDistance/10);
-			if (TargetDistance <= 0.1f)
+			if (TargetDistance <= 0.01f)
 			{
 				GetComponent<Card>().SectionOver();
 				GetComponent<Card>().SetCardMaterialInTable();

@@ -15,9 +15,6 @@ public class ThisTurn : MonoBehaviour {
 	public int ActionConstant = 0;
 	public int AttackConstant = 0;
 
-	//OptionCard
-	public List<Card> OptionCardList  =new List<Card>();
-
 	//Next Turn
 	public int initCards = 5;
 

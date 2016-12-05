@@ -60,8 +60,8 @@ public class TableUIManager : MonoBehaviour {
 				isHold = true;
 			}
 
-			Table.Ins.transform.localPosition =new Vector3( tempVec.x -startPositionDis, 0, 0);
-			
+			Table.Ins.transform.localPosition =new Vector3( tempVec.x -startPositionDis, Table.Ins.transform.localPosition.y, 0);
+
 
 
 		}else if(target == null){

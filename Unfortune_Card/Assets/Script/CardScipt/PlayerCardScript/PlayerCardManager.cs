@@ -49,6 +49,7 @@ public class PlayerCardManager : MonoBehaviour {
 	//Turn
 	public ThisTurn TTurn;
 	public bool Endingflag = false;
+	public AttackUI AUI;
 
 	//Manager
 	public GameObject CardEndingButton;
@@ -149,6 +150,7 @@ public class PlayerCardManager : MonoBehaviour {
 		//CardManager.Ins.CardsS.isSkillEnd = true;
 
 		TTurn =  gameObject.AddComponent<ThisTurn>();
+		AUI.TT = TTurn;
 
 		Hand.Ins.isCardsCanPlay = true;
 

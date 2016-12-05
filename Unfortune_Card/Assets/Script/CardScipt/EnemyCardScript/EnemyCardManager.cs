@@ -50,6 +50,7 @@ public class EnemyCardManager : MonoBehaviour {
 	//Turn
 	public EThisTurn TTurn;
 	public bool Endingflag = false;
+	public EAttackUI AUI;
 
 	//Manager
 
@@ -129,6 +130,7 @@ public class EnemyCardManager : MonoBehaviour {
 	public void TurnStart(){
 		//Turn Start
 		TTurn =  gameObject.AddComponent<EThisTurn>();
+		AUI.TT = TTurn;
 
 		EHand.Ins.isCardsCanPlay = true;
 
