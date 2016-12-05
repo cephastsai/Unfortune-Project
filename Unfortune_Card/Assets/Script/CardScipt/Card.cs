@@ -165,7 +165,7 @@ public class Card : MonoBehaviour {
 			gameObject.AddComponent<DisCard_T_Moving>().ReadyToDisCard_T(
 				EDeadwood.Ins.GetDeadwoodCardPosition(this)
 			);
-		}
+		}			
 
 	}
 
@@ -229,5 +229,15 @@ public class Card : MonoBehaviour {
 	public void SetCardSprtingOrderNumber(int num){
 		GetComponent<SpriteRenderer>().sortingOrder =num;
 		transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder =num;
+	}
+
+	public void SetCardMaterialInTable(){
+		GetComponent<SpriteRenderer>().material  = Table.Ins.TableMat;
+		transform.GetChild(0).GetComponent<SpriteRenderer>().material  = Table.Ins.TableMat;
+	}
+
+	public void SetCardMaterialOutTable(){
+		GetComponent<SpriteRenderer>().material  = Table.Ins.NormalMat;
+		transform.GetChild(0).GetComponent<SpriteRenderer>().material  = Table.Ins.NormalMat;
 	}
 }

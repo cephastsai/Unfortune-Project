@@ -41,6 +41,10 @@ public class Table : MonoBehaviour {
 	private float Timer = 0;
 	private float preDiscardTime = 0.2f;
 
+	//Mat
+	public Material TableMat;
+	public Material NormalMat;
+
 	void Start(){				
 		ActionNumber = 1;
 		isIndentation = false;
@@ -60,7 +64,7 @@ public class Table : MonoBehaviour {
 			}else{
 				isDiscard_TStart = false;
 			}
-		}
+		}			
 	}
 
 	public Vector3 GetTableCardposition(Card playingCard){

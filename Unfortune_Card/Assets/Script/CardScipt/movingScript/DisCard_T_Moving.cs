@@ -25,6 +25,8 @@ public class DisCard_T_Moving : MonoBehaviour {
 	}
 	public void ReadyToDisCard_T(Vector3 TargetO)
 	{
+		GetComponent<Card>().SetCardMaterialOutTable();
+		GetComponent<Card>().SetCardSprtingOrderNumber(-1);
 		Target = TargetO;
 		StartM = true;	
 	}

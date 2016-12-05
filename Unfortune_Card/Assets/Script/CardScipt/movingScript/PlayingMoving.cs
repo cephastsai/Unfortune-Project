@@ -15,6 +15,7 @@ public class PlayingMoving : MonoBehaviour {
 			if (TargetDistance <= 0.1f)
 			{
 				GetComponent<Card>().SectionOver();
+				GetComponent<Card>().SetCardMaterialInTable();
 				StartM = false;
 				Destroy(this);
 			}	
