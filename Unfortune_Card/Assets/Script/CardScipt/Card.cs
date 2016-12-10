@@ -36,6 +36,12 @@ public class Card : MonoBehaviour {
 				EDeck.Ins.init(gameObject);
 			}
 
+		}else if(sec == CardManager.cardSection.Hp){
+			SetCardSortingLayer("Hp");
+
+			isPlayerCard = _isPlayerCard;
+
+			HpSetting.Ins.init(gameObject);
 		}
 
 		//CardsSkill

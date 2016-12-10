@@ -39,6 +39,7 @@ public class FightingManager : MonoBehaviour {
 
 	//Hp
 	public bool SetHpflag = false;
+	public bool isHpSettingOver = false;
 
 
 	public void init(bool whoturn){
@@ -88,7 +89,18 @@ public class FightingManager : MonoBehaviour {
 		}
 
 		if(SetHpflag){
-			
+			isHpSettingOver = false;
+			HpSetting.Ins.Setting(Settlement);
+			SetHpflag = true;
+		}
+
+		if(isHpSettingOver){
+			if(isPlayerTurn){
+				isEnemyTurnEnd = true;
+			}else{
+				isPlayerTurnEnd = true;
+			}
+			isHpSettingOver = false;
 		}
 	}
 

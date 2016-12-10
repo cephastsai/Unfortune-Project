@@ -28,7 +28,7 @@ public class CardManager : MonoBehaviour {
 	//enum
 	public enum cardSection{
 		nil, 
-		Deck, Hand, Deadwood, Table,
+		Deck, Hand, Deadwood, Table, Hp,
 		Drawing, BacktoDeck, Playing, Shuffle, GetCard,
 		Discard_H, Discard_T, Discard_D,
 		HandRemove, DeckRemove,
@@ -62,6 +62,10 @@ public class CardManager : MonoBehaviour {
 		CreateCard(4, false);
 		CreateCard(5, false);
 
+		for(int i =0; i<10; i++){
+			CreateHpCard();
+		}
+
 				
 	}
 
@@ -82,6 +86,19 @@ public class CardManager : MonoBehaviour {
 
 	}
 
+	public void CreateHpCard(){
+		//testingcard = GetComponent<CardsSkill>().GetCardsObject(CardKind);
+		GameObject NcardObject = CCard.Createcard(10);
+		NcardObject.AddComponent<Card>().init(CardID, 10, cardSection.Hp, true);
+		NcardObject.AddComponent<BoxCollider>();
 
+		//Card name
+		NcardObject.name = "Card"+CardID;
+		//Card ID
+		CardID++;
+		//Card List
+		PlayerCardManager.Ins.CardList.Add(NcardObject.GetComponent<Card>());
+
+	}
 
 }
