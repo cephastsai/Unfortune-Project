@@ -37,6 +37,9 @@ public class FightingManager : MonoBehaviour {
 	public int PlayerHP = 10;
 	public int EnemyHP = 10;
 
+	//Hp
+	public bool SetHpflag = false;
+
 
 	public void init(bool whoturn){
 
@@ -83,6 +86,10 @@ public class FightingManager : MonoBehaviour {
 				//}
 			}
 		}
+
+		if(SetHpflag){
+			
+		}
 	}
 
 
@@ -105,6 +112,8 @@ public class FightingManager : MonoBehaviour {
 			PlayerAttack = 0;
 			EnemyAttack = 0;
 			Settlement = 0;
+
+			SetHpflag = true;
 
 		}else{
 			//FightingEnd function
