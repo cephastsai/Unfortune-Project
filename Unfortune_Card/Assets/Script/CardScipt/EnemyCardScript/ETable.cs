@@ -29,7 +29,7 @@ public class ETable : MonoBehaviour {
 	public List<Card> TableList = new List<Card>();
 
 	//Variable
-	private float Width = -2.04f;
+	private float Width = -1.58f;
 	private float indentationWidth = 0.5f;
 	public int ActionNumber = 1;
 	public int IndentationCardNum = 6;
@@ -41,7 +41,11 @@ public class ETable : MonoBehaviour {
 	private float Timer = 0;
 	private float preDiscardTime = 0.2f;
 
-	void Start(){				
+	//slot
+	public ETableSlot TS;
+
+	void Start(){
+		TS = GameObject.Find("ETableUI").GetComponent<ETableSlot>();
 		ActionNumber = 1;
 		isIndentation = false;
 	}

@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TableSlot : MonoBehaviour {
+public class ETableSlot : MonoBehaviour {
 
 	//slot
 	public List<GameObject> SlotList = new List<GameObject>();
 	public GameObject Slot; // name : Slot
 	public int SlotNum = 0;
-	private float Width = 2.04f;
+	private float Width = -1.58f;
 	public float lastSlotPos = 0;
 
 	//Timer
@@ -23,8 +23,8 @@ public class TableSlot : MonoBehaviour {
 	}
 
 	void Update(){
-		
-		if(SlotNum < Table.Ins.ActionNumber+Table.Ins.TableList.Count){
+
+		if(SlotNum < ETable.Ins.ActionNumber+ETable.Ins.TableList.Count){
 			if(TimerFlag){
 				Timer = Time.time;
 				TimerFlag = false;
@@ -36,7 +36,7 @@ public class TableSlot : MonoBehaviour {
 					TimerFlag = true;
 				}
 			}
-				
+
 
 		}
 	}
@@ -49,21 +49,20 @@ public class TableSlot : MonoBehaviour {
 	void CreateSlot(){
 		GameObject slot = Instantiate(Slot);
 		SlotList.Add(slot);
-		slot.transform.SetParent(Table.Ins.transform);
-		slot.transform.localPosition = new Vector3( SlotNum*Width, -0.3f, 0);
+		slot.transform.SetParent(ETable.Ins.transform);
+		slot.transform.localPosition = new Vector3( SlotNum*Width, 3f, 0);
 		slot.GetComponent<SpriteRenderer>().material = SlotMat;
-		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.01f);
+		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.1f);
 		lastSlotPos = SlotNum*Width;	
 		SlotNum++;
 	}
 
 	public void InitSlot(){
 		foreach(GameObject i in SlotList){			
-			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, -0.3f, i.transform.localPosition.z), 0.01f);
+			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, 3f, i.transform.localPosition.z), 0.1f);
 		}
 
 		SlotList.Clear();
 		SlotNum = 0;
 	}
-
 }
