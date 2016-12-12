@@ -27,6 +27,7 @@ public class EThisTurn : MonoBehaviour {
 		//discard
 		EnemyCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_H);
 		EnemyCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_T);
+		ETable.Ins.TS.InitSlot();
 
 		//Variable setting
 		ETable.Ins.initTable();
