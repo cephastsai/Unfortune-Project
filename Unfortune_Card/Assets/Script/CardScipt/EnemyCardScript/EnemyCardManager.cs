@@ -158,4 +158,24 @@ public class EnemyCardManager : MonoBehaviour {
 
 		isEnemyAIOn = false;
 	}
+
+	public void SetEnemyCards(List<int> EnemyCardsList){
+
+		DestroyGameObjectChild(EDeck.Ins.gameObject);
+		DestroyGameObjectChild(EHand.Ins.gameObject);
+		DestroyGameObjectChild(EDeadwood.Ins.gameObject);
+		DestroyGameObjectChild(ETable.Ins.gameObject);
+
+		foreach(int id in EnemyCardsList){
+			CardManager.Ins.CreateCard(id, false);
+		}
+	}
+
+	void DestroyGameObjectChild(GameObject target){
+		if(target.transform.childCount >0){
+			for(int i =0; i<target.transform.childCount; i++){
+				Destroy(target.transform.GetChild(i).gameObject);
+			}
+		}
+	}
 }
