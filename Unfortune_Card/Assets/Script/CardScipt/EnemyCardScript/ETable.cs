@@ -29,7 +29,7 @@ public class ETable : MonoBehaviour {
 	public List<Card> TableList = new List<Card>();
 
 	//Variable
-	private float Width = 1.5f;
+	private float Width = -2.04f;
 	private float indentationWidth = 0.5f;
 	public int ActionNumber = 1;
 	public int IndentationCardNum = 6;
@@ -64,7 +64,14 @@ public class ETable : MonoBehaviour {
 	}
 
 
-	public Vector3 GetTableCardposition(Card playingCard){
+	public Vector3 GetTableCardposition(Card playingCard){		
+
+		if(ActionNumber ==0){
+			return new Vector3(-1f, -1f, -1f);
+		}
+
+		playingCard.SetCardSprtingOrderNumber(TableList.Count-1);
+
 		ActionNumber--;
 		ActionNumber +=playingCard.action;
 
@@ -72,7 +79,8 @@ public class ETable : MonoBehaviour {
 			playingCard.gameObject.AddComponent<Browsing>();
 		}
 
-		return new Vector3(0, 0, 0);
+
+		return new Vector3(TableList.Count*Width, 0, 0);
 	}
 
 	/*

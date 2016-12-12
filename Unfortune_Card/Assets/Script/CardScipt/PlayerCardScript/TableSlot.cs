@@ -50,18 +50,19 @@ public class TableSlot : MonoBehaviour {
 		GameObject slot = Instantiate(Slot);
 		SlotList.Add(slot);
 		slot.transform.SetParent(Table.Ins.transform);
-		slot.transform.localPosition = new Vector3( SlotNum*Width, 2.1f, 0);
+		slot.transform.localPosition = new Vector3( SlotNum*Width, -0.3f, 0);
 		slot.GetComponent<SpriteRenderer>().material = SlotMat;
-		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.1f);
+		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.01f);
 		lastSlotPos = SlotNum*Width;	
 		SlotNum++;
 	}
 
 	public void InitSlot(){
 		foreach(GameObject i in SlotList){
-			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, 2.1f, i.transform.localPosition.z), 0.01f);
+			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, -0.3f, i.transform.localPosition.z), 0.01f);
 		}
 
+		SlotList.Clear();
 		SlotNum = 0;
 	}
 
