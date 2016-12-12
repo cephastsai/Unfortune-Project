@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TableSlot : MonoBehaviour {
 
 	//slot
+	public List<GameObject> SlotList = new List<GameObject>();
 	public GameObject Slot; // name : Slot
 	public int SlotNum = 0;
 	private float Width = 2.04f;
@@ -46,12 +48,21 @@ public class TableSlot : MonoBehaviour {
 
 	void CreateSlot(){
 		GameObject slot = Instantiate(Slot);
+		SlotList.Add(slot);
 		slot.transform.SetParent(Table.Ins.transform);
 		slot.transform.localPosition = new Vector3( SlotNum*Width, 2.1f, 0);
 		slot.GetComponent<SpriteRenderer>().material = SlotMat;
 		slot.AddComponent<GameObjectMoving>().SetTergetPostion(new Vector3( SlotNum*Width, 0, 0), 0.1f);
 		lastSlotPos = SlotNum*Width;	
 		SlotNum++;
+	}
+
+	public void InitSlot(){
+		foreach(GameObject i in SlotList){
+			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, 2.1f, i.transform.localPosition.z), 0.01f);
+		}
+
+		SlotNum = 0;
 	}
 
 }

@@ -45,7 +45,11 @@ public class Table : MonoBehaviour {
 	public Material TableMat;
 	public Material NormalMat;
 
-	void Start(){				
+	//slot
+	public TableSlot TS;
+
+	void Start(){
+		TS = GameObject.Find("TableUI").GetComponent<TableSlot>();
 		ActionNumber = 1;
 		isIndentation = false;
 	}

@@ -24,6 +24,7 @@ public class ThisTurn : MonoBehaviour {
 		//discard
 		PlayerCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_H);
 		PlayerCardManager.Ins.AddMainQue(CardManager.cardSection.Discard_T);
+		Table.Ins.TS.InitSlot();
 
 		//Variable setting
 		Table.Ins.initTable();

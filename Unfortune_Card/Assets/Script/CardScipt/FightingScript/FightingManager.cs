@@ -88,7 +88,7 @@ public class FightingManager : MonoBehaviour {
 			}
 		}
 
-		if(SetHpflag){
+		/*if(SetHpflag){
 			isHpSettingOver = false;
 			HpSetting.Ins.Setting(Settlement);
 			SetHpflag = true;
@@ -101,7 +101,7 @@ public class FightingManager : MonoBehaviour {
 				isPlayerTurnEnd = true;
 			}
 			isHpSettingOver = false;
-		}
+		}*/
 	}
 
 
@@ -125,25 +125,25 @@ public class FightingManager : MonoBehaviour {
 			EnemyAttack = 0;
 			Settlement = 0;
 
-			SetHpflag = true;
+		}
 
+
+		//FightingEnd function
+		if(EnemyHP <=0){
+			EnemyHP =0;
+			FightingEnd();
 		}else{
-			//FightingEnd function
-			if(EnemyHP <=0){
-				EnemyHP =0;
-				FightingEnd();
+			//Turn not end
+			if(isPlayerTurn){
+				isEnemyTurnEnd = true;
 			}else{
-				//Turn not end
-				if(isPlayerTurn){
-					isEnemyTurnEnd = true;
-				}else{
-					isPlayerTurnEnd = true;
-				}
+				isPlayerTurnEnd = true;
+			}
 
-				Turn++;
-			}			
+			Turn++;
+		}			
 
-		}// Settlement
+	
 
 
 	}

@@ -146,6 +146,8 @@ public class Card : MonoBehaviour {
 			Destroy(GetComponent<GameObjectMoving>());
 		}
 
+		SetCardSortingLayer("Moving");
+
 		if(isPlayerCard){
 			transform.SetParent(Deadwood.Ins.transform);
 			gameObject.AddComponent<DisCardMoving>().ReadyToDisCard_H(
@@ -161,6 +163,9 @@ public class Card : MonoBehaviour {
 	}
 
 	public void Discard_T(){
+
+		SetCardSortingLayer("Moving");
+
 		if(isPlayerCard){
 			transform.SetParent(Deadwood.Ins.transform);
 			gameObject.AddComponent<DisCard_T_Moving>().ReadyToDisCard_T(
