@@ -42,6 +42,11 @@ public class CardManager : MonoBehaviour {
 	public BrowsingManager BM;
 	public CardsSkill CardsS;
 
+	//Get Card
+	public GameObject GetCardGO;
+	public Text GetCardText;
+	public GameObject GetCardButton;
+
 
 	void Start(){
 		//init
@@ -66,7 +71,8 @@ public class CardManager : MonoBehaviour {
 			CreateHpCard();
 		}
 
-				
+		//test GetCard in story
+		//GetCard(3);
 	}
 
 	
@@ -98,6 +104,66 @@ public class CardManager : MonoBehaviour {
 		CardID++;
 		//Card List
 		PlayerCardManager.Ins.CardList.Add(NcardObject.GetComponent<Card>());
+
+	}
+
+	// Get Cards in Story
+
+	public GameObject CreateGetCard(int CardKind, cardSection Cardsec){
+		GameObject NcardObject = CCard.Createcard(CardKind);
+		NcardObject.AddComponent<Card>().init(CardID, CardKind, cardSection.Deadwood, true);
+		NcardObject.AddComponent<BoxCollider>();
+
+		//Card name
+		NcardObject.name = "Card"+CardID;
+		//Card ID
+		CardID++;
+		//Card List
+		PlayerCardManager.Ins.CardList.Add(NcardObject.GetComponent<Card>());
+
+		return NcardObject;
+	}
+
+	public void GetCard(int GetCardkind){		
+		//Create Card
+		GameObject getcard = CreateGetCard(GetCardkind, cardSection.Deadwood);
+		GetCardGO = getcard;
+
+		//Card Setting
+		getcard.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+		getcard.transform.position = new Vector3(-2f, 0, 50);
+
+		//Card Fade In
+		getcard.AddComponent<FadeIn_Out>().StartFadeIn();
+		getcard.transform.GetChild(0).gameObject.AddComponent<FadeIn_Out>().StartFadeIn();
+
+		//Card Infomation
+		GetCardText.gameObject.SetActive(true);
+		GetCardText.text = getcard.GetComponent<Card>().Info;
+
+		//Card Button
+		GetCardButton.gameObject.SetActive(true);
+		GameManager.Instance.TE.TEDObjectCL += GetCardButtonDown;
+	}
+
+	public void GetCardButtonDown(Transform target){
+		if(target == GetCardButton.transform){			
+			//set Card to Deadwood
+			Deadwood.Ins.DeadwoodList.Add(GetCardGO.GetComponent<Card>());
+			GetCardGO.transform.SetParent(Deadwood.Ins.transform);
+
+			//Moving
+			GetCardGO.AddComponent<GetCardMoving>().SetTergetPostion(new Vector3(0,0,0), 2f);
+
+			//Card Infomation
+			GetCardText.gameObject.SetActive(false);
+			GetCardText.text = "";
+
+			//Card Button
+			GetCardButton.gameObject.SetActive(false);
+
+			GameManager.Instance.TE.TEDObjectCL -= GetCardButtonDown;
+		}
 
 	}
 

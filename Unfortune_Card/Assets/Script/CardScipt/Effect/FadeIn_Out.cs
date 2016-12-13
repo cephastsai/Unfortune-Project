@@ -34,6 +34,7 @@ public class FadeIn_Out : MonoBehaviour {
 			a = 0;
 			GetComponent<SpriteRenderer> ().color = new Vector4 (1, 1, 1, a);
 			FadeOut = false;
+			Destroy(this);
 		}//Fade Out
 	}
 

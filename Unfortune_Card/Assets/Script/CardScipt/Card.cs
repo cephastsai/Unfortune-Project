@@ -42,6 +42,10 @@ public class Card : MonoBehaviour {
 			isPlayerCard = _isPlayerCard;
 
 			HpSetting.Ins.init(gameObject);
+		}else if(sec == CardManager.cardSection.Deadwood){
+			SetCardSortingLayer("Deadwood");
+
+			isPlayerCard = _isPlayerCard;
 		}
 
 		//CardsSkill
