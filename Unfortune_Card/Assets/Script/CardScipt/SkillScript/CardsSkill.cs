@@ -51,6 +51,31 @@ public class CardsSkill : MonoBehaviour {
 		i.SectionOver();
 	}			
 
+	//cards skill private function
+	private bool isCardinTable(int kind){
+		bool iscardintable = false;
+
+		foreach(Card i in Table.Ins.TableList){
+			if(i.CardKind == kind){
+				iscardintable = true;
+			}
+		}			
+
+		return iscardintable;
+	}
+
+	private int CardNumberinTable(int kind){
+		int cardnumber = 0;
+
+		foreach(Card i in Table.Ins.TableList){
+			if(i.CardKind == kind){
+				cardnumber++;
+			}
+		}	
+
+		return cardnumber;
+	}
+
 
 	//Cards Skill Function
 
@@ -93,5 +118,24 @@ public class CardsSkill : MonoBehaviour {
 			PlayerCardManager.Ins.TTurn.Attack +=Rnum;
 		}
 
+	}
+
+	public void DefendofShield(){
+		//enemy
+		if(isSkillEnd){
+			EnemyCardManager.Ins.TTurn.Attack = PlayerCardManager.Ins.TTurn.Attack;
+		}else{
+			EnemyCardManager.Ins.TTurn.Attack = 0;
+		}
+	}
+
+	public void Crossfire(){
+		if(!isSkillEnd){
+			EnemyCardManager.Ins.TTurn.Attack += CardNumberinTable(17);
+		}
+	}
+
+	public void assault(){
+		EnemyCardManager.Ins.TTurn.Attack += 1;
 	}
 }

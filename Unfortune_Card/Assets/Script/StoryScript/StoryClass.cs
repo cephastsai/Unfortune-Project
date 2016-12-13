@@ -16,6 +16,16 @@ public class Story : MonoBehaviour {
 
 }
 
+//Story Infomation
+public class NTree{
+	
+}
+
+public class StoryInfo{
+	public string Info;
+
+}
+
 
 // StoryKind : 1
 public class S_Stroy : Story {

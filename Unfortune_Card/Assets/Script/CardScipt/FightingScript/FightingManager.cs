@@ -105,8 +105,7 @@ public class FightingManager : MonoBehaviour {
 	}
 
 
-	public void TurnEnding(){
-		
+	public void TurnEnding(){		
 		//variable setting
 		isPlayerTurn = !isPlayerTurn;
 		if(Turn%2 == 0){
@@ -162,5 +161,16 @@ public class FightingManager : MonoBehaviour {
 
 
 	}
+
+	public void CardSkillChoise(){
+
+		//play cards
+		if(isPlayerTurn){
+			
+		}else{
+			
+		}
+	}
+
 
 }
