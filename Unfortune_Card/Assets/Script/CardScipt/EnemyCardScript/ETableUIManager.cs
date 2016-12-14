@@ -9,7 +9,7 @@ public class ETableUIManager : MonoBehaviour {
 
 	//move
 	private float startETablePosition;
-	private float speed;
+	private float speed =1;
 
 	void Start(){
 		GameManager.Instance.TE.TEDObjectHL += DropETableUI;

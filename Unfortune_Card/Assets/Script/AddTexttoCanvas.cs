@@ -23,6 +23,6 @@ public class AddTexttoCanvas : MonoBehaviour {
 
 
 		return _Text;
-	}
+	}		
 
 }
