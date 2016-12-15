@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class AddTexttoCanvas : MonoBehaviour {
 
 	public static AddTexttoCanvas Addtext;
+	public Font Arial;
 
 	void Awake(){
 		Addtext = this;
@@ -17,8 +18,8 @@ public class AddTexttoCanvas : MonoBehaviour {
 		//GaeObject setting
 		_NGameObject.transform.SetParent(transform);
 		_Text =  _NGameObject.AddComponent<Text>();
-
-
+		_Text.fontSize = _font;
+		_Text.font = Arial;
 
 
 
