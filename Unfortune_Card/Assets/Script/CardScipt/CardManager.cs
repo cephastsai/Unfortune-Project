@@ -62,14 +62,14 @@ public class CardManager : MonoBehaviour {
 		CreateCard(6, true);
 		CreateCard(2, true);
 		CreateCard(6, true);
+		CreateCard(2, true);
+		CreateCard(2, true);
+		CreateCard(2, true);
 
 		CreateCard(2, false);
 		CreateCard(4, false);
 		CreateCard(5, false);
 
-		for(int i =0; i<10; i++){
-			CreateHpCard();
-		}
 
 		//test GetCard in story
 		//GetCard(3);

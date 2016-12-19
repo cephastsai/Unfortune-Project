@@ -40,7 +40,7 @@ public class HpSetting : MonoBehaviour {
 
 		}else if(Settlement <0){
 			HpList.Last().gameObject.AddComponent<HpMoving>();
-			FightingManager.Ins.isHpSettingOver = true;
+			FightingManager.Ins.isHPSettingOver = true;
 		}
 	}		
 }

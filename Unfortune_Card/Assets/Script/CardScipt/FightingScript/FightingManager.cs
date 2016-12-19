@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FightingManager : MonoBehaviour {
@@ -34,12 +35,21 @@ public class FightingManager : MonoBehaviour {
 	public int EnemyAttack = 0;
 	public int Settlement = 0;
 
-	public int PlayerHP = 10;
-	public int EnemyHP = 10;
+	public float PlayerHP = 10;
+	public float EnemyHP = 10;
+	public float PlayerHPbar = 10;
+	public float EnemyHPbar = 10;
+	//HP Image
+	public Image PlayerHPImage;
+	public Image EnemyHPImage;
 
-	//Hp
-	public bool SetHpflag = false;
-	public bool isHpSettingOver = false;
+	//HP
+	public bool SetHPflag = false;
+	public bool isHPSettingOver = false;
+
+	//Fighting End GameObject
+	public GameObject VictoryMask;
+	public GameObject Victory;
 
 
 	public void init(bool whoturn){
@@ -88,20 +98,39 @@ public class FightingManager : MonoBehaviour {
 			}
 		}
 
-		/*if(SetHpflag){
-			isHpSettingOver = false;
-			HpSetting.Ins.Setting(Settlement);
-			SetHpflag = true;
+		/*if(SetHPflag){
+			isHPSettingOver = false;
+			HPSetting.Ins.Setting(Settlement);
+			SetHPflag = true;
 		}
 
-		if(isHpSettingOver){
+		if(isHPSettingOver){
 			if(isPlayerTurn){
 				isEnemyTurnEnd = true;
 			}else{
 				isPlayerTurnEnd = true;
 			}
-			isHpSettingOver = false;
+			isHPSettingOver = false;
 		}*/
+
+
+
+		//HP setting
+		if(PlayerHP != PlayerHPbar){
+			if(PlayerHPbar -PlayerHP < 0.1f){
+				PlayerHPbar = PlayerHP;	
+			}
+			PlayerHPbar -= (PlayerHPbar -PlayerHP)*Time.deltaTime;
+			PlayerHPImage.fillAmount = PlayerHPbar/10;
+		}
+
+		if(EnemyHP != EnemyHPbar){
+			if(EnemyHPbar -EnemyHP < 0.1f){
+				EnemyHPbar = EnemyHP;	
+			}
+			EnemyHPbar -= (EnemyHPbar -EnemyHP)*Time.deltaTime;
+			EnemyHPImage.fillAmount = EnemyHPbar/10;
+		}
 	}
 
 
@@ -148,6 +177,7 @@ public class FightingManager : MonoBehaviour {
 	}
 
 
+	//Fighting End
 	public void FightingEnd(){
 		print("Fighting Ending");
 		//FightingManager initialization
@@ -157,8 +187,10 @@ public class FightingManager : MonoBehaviour {
 
 
 		//Set Fighting UI
-
-
+		VictoryMask.SetActive(true);
+		VictoryMask.AddComponent<FadeIn_Out>().StartFadeIn();
+		Victory.SetActive(true);
+		Victory.AddComponent<FadeIn_Out>().StartFadeIn();
 
 	}
 
@@ -172,5 +204,7 @@ public class FightingManager : MonoBehaviour {
 		}
 	}
 
-
+	public void SetHP(Image targetHP){
+		
+	}
 }
