@@ -58,7 +58,10 @@ public class TableSlot : MonoBehaviour {
 	}
 
 	public void InitSlot(){
-		foreach(GameObject i in SlotList){			
+		foreach(GameObject i in SlotList){
+			if(i.GetComponent<GameObjectMoving>() != null){
+				Destroy(i.GetComponent<GameObjectMoving>());
+			}
 			i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, -0.3f, i.transform.localPosition.z), 0.01f);
 		}
 

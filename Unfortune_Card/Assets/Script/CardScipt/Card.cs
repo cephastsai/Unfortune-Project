@@ -131,7 +131,7 @@ public class Card : MonoBehaviour {
 			);
 		}else{
 			transform.SetParent(EHand.Ins.transform);
-			gameObject.AddComponent<DrawCardMoving>().ReadyToDrawing(
+			gameObject.AddComponent<EDrawCardMoving>().ReadyToDrawing(
 				EHand.Ins.GetHandCardPosition(this)
 			);
 		}
@@ -163,6 +163,9 @@ public class Card : MonoBehaviour {
 	public void Discard_T(){
 
 		SetCardSortingLayer("Moving");
+		if(GetComponent<PlayingMoving>() != null){
+			Destroy(GetComponent<PlayingMoving>());
+		}
 
 		if(isPlayerCard){
 			transform.SetParent(Deadwood.Ins.transform);

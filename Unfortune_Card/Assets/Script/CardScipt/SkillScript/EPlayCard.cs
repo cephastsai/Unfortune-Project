@@ -30,7 +30,7 @@ public class EPlayCard : MonoBehaviour {
 				EnemyCardManager.Ins.MainSec.CheckLsit.Add(myCard);
 
 				transform.SetParent(ETable.Ins.transform);
-				gameObject.AddComponent<PlayingMoving>().ReadyToPlay(
+				gameObject.AddComponent<EPlayingMoving>().ReadyToPlay(
 					ETable.Ins.GetTableCardposition(myCard)	
 				);
 

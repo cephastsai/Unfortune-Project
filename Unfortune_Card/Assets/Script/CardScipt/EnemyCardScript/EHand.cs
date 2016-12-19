@@ -82,7 +82,7 @@ public class EHand : MonoBehaviour {
 					}
 
 
-					i.transform.localRotation = Quaternion.Euler(0,0,0);
+					i.transform.localRotation = Quaternion.Euler(0,180,0);
 					i.SetCardSprtingOrder(i);
 
 					//component
