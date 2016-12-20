@@ -15,13 +15,13 @@ public class TurnEndStart : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (In == true && x > 70) 
+		if (In == true && x > 67) 
 		{
 			transform.localScale = new Vector3 (x, y, 100);
 			x -= 3;
 			y -= 3;
 		}
-		if (In == false && x < 100) 
+		if (In == false && x < 103) 
 		{
 			transform.localScale = new Vector3 (x, y, 100);
 			x += 3;

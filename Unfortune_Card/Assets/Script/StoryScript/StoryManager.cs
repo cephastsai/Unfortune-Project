@@ -2,13 +2,29 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using LitJson;
+using System.IO;
 
 public class StoryManager : MonoBehaviour {
 
+	//Story List
 	public Dictionary<int, Story> StoryList  = new Dictionary<int, Story>();
+
+	public class Story{
+
+		public string Name;
+
+		public List<StoryInfo> StoryInfoList = new List<StoryInfo>();
+
+	}	
 
 	//test
 	public string info;
+
+	//json
+	private string jsonString;
+	private JsonData jsonData;
+
 
 	void Start(){
 		/*
@@ -24,12 +40,7 @@ public class StoryManager : MonoBehaviour {
 
 		}*/
 
-
-		Text temp =  AddTexttoCanvas.Addtext.Add("test",20);
-		Canvas tempcan = temp.gameObject.AddComponent<Canvas>();
-		tempcan.overrideSorting = true;
-		tempcan.sortingLayerName = "CardUI";
-		temp.text = "fo2efowfeoi";
+		LoadStoryData();
 	}
 
 
@@ -40,5 +51,78 @@ public class StoryManager : MonoBehaviour {
 		return temp;
 	}
 
+	public void LoadStoryData(){
+
+		jsonString = File.ReadAllText(Application.dataPath +"/Json/Story.json");
+		jsonData = JsonMapper.ToObject(jsonString);
+
+		for(int i=0; i<jsonData.Count; i++){
+			Story Nstory = new Story();
+
+			Nstory.Name = jsonData[i][1].ToString();
+
+			for(int j=2; j<jsonData[i].Count; j++){				
+				switch(jsonData[i][j][0].ToString()){
+				case "1":
+					{
+						S_Stroy NSStory = new S_Stroy();
+						//tag
+						NSStory._Tag = new string[jsonData[i][j][1].Count];
+						for(int w=0; w<jsonData[i][j][1].Count; w++){							
+							NSStory._Tag[w] = jsonData[i][j][1][w].ToString();
+						}
+						//info
+						NSStory._Info = jsonData[i][j][2].ToString();
+
+						//Add List
+						Nstory.StoryInfoList.Add(NSStory);
+					}
+					break;
+				case "2":
+					{
+						S_GetCards NSGetcards = new S_GetCards();
+						//tag
+						NSGetcards._Tag = new string[jsonData[i][j][1].Count];
+						for(int w=0; w<jsonData[i][j][1].Count; w++){							
+							NSGetcards._Tag[w] = jsonData[i][j][1][w].ToString();
+						}
+						//cardID
+						NSGetcards._CardID =  int.Parse(jsonData[i][j][2].ToString());
+
+						//Add List
+						Nstory.StoryInfoList.Add(NSGetcards);
+					}
+					break;
+				case "3":
+					{
+						S_Option NSOption = new S_Option();
+						//Option
+						for(int w=0; w<jsonData[i][j][1].Count; w++){							
+							Option NOption = new Option();
+							NOption._AddTag = jsonData[i][j][1][w][0].ToString();
+							NOption._OptionInfo = jsonData[i][j][1][w][1].ToString();
+						}
+
+						//Add List
+						Nstory.StoryInfoList.Add(NSOption);
+					}
+					break;
+				case "4":
+					{
+						S_Fighting NSFighting = new S_Fighting();
+						//Cards
+						NSFighting.Cards = new int[jsonData[i][j][1].Count];
+						for(int w=0; w<jsonData[i][j][1].Count; w++){
+							NSFighting.Cards[w] = int.Parse(jsonData[i][j][1][w].ToString());
+						}
+					}
+					break;
+				}
+			}
+
+			StoryList.Add(int.Parse(jsonData[i][0].ToString()), Nstory);
+		}// jasonData
+
+	}//LoadStoryData function
 
 }

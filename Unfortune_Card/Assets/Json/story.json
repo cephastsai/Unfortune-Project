@@ -1,0 +1,42 @@
+[
+  {
+    "ID": 1,
+    "Name": "安安你好",
+    "info1": {
+      "Kind": 1,
+      "Tag": [
+        "tar2",
+        "tag1"
+      ],
+      "Info": "劇情字串"
+    },
+    "info2": {
+      "Kind": 2,
+      "Tag": [
+        "tar2",
+        "tag1"
+      ],
+      "CardID": 23
+    },
+    "info3": {
+      "Kind": 3,
+      "Option": [
+        {
+          "Addtag": "3",
+          "info": "選項1"
+        },
+        {
+          "Addtag": "run",
+          "info": "選項1"
+        }
+      ]
+    },
+    "info4": {
+      "Kind": 4,
+      "Cards": [
+        23,
+        31
+      ]
+    }
+  }
+]

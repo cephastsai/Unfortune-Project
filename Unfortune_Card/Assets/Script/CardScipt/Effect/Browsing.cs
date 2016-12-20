@@ -38,7 +38,7 @@ public class Browsing : MonoBehaviour {
 	}		
 
 
-	public void BrowsingCard(Transform target){
+	public void BrowsingCard(Transform target){		
 		if (target == transform){			
 			CardManager.Ins.BM.setcard(myCard);
 		}else{			

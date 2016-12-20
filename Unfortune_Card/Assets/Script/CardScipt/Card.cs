@@ -54,7 +54,18 @@ public class Card : MonoBehaviour {
 		Info = CardManager.Ins.gameObject.GetComponent<CardsInfoLoader>().GetCardsInfo(Cardkind);
 
 		isSectionOver = true;
-	}		
+	}
+
+	//browsing test
+	/*void Start(){
+		GameManager.Instance.TE.TEDObjectCL += click;
+	}
+
+	public void click(Transform target){
+		if(target = transform){
+			print("click");
+		}
+	}*/
 
 	public void CardsUp(bool isCardUp){//isCardUp -> true:Up,false:Back
 		if(isCardUp && transform.localRotation.y != 0){	
