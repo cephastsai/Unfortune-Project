@@ -6,6 +6,26 @@ using LitJson;
 using System.IO;
 
 public class StoryManager : MonoBehaviour {
+	//Singleton
+	private static StoryManager _ins = null;
+
+	public static StoryManager Ins{
+
+		get{
+			return _ins;
+		}
+	}//Instance
+
+	void Awake(){
+		if(_ins == null){
+			_ins = this;
+
+			DontDestroyOnLoad(gameObject);
+		}else if(_ins != this){
+			Destroy(gameObject);
+		}
+	}
+
 
 	//Story List
 	public Dictionary<int, Story> StoryList  = new Dictionary<int, Story>();
