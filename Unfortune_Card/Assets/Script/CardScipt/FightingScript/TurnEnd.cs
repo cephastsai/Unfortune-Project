@@ -13,6 +13,7 @@ public class TurnEnd : MonoBehaviour {
 		if(target == transform){
 			if(FightingManager.Ins.isPlayerTurn){
 				PlayerCardManager.Ins.TurnEnd();
+				FightingManager.Ins.CT.PreesTurn();
 			}
 		}
 	}

@@ -48,6 +48,7 @@ public class FightingManager : MonoBehaviour {
 	public bool isHPSettingOver = false;
 
 	//Fighting End GameObject
+	public ChangeTurn CT;
 	public GameObject VictoryMask;
 	public GameObject Victory;
 
@@ -134,7 +135,14 @@ public class FightingManager : MonoBehaviour {
 	}
 
 
-	public void TurnEnding(){		
+	public void TurnEnding(){
+		//Animation
+		if(isPlayerTurn){
+			CT.LeftStartGetIn();
+		}else{
+			CT.RightStartGetIn();
+		}
+
 		//variable setting
 		isPlayerTurn = !isPlayerTurn;
 		if(Turn%2 == 0){
@@ -169,11 +177,8 @@ public class FightingManager : MonoBehaviour {
 			}
 
 			Turn++;
-		}			
-
-	
-
-
+		}						
+			
 	}
 
 

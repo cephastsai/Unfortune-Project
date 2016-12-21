@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ChangeTurn : MonoBehaviour {
@@ -23,11 +23,12 @@ public class ChangeTurn : MonoBehaviour {
 	public bool AllturnLight = false;
 	public bool AllTurnStatus = false;
 
-	private Vector3 RightTargetPoint = new Vector3 (433,7,45);
-	private Vector3 LeftTargetPoint = new Vector3 (-412,7,45);
+	private Vector3 RightTargetPoint ;
+	private Vector3 LeftTargetPoint ;
 
 
 	private Vector2 ShakePos;
+	public GameObject Camera;
 
 
 	void Start () {
@@ -56,7 +57,7 @@ public class ChangeTurn : MonoBehaviour {
 		if (LeftGetIn == true) 
 		{
 			LeftDistance = Vector3.Distance (Left.transform.localPosition, LeftTargetPoint);
-			Left.transform.localPosition = Vector3.MoveTowards (Left.transform.localPosition , LeftTargetPoint , 0.2f);	
+			Left.transform.localPosition = Vector3.MoveTowards (Left.transform.localPosition , LeftTargetPoint , 0.4f);	
 		}
 		if (LeftDistance <= 0.001f&&MyturnLight==false&&AllTurnStatus!=true) 
 		{
@@ -64,12 +65,14 @@ public class ChangeTurn : MonoBehaviour {
 			CamaraShake (0.2f, 0.1f);
 			Instantiate(Resources.Load("TurnStream&Spark/MyTurnLight"),new Vector3(0,0,0), Quaternion.identity);
 			Instantiate(Resources.Load("TurnStream&Spark/MySpark"),new Vector3(1.227f,0,-20),Quaternion.Euler(0, 180, 0));
+			LeftStartGetOut();
+			TurnGetOut();
 		}
 
 		if (LeftGetIn == false) 
 		{
-			LeftDistance = Vector3.Distance (Left.transform.localPosition,  new Vector3 (-412,7,45));
-			Left.transform.localPosition = Vector3.MoveTowards (Left.transform.localPosition , new Vector3(-671,7,45) , 0.01f);	
+			LeftDistance = Vector3.Distance (Left.transform.localPosition,  LeftTargetPoint);
+			Left.transform.localPosition = Vector3.MoveTowards (Left.transform.localPosition , new Vector3(-6.65f,1.6f,53) , 0.2f);	
 			if (LeftDistance > 2) 
 			{
 				MyturnLight = false;
@@ -82,7 +85,7 @@ public class ChangeTurn : MonoBehaviour {
 		if (RightGetIn == true) 
 		{
 			RightDistance = Vector3.Distance (Right.transform.localPosition, RightTargetPoint);
-			Right.transform.localPosition = Vector3.MoveTowards (Right.transform.localPosition , RightTargetPoint , 0.02f);	
+			Right.transform.localPosition = Vector3.MoveTowards (Right.transform.localPosition , RightTargetPoint , 0.4f);	
 		}
 		if (RightDistance <= 0.001f&&EnemyturnLight==false&&AllTurnStatus!=true) 
 		{
@@ -90,12 +93,14 @@ public class ChangeTurn : MonoBehaviour {
 			CamaraShake (0.2f, 0.1f);
 			Instantiate(Resources.Load("TurnStream&Spark/EnemyTurnLight"),new Vector3(0,0,0), Quaternion.identity);
 			Instantiate(Resources.Load("TurnStream&Spark/EnemySpark"),new Vector3(-1.266f,0,-20), Quaternion.identity);
+			RightStartGetOut();
+			TurnGetOut();
 		}
 
 		if (RightGetIn == false) 
 		{
-			RightDistance = Vector3.Distance (Right.transform.localPosition, new Vector3 (433,7,45));
-			Right.transform.localPosition = Vector3.MoveTowards (Right.transform.localPosition , new Vector3(684,7,45) , 0.01f);	
+			RightDistance = Vector3.Distance (Right.transform.localPosition, RightTargetPoint);
+			Right.transform.localPosition = Vector3.MoveTowards (Right.transform.localPosition , new Vector3(6.77f,1.6f,53) , 0.2f);	
 			if (RightDistance > 2) 
 			{
 				EnemyturnLight = false;	
@@ -125,13 +130,13 @@ public class ChangeTurn : MonoBehaviour {
 		{
 			ShakePos = Random.insideUnitCircle * ShakeAmount;
 
-			transform.position = new Vector3 (transform.position.x + ShakePos.x, transform.position.y + ShakePos.y, transform.position.z);
+			Camera.transform.position = new Vector3 (Camera.transform.position.x + ShakePos.x, Camera.transform.position.y + ShakePos.y, Camera.transform.position.z);
 
 			ShakeTimer -= Time.deltaTime;
 		}
 		if (ShakeTimer <= 0) 
 		{
-			transform.localPosition = new Vector3 (0, 0, -53);
+			Camera.transform.localPosition = new Vector3 (0, 0, -53);
 		} 
 		//CamaraShake
 	}
@@ -141,9 +146,13 @@ public class ChangeTurn : MonoBehaviour {
 		TurnGetIn = true;
 	}
 
+	public void TurnGetOut(){
+		TurnGetIn = false;
+	}
+
 	public void LeftStartGetIn()
 	{
-		LeftTargetPoint = new Vector3 (-412,7,45);
+		LeftTargetPoint = new Vector3 (-4.22f,1.6f,53);
 		LeftGetIn = true;
 		RightGetIn = false;
 	}
@@ -155,7 +164,7 @@ public class ChangeTurn : MonoBehaviour {
 
 	public void RightStartGetIn()
 	{
-		RightTargetPoint = new Vector3 (433,7,45);
+		RightTargetPoint = new Vector3 (4.31f,1.6f,53);
 		RightGetIn = true;
 		LeftGetIn = false;
 	}
@@ -167,8 +176,8 @@ public class ChangeTurn : MonoBehaviour {
 
 	public void AllStartGetIn()
 	{
-		LeftTargetPoint = new Vector3 (-528,7,45);
-		RightTargetPoint = new Vector3 (569,7,45);
+		LeftTargetPoint = new Vector3 (-5.3f,1.6f,53);
+		RightTargetPoint = new Vector3 (5.6f,1.6f,53);
 		AllTurnStatus = true;
 		LeftGetIn = true;
 		RightGetIn = true;

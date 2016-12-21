@@ -20,6 +20,10 @@
     },
     "info3": {
       "Kind": 3,
+      "Tag": [
+        "has",
+        "huhu"
+      ],
       "Option": [
         {
           "Addtag": "3",
@@ -33,6 +37,10 @@
     },
     "info4": {
       "Kind": 4,
+      "Tag": [
+        "has",
+        "huhu"
+      ],
       "Cards": [
         23,
         31

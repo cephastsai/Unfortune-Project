@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LitJson;
 using System.IO;
+using System.Linq;
 
 public class StoryManager : MonoBehaviour {
 	//Singleton
@@ -60,7 +61,7 @@ public class StoryManager : MonoBehaviour {
 
 		}*/
 
-		LoadStoryData();
+		//LoadStoryData();
 	}
 
 
@@ -85,7 +86,9 @@ public class StoryManager : MonoBehaviour {
 				switch(jsonData[i][j][0].ToString()){
 				case "1":
 					{
-						S_Stroy NSStory = new S_Stroy();
+						S_Story NSStory = new S_Story();
+						//kind
+						NSStory.Kind = int.Parse(jsonData[i][j][0].ToString());
 						//tag
 						NSStory._Tag = new string[jsonData[i][j][1].Count];
 						for(int w=0; w<jsonData[i][j][1].Count; w++){							
@@ -101,6 +104,8 @@ public class StoryManager : MonoBehaviour {
 				case "2":
 					{
 						S_GetCards NSGetcards = new S_GetCards();
+						//kind
+						NSGetcards.Kind = int.Parse(jsonData[i][j][0].ToString());
 						//tag
 						NSGetcards._Tag = new string[jsonData[i][j][1].Count];
 						for(int w=0; w<jsonData[i][j][1].Count; w++){							
@@ -116,11 +121,18 @@ public class StoryManager : MonoBehaviour {
 				case "3":
 					{
 						S_Option NSOption = new S_Option();
-						//Option
+						//kind
+						NSOption.Kind = int.Parse(jsonData[i][j][0].ToString());
+						//tag
+						NSOption._Tag = new string[jsonData[i][j][1].Count];
 						for(int w=0; w<jsonData[i][j][1].Count; w++){							
+							NSOption._Tag[w] = jsonData[i][j][1][w].ToString();
+						}
+						//Option
+						for(int w=0; w<jsonData[i][j][2].Count; w++){							
 							Option NOption = new Option();
-							NOption._AddTag = jsonData[i][j][1][w][0].ToString();
-							NOption._OptionInfo = jsonData[i][j][1][w][1].ToString();
+							NOption._AddTag = jsonData[i][j][2][w][0].ToString();
+							NOption._OptionInfo = jsonData[i][j][2][w][1].ToString();
 						}
 
 						//Add List
@@ -130,16 +142,26 @@ public class StoryManager : MonoBehaviour {
 				case "4":
 					{
 						S_Fighting NSFighting = new S_Fighting();
-						//Cards
-						NSFighting.Cards = new int[jsonData[i][j][1].Count];
-						for(int w=0; w<jsonData[i][j][1].Count; w++){
-							NSFighting.Cards[w] = int.Parse(jsonData[i][j][1][w].ToString());
+						//kind
+						NSFighting.Kind = int.Parse(jsonData[i][j][0].ToString());
+						//tag
+						NSFighting._Tag = new string[jsonData[i][j][1].Count];
+						for(int w=0; w<jsonData[i][j][1].Count; w++){							
+							NSFighting._Tag[w] = jsonData[i][j][1][w].ToString();
 						}
+						//Cards
+						NSFighting._Cards = new int[jsonData[i][j][2].Count];
+						for(int w=0; w<jsonData[i][j][2].Count; w++){
+							NSFighting._Cards[w] = int.Parse(jsonData[i][j][2][w].ToString());
+						}
+
+						//Add List
+						Nstory.StoryInfoList.Add(NSFighting);
 					}
 					break;
 				}
+				//print(Nstory.StoryInfoList.Last().GetType());
 			}
-
 			StoryList.Add(int.Parse(jsonData[i][0].ToString()), Nstory);
 		}// jasonData
 

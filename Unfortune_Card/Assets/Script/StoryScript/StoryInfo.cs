@@ -5,22 +5,16 @@ using System.Collections.Generic;
 public class StoryInfo : MonoBehaviour {
 
 	public int Kind;
-
+	public string[] _Tag;
 }		
 
 // StoryKind : 1
-public class S_Stroy : StoryInfo {
-
-	public string[] _Tag;
-
+public class S_Story : StoryInfo {
 	public string _Info;
 }
 
 //StoryKind : 2
 public class S_GetCards : StoryInfo {
-
-	public string[] _Tag;
-
 	public int _CardID;
 }
 
@@ -38,8 +32,7 @@ public class Option{
 
 //StoryKind : 4
 public class S_Fighting : StoryInfo {
-
-	public int[] Cards;
+	public int[] _Cards;
 }
 
 //StoryKind : 4
