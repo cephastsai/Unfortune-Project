@@ -20,7 +20,7 @@ public class GetCardMoving : MonoBehaviour {
 			if(GetComponent<Card>() !=null){
 				GetComponent<Card>().SectionOver();
 			}
-			transform.localScale = new Vector3(0.1f, 0.1f, 1);
+			transform.localScale = new Vector3(0.0913f, 0.0913f, 1);
 			transform.localPosition  = new Vector3(0, 0, 0);
 			Destroy(this);
 		}
@@ -33,7 +33,7 @@ public class GetCardMoving : MonoBehaviour {
 			Scale -= 0.6f*Time.deltaTime;
 			transform.localScale = new Vector3(Scale, Scale, 1);
 		}else{			
-			transform.localScale = new Vector3(0.1f, 0.1f, 1);
+			transform.localScale = new Vector3(0.0913f, 0.0913f, 1);
 		}
 
 	}

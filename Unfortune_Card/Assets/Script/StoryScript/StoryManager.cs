@@ -136,8 +136,9 @@ public class StoryManager : MonoBehaviour {
 							Option NOption = new Option();
 							NOption._AddTag = jsonData[i][j][2][w][0].ToString();
 							NOption._OptionInfo = jsonData[i][j][2][w][1].ToString();
+							NSOption.OptionList.Add(NOption);
 						}
-
+							
 						//Add List
 						Nstory.StoryInfoList.Add(NSOption);
 					}

@@ -44,7 +44,7 @@ public class CardManager : MonoBehaviour {
 
 	//Get Card
 	public GameObject GetCardGO;
-	public Text GetCardText;
+	public GameObject GetCardText;
 	public GameObject GetCardButton;
 
 
@@ -139,7 +139,7 @@ public class CardManager : MonoBehaviour {
 
 		//Card Infomation
 		GetCardText.gameObject.SetActive(true);
-		GetCardText.text = getcard.GetComponent<Card>().Info;
+		GetCardText.transform.GetChild(0).GetComponent<Text>().text = getcard.GetComponent<Card>().Info;
 
 		//Card Button
 		GetCardButton.gameObject.SetActive(true);
@@ -151,13 +151,14 @@ public class CardManager : MonoBehaviour {
 			//set Card to Deadwood
 			Deadwood.Ins.DeadwoodList.Add(GetCardGO.GetComponent<Card>());
 			GetCardGO.transform.SetParent(Deadwood.Ins.transform);
+			GetCardGO.transform.localScale = new Vector3(0.0913f, 0.0913f, 1);
 
 			//Moving
-			GetCardGO.AddComponent<GetCardMoving>().SetTergetPostion(new Vector3(0,0,0), 2f);
+			GetCardGO.AddComponent<GetCardMoving>().SetTergetPostion(new Vector3(0,0,0), 0.2f);
 
 			//Card Infomation
 			GetCardText.gameObject.SetActive(false);
-			GetCardText.text = "";
+			GetCardText.transform.GetChild(0).GetComponent<Text>().text = "";
 
 			//Card Button
 			GetCardButton.gameObject.SetActive(false);

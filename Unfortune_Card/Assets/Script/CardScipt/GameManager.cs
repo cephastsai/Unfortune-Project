@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 	public FightingManager Fightingmanager;
 	//public MapManager Mapmanager;
 	public TouchEvent TE;
-	//public UIManager UImanager;
+	public UIManager UImanager;
 	//public StoryManager Storymanager;
 
 	//Game Variable
@@ -72,36 +72,25 @@ public class GameManager : MonoBehaviour {
 
 
 	public void SetGameSection(GameSection GS){
-		/*
+		
 		switch(GS){
-		case GameSection.Map:			
+		/*case GameSection.Map:			
 			GameMainSection = GameSection.Map;
 			Mapmanager.SetStoryPiont();
-			print(Mapmanager.MainST.data.SPName);
 			Hand.Ins.isCardsCanPlay = false;
-			break;
+			break;*/
 		case GameSection.Story:
 			GameMainSection = GameSection.Story;
-			//set UI
-			UImanager.MapToStory();
+
 			Hand.Ins.isCardsCanPlay = false;
 			break;
 		case GameSection.Cards:
 			GameMainSection = GameSection.Cards;
-			if(Mapmanager.MainST.data.SelectCardID.Count >0){
-				UImanager.StoryToChose();
-				Cardmanager.select.init(Mapmanager.MainST.data.SelectCardID, Mapmanager.MainST.data.SelectNum);
-			}else if(Mapmanager.MainST.data.OptionCardID.Count >0){
-				UImanager.StoryToChose();
-				Cardmanager.getCards.init(Mapmanager.MainST.data.OptionCardID);
-			}else{
-				UImanager.StoryToFight();
-				Cardmanager.CardUIIN();
-				Hand.Ins.isCardsCanPlay = true;
-			}
-			Cardmanager.Status.text = Mapmanager.MainST.data.SPtitle;
+			//set UI
+			UImanager.BattleBegin();
+			Hand.Ins.isCardsCanPlay = true;
 			break;
-		}*/
+		}
 
 	}		
 }

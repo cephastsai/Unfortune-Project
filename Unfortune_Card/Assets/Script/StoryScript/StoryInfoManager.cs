@@ -20,6 +20,11 @@ public class StoryInfoManager : MonoBehaviour {
 	//paper
 	public List<GameObject> PaperList = new List<GameObject>();
 
+	//Option
+	private Vector2[] OptionPosition = new Vector2[4];
+	public GameObject OptionPaper;
+	private GameObject[] OptionGOA = new GameObject[4];
+
 	//Fighting UI manager
 	public UIManager UImanager;
 
@@ -27,14 +32,13 @@ public class StoryInfoManager : MonoBehaviour {
 		StoryManager.Ins.LoadStoryData();
 		//init
 		StoryInfoIndex = 0;
+		OptionPosition[0] = new Vector2(876, -512);
+		OptionPosition[1] = new Vector2(744, -633);
+		OptionPosition[2] = new Vector2(588, -761);
 
 		//function
-		infoTag.Add("tar2");
-		infoTag.Add("tag1");
-		infoTag.Add("has");
-		infoTag.Add("huhu");
 
-		UImanager.BattleBegin();
+		GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
 		//SetPaperID(1);
 	}
 
@@ -53,7 +57,7 @@ public class StoryInfoManager : MonoBehaviour {
 	//Every Paper beganing 
 	public void SetPaperInfo(){
 		//Paper info Setting
-		if(StoryInfoIndex != TStory.StoryInfoList.Count){
+		if(StoryInfoIndex < TStory.StoryInfoList.Count){
 			switch(TStory.StoryInfoList[StoryInfoIndex].Kind){
 			case 1:
 				//Paper Object
@@ -66,11 +70,15 @@ public class StoryInfoManager : MonoBehaviour {
 			case 2:			
 				break;
 			case 3:
+				SetOptioninfo();
 				break;
 			case 4:
+				GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
 				break;
 			}
 
+		}else{
+			print("over");
 		}
 	}
 
@@ -84,9 +92,9 @@ public class StoryInfoManager : MonoBehaviour {
 			StoryInfoIndex++;
 		}
 		//whlie
-		while(StoryInfoIndex < TStory.StoryInfoList.Count){	
-			if(isPaperInfoCanShow(StoryInfoIndex)){
-				if(TStory.StoryInfoList[StoryInfoIndex].Kind == 1){					
+		while(StoryInfoIndex < TStory.StoryInfoList.Count){			
+			if(isPaperInfoCanShow(StoryInfoIndex)){				
+				if(TStory.StoryInfoList[StoryInfoIndex].Kind == 1){										
 					if(isTaghaveNextPaper(StoryInfoIndex)){
 						print("Next");
 						break;
@@ -97,6 +105,7 @@ public class StoryInfoManager : MonoBehaviour {
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 2){
 					S_GetCards Sgetcard = (S_GetCards)TStory.StoryInfoList[StoryInfoIndex];
 					info +="獲得" +Sgetcard._CardID.ToString()+"\n";
+					CardManager.Ins.GetCard(Sgetcard._CardID);
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 3){				
 					break;
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 4){
@@ -106,22 +115,42 @@ public class StoryInfoManager : MonoBehaviour {
 				
 			StoryInfoIndex++;
 		}
-		print("End: "+StoryInfoIndex);
 
 		//Typing and set text
 		PaperList.Last().transform.GetChild(0).gameObject.AddComponent<TextTyping>().SetText(info);
 
 		//Click
+		ClickBox.gameObject.AddComponent<BoxCollider>();
+		ClickBox.GetComponent<BoxCollider>().center = new Vector2(1.7f, 0.13f);
+		ClickBox.GetComponent<BoxCollider>().size = new Vector2(14.3f, 7.7f);
 		GameManager.Instance.TE.TEDObjectCL += StoryClickBox;
 	}
 
+	//Set Option
+	public void SetOptioninfo(){
+		S_Option NSOption = (S_Option)TStory.StoryInfoList[StoryInfoIndex];
+		for(int i=0; i<NSOption.OptionList.Count; i++){
+			//Option Paper GameObject
+			GameObject OptionGO =  Instantiate(OptionPaper);
+			OptionGO.transform.SetParent(StoryUIGO.transform, false);
+			OptionGO.AddComponent<GameObjectMoving>().SetTergetPostion(OptionPosition[2-i],20f);
+			OptionGO.GetComponent<Canvas>().sortingOrder = 13-i;
+			OptionGO.GetComponent<OptionInfo>().SetOptionInfo(NSOption.OptionList[i]._OptionInfo,NSOption.OptionList[i]._AddTag);
+
+			//Add List
+			OptionGOA[i] = OptionGO;
+
+		}
+
+		StoryInfoIndex++;
+	}
 
 
 	//Other function
 	private bool isPaperInfoCanShow(int index){
 		int tagnum = 0;
 		foreach(string tag in infoTag){
-			foreach(string _tag in TStory.StoryInfoList[index]._Tag){
+			foreach(string _tag in TStory.StoryInfoList[index]._Tag){				
 				if(tag == _tag){
 					tagnum++;
 				}
@@ -156,13 +185,37 @@ public class StoryInfoManager : MonoBehaviour {
 			}else{
 				SetPaperInfo();
 				GameManager.Instance.TE.TEDObjectCL -= StoryClickBox;
+				Destroy(ClickBox.GetComponent<BoxCollider>());
 				Arrow.SetActive(false);
 			}
 		}
 	}		
 
 
-	public void Option(){
-		print("123");
+	public void Option(GameObject target){
+		//Find Option
+		foreach(GameObject i in OptionGOA){
+			if(i == null){
+				
+			}else if(target == i){
+				i.transform.localRotation = Quaternion.Euler(0, 0, 0);
+				i.AddComponent<OptionMoving>();
+
+				//OptionText Fade Out(undone)
+				i.transform.GetChild(1).GetComponent<Text>().text = "";
+
+				//Add Tag
+				infoTag.Add(i.GetComponent<OptionInfo>().tag);
+
+				//Set Info
+				PaperList.Add(i);
+				GetPaperInfo();
+			}else{
+				i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, i.transform.localPosition.y-1000, i.transform.localPosition.z), 20f);
+			}
+
+		}			
+
 	}
+		
 }
