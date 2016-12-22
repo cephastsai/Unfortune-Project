@@ -52,6 +52,9 @@ public class FightingManager : MonoBehaviour {
 	public GameObject VictoryMask;
 	public GameObject Victory;
 
+	//status manager
+	public StatusChange SC; // FightingManager StatusChange
+
 
 	public void init(bool whoturn){
 
@@ -63,7 +66,7 @@ public class FightingManager : MonoBehaviour {
 		Settlement = 0;
 		EnemyHP = 10;
 
-		//Set Fighting UI 
+		//Set Fighting UI
 
 		//Player CardManager initialization
 		PlayerCardManager.Ins.init();
