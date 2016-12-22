@@ -20,6 +20,8 @@ public class StoryInfoManager : MonoBehaviour {
 	//paper
 	public List<GameObject> PaperList = new List<GameObject>();
 
+	//Fighting UI manager
+	public UIManager UImanager;
 
 	void Start(){
 		StoryManager.Ins.LoadStoryData();
@@ -32,7 +34,8 @@ public class StoryInfoManager : MonoBehaviour {
 		infoTag.Add("has");
 		infoTag.Add("huhu");
 
-		SetPaperID(1);
+		UImanager.BattleBegin();
+		//SetPaperID(1);
 	}
 
 
