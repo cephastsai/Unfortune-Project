@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject TableUI;
 	public GameObject ETableUI;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		for (int i = 0; i < transform.childCount; i++) 
 		{
 		transform.GetChild (i).gameObject.AddComponent<UIAnimation>().Init (

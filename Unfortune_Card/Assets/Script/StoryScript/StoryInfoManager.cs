@@ -37,9 +37,7 @@ public class StoryInfoManager : MonoBehaviour {
 		OptionPosition[2] = new Vector2(588, -761);
 
 		//function
-
-		GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
-		//SetPaperID(1);
+		SetPaperID(1);
 	}
 
 
@@ -65,7 +63,7 @@ public class StoryInfoManager : MonoBehaviour {
 				TPaper.transform.SetParent(StoryUIGO.transform, false);
 				PaperList.Add(TPaper);
 				//moving
-				TPaper.AddComponent<PaperMoving>();						
+				TPaper.AddComponent<PaperMoving>();
 				break;
 			case 2:			
 				break;
@@ -73,7 +71,7 @@ public class StoryInfoManager : MonoBehaviour {
 				SetOptioninfo();
 				break;
 			case 4:
-				GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
+				SetFighting();
 				break;
 			}
 
@@ -105,7 +103,7 @@ public class StoryInfoManager : MonoBehaviour {
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 2){
 					S_GetCards Sgetcard = (S_GetCards)TStory.StoryInfoList[StoryInfoIndex];
 					info +="獲得" +Sgetcard._CardID.ToString()+"\n";
-					CardManager.Ins.GetCard(Sgetcard._CardID);
+					CardManager.Ins.GetCardQue.Enqueue(Sgetcard._CardID);
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 3){				
 					break;
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 4){
@@ -143,6 +141,21 @@ public class StoryInfoManager : MonoBehaviour {
 		}
 
 		StoryInfoIndex++;
+	}
+
+	//set Fighting
+	public void SetFighting(){
+		GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
+		//class
+		S_Fighting NSFighting = (S_Fighting)TStory.StoryInfoList[StoryInfoIndex];
+
+		//cards
+		List<int> tempcards = new List<int>();
+		foreach(int i in NSFighting._Cards){
+			tempcards.Add(i);
+		}
+		EnemyCardManager.Ins.SetEnemyCards(tempcards);
+
 	}
 
 

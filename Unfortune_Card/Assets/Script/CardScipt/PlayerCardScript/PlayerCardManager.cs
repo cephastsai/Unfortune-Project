@@ -155,7 +155,7 @@ public class PlayerCardManager : MonoBehaviour {
 		Hand.Ins.isCardsCanPlay = true;
 
 		//temp
-		Deck.Ins.DrawCards(2);
+		//Deck.Ins.DrawCards(2);
 	}
 
 	public void TurnEnd(){

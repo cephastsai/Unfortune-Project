@@ -43,6 +43,8 @@ public class CardManager : MonoBehaviour {
 	public CardsSkill CardsS;
 
 	//Get Card
+	public Queue<int> GetCardQue = new Queue<int>();
+	private bool isGettingCard = false;
 	public GameObject GetCardGO;
 	public GameObject GetCardText;
 	public GameObject GetCardButton;
@@ -66,13 +68,22 @@ public class CardManager : MonoBehaviour {
 		CreateCard(2, true);
 		CreateCard(2, true);
 
-		CreateCard(2, false);
+		/*CreateCard(2, false);
 		CreateCard(4, false);
-		CreateCard(5, false);
+		CreateCard(5, false);*/
 
 
 		//test GetCard in story
 		//GetCard(3);
+	}
+
+	void Update(){
+		if(GetCardQue.Count >0){
+			if(!isGettingCard){
+				GetCard(GetCardQue.Dequeue());
+				isGettingCard = true;
+			}
+		}
 	}
 
 	
@@ -164,6 +175,7 @@ public class CardManager : MonoBehaviour {
 			GetCardButton.gameObject.SetActive(false);
 
 			GameManager.Instance.TE.TEDObjectCL -= GetCardButtonDown;
+			isGettingCard = false;
 		}
 
 	}

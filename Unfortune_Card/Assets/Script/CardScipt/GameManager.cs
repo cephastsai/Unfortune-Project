@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 		//Manager setting
 
-		Fightingmanager.init(true);
-
 		//Mapmanager = GameObject.Find("MapManager").GetComponent<MapManager>();
 		//Mapmanager.init();
 
@@ -88,6 +86,7 @@ public class GameManager : MonoBehaviour {
 			GameMainSection = GameSection.Cards;
 			//set UI
 			UImanager.BattleBegin();
+			Fightingmanager.init(true);
 			Hand.Ins.isCardsCanPlay = true;
 			break;
 		}
