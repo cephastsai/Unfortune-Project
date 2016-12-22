@@ -10,12 +10,15 @@ public class StoryInfoManager : MonoBehaviour {
 	public GameObject storyPaper;
 	public GameObject StoryUIGO;
 	public Transform ClickBox;
+	public GameObject Arrow;
 
 	//Story Info
 	StoryManager.Story TStory;
 	public int StoryInfoIndex = 0;
 	public List<string> infoTag = new List<string>();
 
+	//paper
+	public List<GameObject> PaperList = new List<GameObject>();
 
 
 	void Start(){
@@ -33,6 +36,7 @@ public class StoryInfoManager : MonoBehaviour {
 	}
 
 
+	//init in story beganing
 	public void SetPaperID(int PaperID){
 		//Story
 		TStory = StoryManager.Ins.StoryList[PaperID];
@@ -43,12 +47,18 @@ public class StoryInfoManager : MonoBehaviour {
 		SetPaperInfo();
 	}
 
+	//Every Paper beganing 
 	public void SetPaperInfo(){
 		//Paper info Setting
 		if(StoryInfoIndex != TStory.StoryInfoList.Count){
 			switch(TStory.StoryInfoList[StoryInfoIndex].Kind){
 			case 1:
-				GetPaperInfo();
+				//Paper Object
+				GameObject TPaper = Instantiate(storyPaper);
+				TPaper.transform.SetParent(StoryUIGO.transform, false);
+				PaperList.Add(TPaper);
+				//moving
+				TPaper.AddComponent<PaperMoving>();						
 				break;
 			case 2:			
 				break;
@@ -57,18 +67,14 @@ public class StoryInfoManager : MonoBehaviour {
 			case 4:
 				break;
 			}
-			GameManager.Instance.TE.TEDObjectCL += StoryClickBox;
+
 		}
 	}
 
-
-	public void GetPaperInfo(){
-		//Paper Object
-		GameObject TPaper = Instantiate(storyPaper);
-		TPaper.transform.SetParent(StoryUIGO.transform, false);
-
+	//Set Paper text
+	public void GetPaperInfo(){		
 		string info = "";
-		//first Next
+		//First Paper is Next Paper
 		if(isTaghaveNextPaper(StoryInfoIndex)){
 			S_Story Sinfo =  (S_Story)TStory.StoryInfoList[StoryInfoIndex];
 			info += Sinfo._Info;
@@ -88,7 +94,7 @@ public class StoryInfoManager : MonoBehaviour {
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 2){
 					S_GetCards Sgetcard = (S_GetCards)TStory.StoryInfoList[StoryInfoIndex];
 					info +="獲得" +Sgetcard._CardID.ToString()+"\n";
-				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 3){					
+				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 3){				
 					break;
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 4){
 					break;
@@ -98,16 +104,17 @@ public class StoryInfoManager : MonoBehaviour {
 			StoryInfoIndex++;
 		}
 		print("End: "+StoryInfoIndex);
-		TPaper.transform.GetChild(0).GetComponent<Text>().text = info;
 
-		//Typing
-		TPaper.transform.GetChild(0).gameObject.AddComponent<TextTyping>();
+		//Typing and set text
+		PaperList.Last().transform.GetChild(0).gameObject.AddComponent<TextTyping>().SetText(info);
 
-		//moving
-		TPaper.AddComponent<PaperMoving>();
+		//Click
+		GameManager.Instance.TE.TEDObjectCL += StoryClickBox;
 	}
 
 
+
+	//Other function
 	private bool isPaperInfoCanShow(int index){
 		int tagnum = 0;
 		foreach(string tag in infoTag){
@@ -140,11 +147,17 @@ public class StoryInfoManager : MonoBehaviour {
 
 	public void StoryClickBox(Transform target){
 		if(target == ClickBox){
-			print("hit");
-			SetPaperInfo();
-			GameManager.Instance.TE.TEDObjectCL -= StoryClickBox;
+			if(!PaperList.Last().transform.GetChild(0).GetComponent<TextTyping>().endTyping){
+				PaperList.Last().transform.GetChild(0).GetComponent<TextTyping>().Skip();
+				Arrow.SetActive(true);
+			}else{
+				SetPaperInfo();
+				GameManager.Instance.TE.TEDObjectCL -= StoryClickBox;
+				Arrow.SetActive(false);
+			}
 		}
-	}
+	}		
+
 
 	public void Option(){
 		print("123");

@@ -46,6 +46,9 @@ public class StoryManager : MonoBehaviour {
 	private string jsonString;
 	private JsonData jsonData;
 
+	//Manager
+	public StoryInfoManager SIManager;
+
 
 	void Start(){
 		/*

@@ -10,7 +10,8 @@ public class PaperMoving : MonoBehaviour {
 	//update
 	void Update(){
 		if(Vector2.Distance(transform.localPosition,TargetPosition) <0.01f){
-			
+			StoryManager.Ins.SIManager.GetPaperInfo();
+
 			Destroy(this);
 		}
 
