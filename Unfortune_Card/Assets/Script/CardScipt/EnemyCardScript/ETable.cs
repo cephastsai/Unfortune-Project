@@ -74,7 +74,7 @@ public class ETable : MonoBehaviour {
 			return new Vector3(-1f, -1f, -1f);
 		}
 
-		playingCard.SetCardSprtingOrderNumber(TableList.Count-1);
+		playingCard.SetCardSprtingOrderNumber(TableList.Count+1);
 
 		ActionNumber--;
 		ActionNumber +=playingCard.action;

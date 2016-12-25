@@ -77,7 +77,7 @@ public class Table : MonoBehaviour {
 			return new Vector3(-1f, -1f, -1f);
 		}
 
-		playingCard.SetCardSprtingOrderNumber(TableList.Count-1);
+		playingCard.SetCardSprtingOrderNumber(TableList.Count+1);
 
 		/*
 		if(TableList.Count+1 >IndentationCardNum){

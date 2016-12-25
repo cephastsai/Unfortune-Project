@@ -53,6 +53,7 @@ public class EnemyCardManager : MonoBehaviour {
 	public EAttackUI AUI;
 
 	//Manager
+	public ETableSlot ETS;
 
 	//AI Section
 	public bool isEnemyAIOn = false;
@@ -129,7 +130,9 @@ public class EnemyCardManager : MonoBehaviour {
 
 	public void TurnStart(){
 		//Turn Start
-		TTurn =  gameObject.AddComponent<EThisTurn>();
+		if(GetComponent<EThisTurn>() == null){
+			TTurn =  gameObject.AddComponent<EThisTurn>();
+		}
 		AUI.TT = TTurn;
 
 		EHand.Ins.isCardsCanPlay = true;

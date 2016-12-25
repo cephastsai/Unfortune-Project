@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
 		//Storymanager = GameObject.Find("StoryManager").GetComponent<StoryManager>();
 
-		GameMainSection = GameSection.Cards;
+		GameMainSection = GameSection.Story;
 
 		//SetGameSection(GameSection.Cards);
 	}

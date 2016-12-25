@@ -70,10 +70,14 @@ public class FightingManager : MonoBehaviour {
 
 		//Player CardManager initialization
 		PlayerCardManager.Ins.init();
+		if(Hand.Ins.HandList.Count ==0){
+			Deck.Ins.DrawCards(5);
+		}
 
 		//Enemy CardManager initialzation
 		EnemyCardManager.Ins.gameObject.AddComponent<EnemyAI_Simple>();
 		EDeck.Ins.DrawCards(5);
+		//EnemyCardManager.Ins.ETS.init();
 
 		//Turn Start
 		PlayerCardManager.Ins.TurnStart();

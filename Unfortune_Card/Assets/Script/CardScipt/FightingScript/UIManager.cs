@@ -46,6 +46,9 @@ public class UIManager : MonoBehaviour {
 		case "TurnEnd":
 			return new Vector3 (0.01f, 1.6f, 53);
 			break;
+		case "BG":
+			return new Vector3 (0, 0, 53);
+			break;
 		default:
 			return new Vector3 (0, 0, 0);
 			break;
@@ -75,6 +78,9 @@ public class UIManager : MonoBehaviour {
 				break;
 			case "TurnEnd":
 				i.StartFadeIn ();
+				break;
+			case "BG":
+				i.StartFadeIn();
 				break;
 
 			}

@@ -212,7 +212,7 @@ public class StoryInfoManager : MonoBehaviour {
 				
 			}else if(target == i){
 				i.transform.localRotation = Quaternion.Euler(0, 0, 0);
-				i.AddComponent<OptionMoving>();
+				i.AddComponent<PaperMove>().Move(0);
 
 				//OptionText Fade Out(undone)
 				i.transform.GetChild(1).GetComponent<Text>().text = "";

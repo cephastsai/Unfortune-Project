@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PaperMoving : MonoBehaviour {
 
-	public float Speed = 30;
+	public float Speed = 40;
 	private Vector3 TargetPosition = new Vector3(164, 20, 0);
 
 	//update

@@ -18,27 +18,25 @@ public class ETableSlot : MonoBehaviour {
 	//Mat
 	public Material SlotMat; // name : Stencil Draw In Mask Mat
 
-	void Start(){
-		init();
-	}
 
 	void Update(){
 
-		if(SlotNum < ETable.Ins.ActionNumber+ETable.Ins.TableList.Count){
-			if(TimerFlag){
-				Timer = Time.time;
-				TimerFlag = false;
-			}else{
-				if(Time.time - Timer > 0.2f){
+		if(GameManager.GameMainSection == GameManager.GameSection.Cards){
+			if(SlotNum < ETable.Ins.ActionNumber+ETable.Ins.TableList.Count){
+				if(TimerFlag){
+					Timer = Time.time;
+					TimerFlag = false;
+				}else{
+					if(Time.time - Timer > 0.2f){
 
-					CreateSlot();
+						CreateSlot();
 
-					TimerFlag = true;
+						TimerFlag = true;
+					}
 				}
 			}
-
-
 		}
+
 	}
 
 
@@ -46,7 +44,7 @@ public class ETableSlot : MonoBehaviour {
 		CreateSlot();
 	}
 
-	void CreateSlot(){
+	void CreateSlot(){		
 		GameObject slot = Instantiate(Slot);
 		SlotList.Add(slot);
 		slot.transform.SetParent(ETable.Ins.transform);
