@@ -117,7 +117,9 @@ public class UIManager : MonoBehaviour {
 			case "EnemyStatus":
 				i.ToSelfPoint ();
 				break;
-
+			case "BG":
+				i.StartFadeOut();
+				break;
 			}
 		}
 	}

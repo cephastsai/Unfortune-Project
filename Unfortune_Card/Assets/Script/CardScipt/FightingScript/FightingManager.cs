@@ -36,9 +36,10 @@ public class FightingManager : MonoBehaviour {
 	public int Settlement = 0;
 
 	public float PlayerHP = 10;
-	public float EnemyHP = 10;
+	public float EnemyHP = 0;
 	public float PlayerHPbar = 10;
-	public float EnemyHPbar = 10;
+	public float EnemyHPbar = 0;
+	private bool isEnemyHPbarset = false;
 	//HP Image
 	public Image PlayerHPImage;
 	public Image EnemyHPImage;
@@ -46,6 +47,8 @@ public class FightingManager : MonoBehaviour {
 	//HP
 	public bool SetHPflag = false;
 	public bool isHPSettingOver = false;
+	public GameObject PHPText;
+	public GameObject EHPText;
 
 	//Fighting End GameObject
 	public ChangeTurn CT;
@@ -64,9 +67,11 @@ public class FightingManager : MonoBehaviour {
 		PlayerAttack = 0;
 		EnemyAttack = 0;
 		Settlement = 0;
-		EnemyHP = 10;
+		EnemyHP = 0;
 
 		//Set Fighting UI
+		PHPText.SetActive(true);
+		EHPText.SetActive(true);
 
 		//Player CardManager initialization
 		PlayerCardManager.Ins.init();
@@ -77,6 +82,7 @@ public class FightingManager : MonoBehaviour {
 		//Enemy CardManager initialzation
 		EnemyCardManager.Ins.gameObject.AddComponent<EnemyAI_Simple>();
 		EDeck.Ins.DrawCards(5);
+		EnemyHPbarStart();
 		//EnemyCardManager.Ins.ETS.init();
 
 		//Turn Start
@@ -139,6 +145,18 @@ public class FightingManager : MonoBehaviour {
 			EnemyHPbar -= (EnemyHPbar -EnemyHP)*Time.deltaTime;
 			EnemyHPImage.fillAmount = EnemyHPbar/10;
 		}
+
+
+		//Enemy hp bar start
+	
+		if(isEnemyHPbarset){
+			EnemyHP += 10*Time.deltaTime;
+
+			if(EnemyHPbar >=10 ){
+				EnemyHP = 10;
+				isEnemyHPbarset = false;
+			}
+		}
 	}
 
 
@@ -185,7 +203,8 @@ public class FightingManager : MonoBehaviour {
 
 			Turn++;
 		}						
-			
+
+
 	}
 
 
@@ -196,7 +215,8 @@ public class FightingManager : MonoBehaviour {
 
 
 		//Fighting Settlement
-
+		PHPText.SetActive(false);
+		EHPText.SetActive(false);
 
 		//Set Fighting UI
 		VictoryMask.SetActive(true);
@@ -204,6 +224,23 @@ public class FightingManager : MonoBehaviour {
 		Victory.SetActive(true);
 		Victory.AddComponent<FadeIn_Out>().StartFadeIn();
 
+		//Enemy Card setting
+
+		//info
+		StoryManager.Ins.SIManager.FightingEnd();
+
+		GameManager.Instance.TE.TEDScreen += FightingEndTouchScreen;
+	}
+
+	public void FightingEndTouchScreen(Vector3 pos){
+
+		//Victory
+		VictoryMask.GetComponent<FadeIn_Out>().StartFadeOut();
+		Victory.GetComponent<FadeIn_Out>().StartFadeOut();
+
+		GameManager.Instance.SetGameSection(GameManager.GameSection.Story);
+
+		GameManager.Instance.TE.TEDScreen -= FightingEndTouchScreen;
 	}
 
 	public void CardSkillChoise(){
@@ -218,5 +255,9 @@ public class FightingManager : MonoBehaviour {
 
 	public void SetHP(Image targetHP){
 		
+	}
+
+	public void EnemyHPbarStart(){
+		isEnemyHPbarset = true;
 	}
 }

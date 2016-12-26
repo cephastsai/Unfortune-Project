@@ -61,6 +61,7 @@ public class StoryInfoManager : MonoBehaviour {
 				//Paper Object
 				GameObject TPaper = Instantiate(storyPaper);
 				TPaper.transform.SetParent(StoryUIGO.transform, false);
+				TPaper.GetComponent<Canvas>().sortingOrder = StoryInfoIndex;
 				PaperList.Add(TPaper);
 				//moving
 				TPaper.AddComponent<PaperMoving>();
@@ -90,9 +91,11 @@ public class StoryInfoManager : MonoBehaviour {
 			StoryInfoIndex++;
 		}
 		//whlie
-		while(StoryInfoIndex < TStory.StoryInfoList.Count){			
+		while(StoryInfoIndex < TStory.StoryInfoList.Count){
+			
 			if(isPaperInfoCanShow(StoryInfoIndex)){				
-				if(TStory.StoryInfoList[StoryInfoIndex].Kind == 1){										
+				if(TStory.StoryInfoList[StoryInfoIndex].Kind == 1){
+					print(StoryInfoIndex);
 					if(isTaghaveNextPaper(StoryInfoIndex)){
 						print("Next");
 						break;
@@ -109,7 +112,7 @@ public class StoryInfoManager : MonoBehaviour {
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 4){
 					break;
 				}
-			}
+			}				
 				
 			StoryInfoIndex++;
 		}
@@ -156,6 +159,18 @@ public class StoryInfoManager : MonoBehaviour {
 		}
 		EnemyCardManager.Ins.SetEnemyCards(tempcards);
 
+		GameManager.Instance.TE.TEDObjectCL -= StoryClickBox;
+		Destroy(ClickBox.GetComponent<BoxCollider>());
+	}
+
+	public void FightingEnd(){
+		//Click
+		ClickBox.gameObject.AddComponent<BoxCollider>();
+		ClickBox.GetComponent<BoxCollider>().center = new Vector2(1.7f, 0.13f);
+		ClickBox.GetComponent<BoxCollider>().size = new Vector2(14.3f, 7.7f);
+		GameManager.Instance.TE.TEDObjectCL += StoryClickBox;
+
+		StoryInfoIndex++;
 	}
 
 
@@ -223,6 +238,7 @@ public class StoryInfoManager : MonoBehaviour {
 				//Set Info
 				PaperList.Add(i);
 				GetPaperInfo();
+				i.GetComponent<Canvas>().sortingOrder = StoryInfoIndex;
 			}else{
 				i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, i.transform.localPosition.y-1000, i.transform.localPosition.z), 20f);
 			}

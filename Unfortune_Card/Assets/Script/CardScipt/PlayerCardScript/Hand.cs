@@ -169,4 +169,15 @@ public class Hand : MonoBehaviour {
 			}
 		}
 	}
+
+	public void StoryHandBack(){
+		gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(transform.localPosition - new Vector3(0, 3, 0), 0.5f);
+	}
+
+	public void StoryHandUp(){
+		if(transform.localPosition.y <-5){
+			gameObject.AddComponent<GameObjectMoving>().SetTergetPostion(transform.localPosition + new Vector3(0, 3, 0), 0.5f);	
+		}
+
+	}
 }

@@ -80,11 +80,18 @@ public class GameManager : MonoBehaviour {
 		case GameSection.Story:
 			GameMainSection = GameSection.Story;
 
+			UImanager.BattleOver();
+			EnemyCardManager.Ins.DestroyEnemyCards();
+			Hand.Ins.StoryHandBack();
+			//info
+			StoryManager.Ins.SIManager.SetPaperInfo();
+
 			Hand.Ins.isCardsCanPlay = false;
 			break;
 		case GameSection.Cards:
 			GameMainSection = GameSection.Cards;
 			//set UI
+			Hand.Ins.StoryHandUp();
 			UImanager.BattleBegin();
 			Fightingmanager.init(true);
 			Hand.Ins.isCardsCanPlay = true;

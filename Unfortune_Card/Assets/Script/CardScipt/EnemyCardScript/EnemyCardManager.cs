@@ -121,7 +121,7 @@ public class EnemyCardManager : MonoBehaviour {
 		MainSectionQue.Enqueue(NSection);
 	}
 
-	public void AddMainQue(CardManager.cardSection sec, int Cardkind){		
+	public void AddMainQue(CardManager.cardSection sec, int Cardkind){	
 		EnemyCardManager.MainSection NSection = new EnemyCardManager.MainSection(sec);
 		MainSectionQue.Enqueue(NSection);
 		NSection.cardkind = Cardkind;
@@ -172,6 +172,17 @@ public class EnemyCardManager : MonoBehaviour {
 		foreach(int id in EnemyCardsList){
 			CardManager.Ins.CreateCard(id, false);
 		}
+	}
+
+	public void DestroyEnemyCards(){
+		EDeck.Ins.DeckList.Clear();
+		DestroyGameObjectChild(EDeck.Ins.gameObject);
+		EHand.Ins.HandList.Clear();
+		DestroyGameObjectChild(EHand.Ins.gameObject);
+		EDeadwood.Ins.DeadwoodList.Clear();
+		DestroyGameObjectChild(EDeadwood.Ins.gameObject);
+		ETable.Ins.TableList.Clear();
+		DestroyGameObjectChild(ETable.Ins.gameObject);
 	}
 
 	void DestroyGameObjectChild(GameObject target){
