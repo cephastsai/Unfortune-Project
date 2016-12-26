@@ -16,6 +16,7 @@ public class S_Story : StoryInfo {
 //StoryKind : 2
 public class S_GetCards : StoryInfo {
 	public int _CardID;
+	public string _info;
 }
 
 //StoryKind : 3

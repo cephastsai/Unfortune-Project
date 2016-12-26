@@ -117,6 +117,9 @@ public class StoryManager : MonoBehaviour {
 						//cardID
 						NSGetcards._CardID =  int.Parse(jsonData[i][j][2].ToString());
 
+						//info
+						NSGetcards._info = jsonData[i][j]["info"].ToString();
+
 						//Add List
 						Nstory.StoryInfoList.Add(NSGetcards);
 					}

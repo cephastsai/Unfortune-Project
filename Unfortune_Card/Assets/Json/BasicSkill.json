@@ -53,5 +53,40 @@
     "Action": 0,
     "Attack": 0,
     "Cards": 0
+  },
+	"Skill_12": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 1
+  },
+	"Skill_13": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 0
+  },
+	"Skill_14": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 2
+  },
+	"Skill_15": {
+    "Action": 1,
+    "Attack": 0,
+    "Cards": 0
+  },
+	"Skill_16": {
+    "Action": 2,
+    "Attack": 0,
+    "Cards": 0
+  },
+	"Skill_17": {
+    "Action": 0,
+    "Attack": 0,
+    "Cards": 1
+  },
+	"Skill_18": {
+    "Action": 0,
+    "Attack": 3,
+    "Cards": 0
   }
 }

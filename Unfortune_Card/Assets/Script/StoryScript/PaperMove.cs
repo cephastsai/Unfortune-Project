@@ -6,25 +6,32 @@ public class PaperMove : MonoBehaviour {
 
 	public Vector3 SelfPosition;
 	public Vector3 TargetPosition;
+
 	public float TargetDistance;
-	public float x;
-	public float y;
-	public float z ;
-	public bool StartM = false;
-	public bool StartR = false;
-	public float a ;
-	public float b ;
+	private float x;
+	private float y;
+	private float z ;
+	private float a ;
+	private float b ;
+	private float XDistance;
+	private float YDistance;
+
+	private bool StartM = false;
+	private bool StartR = false;
+
 	public RectTransform recttransform;
+
+
 	
 	// Update is called once per frame
 	void Update () {
 		if (StartM) 
 		{
-			TargetDistance = Vector3.Distance (transform.localPosition, TargetPosition);
+			TargetDistance = Vector2.Distance (transform.localPosition, TargetPosition);
 			transform.localPosition = new Vector3 (x, y, 0);
 			if (x >= 160) 
 			{
-				x += (TargetDistance/150)+a;
+				x += (XDistance/120)+a;
 			}
 			if (x <= 160) 
 			{
@@ -33,7 +40,7 @@ public class PaperMove : MonoBehaviour {
 
 			if (y < 23) 
 			{
-				y += (TargetDistance/25)+b;
+				y += (YDistance/25)+b;
 			}
 			if (y >= 23) 
 			{
@@ -41,28 +48,11 @@ public class PaperMove : MonoBehaviour {
 			}
 			a -= 40*Time.deltaTime;
 			b -= 3 * Time.deltaTime;
-			if (TargetDistance <= 60) 
-			{				
+			if (TargetDistance <= 0.1f) 
+			{
+				StoryManager.Ins.SIManager.GetPaperInfo();
 				StartM = false;
 			}
-
-
-
-			/*a += 60 * Time.deltaTime;
-			TargetDistance = Vector3.Distance (transform.localPosition, TargetPosition);
-
-			if (TargetDistance > 200) 
-			{
-				transform.localPosition = Vector3.MoveTowards (transform.localPosition , TargetPosition , 100);
-			}
-			if (TargetDistance < 200) 
-			{
-				transform.localPosition = Vector3.MoveTowards (transform.localPosition , TargetPosition , TargetDistance/20);
-			}
-			if (TargetDistance <= 0.01f)
-			{
-				StartM = false;
-			}	*/
 		}
 		//Move
 
@@ -97,6 +87,10 @@ public class PaperMove : MonoBehaviour {
 		TargetPosition = new Vector3 (160f,23f,53);
 		StartM = true;
 		StartR = true;
+		XDistance = transform.localPosition.x - TargetPosition.x;
+		YDistance = TargetPosition.y - transform.localPosition.y;
+		TargetDistance = Vector3.Distance (transform.localPosition, TargetPosition);
+
 
 	}
 

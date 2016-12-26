@@ -66,7 +66,14 @@ public class StoryInfoManager : MonoBehaviour {
 				//moving
 				TPaper.AddComponent<PaperMoving>();
 				break;
-			case 2:			
+			case 2:
+				//Paper Object
+				GameObject GPaper = Instantiate(storyPaper);
+				GPaper.transform.SetParent(StoryUIGO.transform, false);
+				GPaper.GetComponent<Canvas>().sortingOrder = StoryInfoIndex;
+				PaperList.Add(GPaper);
+				//moving
+				GPaper.AddComponent<GetCardPaperMoving>();
 				break;
 			case 3:
 				SetOptioninfo();
@@ -104,9 +111,11 @@ public class StoryInfoManager : MonoBehaviour {
 						info += Sinfo._Info;
 					}
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 2){
+					break;
+					/*
 					S_GetCards Sgetcard = (S_GetCards)TStory.StoryInfoList[StoryInfoIndex];
 					info +="獲得" +Sgetcard._CardID.ToString()+"\n";
-					CardManager.Ins.GetCardQue.Enqueue(Sgetcard._CardID);
+					CardManager.Ins.GetCardQue.Enqueue(Sgetcard._CardID);*/
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 3){				
 					break;
 				}else if(TStory.StoryInfoList[StoryInfoIndex].Kind == 4){
@@ -127,6 +136,43 @@ public class StoryInfoManager : MonoBehaviour {
 		GameManager.Instance.TE.TEDObjectCL += StoryClickBox;
 	}
 
+	//Get Card
+	public void GetCardinfo(){
+		S_GetCards NSGetcard =  (S_GetCards)TStory.StoryInfoList[StoryInfoIndex];
+
+		//Card
+		CardManager.Ins.GetCard(NSGetcard._CardID);
+
+		//Typing and set text
+		string info = "";
+		info = NSGetcard._info;
+		PaperList.Last().transform.GetChild(0).gameObject.AddComponent<TextTyping>().SetText(info);
+
+		StoryInfoIndex++;
+
+		//Click
+		ClickBox.gameObject.AddComponent<BoxCollider>();
+		ClickBox.GetComponent<BoxCollider>().center = new Vector2(1.7f, 0.13f);
+		ClickBox.GetComponent<BoxCollider>().size = new Vector2(14.3f, 7.7f);
+		GameManager.Instance.TE.TEDObjectCL += GetCardEnd;
+	}
+
+	public void GetCardEnd(Transform target){
+		if(target == ClickBox){
+			if(!PaperList.Last().transform.GetChild(0).GetComponent<TextTyping>().endTyping){
+				PaperList.Last().transform.GetChild(0).GetComponent<TextTyping>().Skip();
+				Arrow.SetActive(true);
+			}else{
+				SetPaperInfo();
+				CardManager.Ins.GetCardButtonDown();
+				GameManager.Instance.TE.TEDObjectCL -= GetCardEnd;
+				Destroy(ClickBox.GetComponent<BoxCollider>());
+				Arrow.SetActive(false);
+			}
+		}
+	}
+
+
 	//Set Option
 	public void SetOptioninfo(){
 		S_Option NSOption = (S_Option)TStory.StoryInfoList[StoryInfoIndex];
@@ -146,6 +192,7 @@ public class StoryInfoManager : MonoBehaviour {
 		StoryInfoIndex++;
 	}
 
+
 	//set Fighting
 	public void SetFighting(){
 		GameManager.Instance.SetGameSection(GameManager.GameSection.Cards);
@@ -154,7 +201,7 @@ public class StoryInfoManager : MonoBehaviour {
 
 		//cards
 		List<int> tempcards = new List<int>();
-		foreach(int i in NSFighting._Cards){
+		foreach(int i in NSFighting._Cards){			
 			tempcards.Add(i);
 		}
 		EnemyCardManager.Ins.SetEnemyCards(tempcards);
@@ -162,6 +209,7 @@ public class StoryInfoManager : MonoBehaviour {
 		GameManager.Instance.TE.TEDObjectCL -= StoryClickBox;
 		Destroy(ClickBox.GetComponent<BoxCollider>());
 	}
+		
 
 	public void FightingEnd(){
 		//Click
@@ -227,7 +275,7 @@ public class StoryInfoManager : MonoBehaviour {
 				
 			}else if(target == i){
 				i.transform.localRotation = Quaternion.Euler(0, 0, 0);
-				i.AddComponent<PaperMove>().Move(0);
+				i.AddComponent<OptionMoving>();
 
 				//OptionText Fade Out(undone)
 				i.transform.GetChild(1).GetComponent<Text>().text = "";
@@ -238,7 +286,7 @@ public class StoryInfoManager : MonoBehaviour {
 				//Set Info
 				PaperList.Add(i);
 				GetPaperInfo();
-				i.GetComponent<Canvas>().sortingOrder = StoryInfoIndex;
+				i.GetComponent<Canvas>().sortingOrder = StoryInfoIndex;			
 			}else{
 				i.AddComponent<MovingAndDestroy>().SetTergetPostion(new Vector3(i.transform.localPosition.x, i.transform.localPosition.y-1000, i.transform.localPosition.z), 20f);
 			}

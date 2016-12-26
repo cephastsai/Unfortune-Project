@@ -162,14 +162,14 @@ public class EnemyCardManager : MonoBehaviour {
 		isEnemyAIOn = false;
 	}
 
-	public void SetEnemyCards(List<int> EnemyCardsList){
+	public void SetEnemyCards(List<int> EnemyCardsList){		
 
 		DestroyGameObjectChild(EDeck.Ins.gameObject);
 		DestroyGameObjectChild(EHand.Ins.gameObject);
 		DestroyGameObjectChild(EDeadwood.Ins.gameObject);
 		DestroyGameObjectChild(ETable.Ins.gameObject);
 
-		foreach(int id in EnemyCardsList){
+		foreach(int id in EnemyCardsList){			
 			CardManager.Ins.CreateCard(id, false);
 		}
 	}
